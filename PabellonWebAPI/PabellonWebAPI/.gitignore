@@ -1,0 +1,54 @@
+# Ignorar archivos y carpetas generados por Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Archivos de compilación
+bin/
+obj/
+out/
+
+# Archivos de paquetes NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# Archivos de configuración y de entorno local
+appsettings.*.json
+secrets.json
+
+# Archivos de publicación
+.publish/
+PublishProfiles/
+
+# Archivos de log y temporales
+*.log
+*.tlog
+*.log2
+*.cache
+*.ide
+
+# Archivos de depuración, test y resguardos
+TestResults/
+*.pdb
+*.mdb
+*.ilk
+*.idb
+
+# Ignorar carpetas de propiedades de sistema y herramientas
+_ReSharper*
+*.DotSettings.user
+.vscode/
+.idea/
+
+# Archivos de configuración de usuario
+*.psess
+*.vspscc
+*.vssscc
+
+# Archivos de JetBrains Rider
+.idea/
+*.sln.iml

@@ -1,0 +1,6 @@
+@PabellonWebAPI_HostAddress = http://localhost:5058
+
+GET {{PabellonWebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
