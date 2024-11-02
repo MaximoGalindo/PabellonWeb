@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+.center-elements {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.black {
+    color: black;
+}
+
+body {
+    background-color: #A840A4;
+    font-family: 'Poppins', sans-serif; 
+}
+
+.section {
+    height: 4rem;
+    width: 100%;
+    background-color: #363636;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.section h1 {
+    margin-left: 1rem;
+}

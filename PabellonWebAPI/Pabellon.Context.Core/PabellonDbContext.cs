@@ -12,6 +12,7 @@ namespace Pabellon.Core
     {
         public PabellonDbContext(DbContextOptions<PabellonDbContext> options) : base(options)
         {
+
         }
 
         public DbSet<Catalog> Catalog { get; set; }

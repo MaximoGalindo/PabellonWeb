@@ -17,8 +17,6 @@ namespace PabellonWebAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             var solutionDirectory = Directory.GetParent(AppContext.BaseDirectory).Parent.Parent.Parent.Parent.FullName;
-
-            // Construir la ruta a la base de datos
             var databasePath = Path.Combine(solutionDirectory, "Pabellon.Context.Core", "DataBase", "pabellon.db");
 
             builder.Services.AddDbContext<PabellonDbContext>(options =>
