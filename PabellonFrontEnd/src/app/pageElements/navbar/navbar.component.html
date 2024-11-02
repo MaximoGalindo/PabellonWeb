@@ -7,9 +7,5 @@
         </div>
         <img src="assets/images/pabellon-navbar.svg" class="d-inline-block align-top ms-2 image-size" alt="">
     </a>
-    <div class="dropdown" [ngClass]="{'show': isMenuOpen}">
-        <a href="#">Opción 1</a>
-        <a href="#">Opción 2</a>
-        <a href="#">Opción 3</a>
-    </div>
+    <app-dropdown [isMenuOpen]="isMenuOpen"></app-dropdown>
 </nav>
