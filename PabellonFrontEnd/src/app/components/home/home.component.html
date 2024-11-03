@@ -1,0 +1,10 @@
+<a routerLink="/home" class="section">
+    <h1>Catalogo</h1>
+</a>
+<div class="container">       
+    <div class="row">
+        <div class="col-12 center-elements" *ngFor="let catalog of catalogs">
+            <app-catalog (click)="openCatalog(catalog)"  [catalog]="catalog"></app-catalog>
+        </div>
+    </div>
+</div>
