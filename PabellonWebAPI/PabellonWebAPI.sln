@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PabellonWebAPI", "PabellonWebAPI\PabellonWebAPI.csproj", "{AB866776-8B34-42CB-B2F6-06CAB47532CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pabellon.Web.API", "PabellonWebAPI\Pabellon.Web.API.csproj", "{AB866776-8B34-42CB-B2F6-06CAB47532CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pabellon.Context.Core", "Pabellon.Context.Core\Pabellon.Context.Core.csproj", "{07870C6C-C477-47F9-9CC5-D82D4544EBF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pabellon.Context.Core", "Pabellon.Context.Core\Pabellon.Context.Core.csproj", "{07870C6C-C477-47F9-9CC5-D82D4544EBF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BussinessLogicLayer", "BussinessLogicLayer\BussinessLogicLayer.csproj", "{952CE4D7-45D5-4658-B717-7643E61AC84E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{07870C6C-C477-47F9-9CC5-D82D4544EBF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07870C6C-C477-47F9-9CC5-D82D4544EBF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07870C6C-C477-47F9-9CC5-D82D4544EBF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{952CE4D7-45D5-4658-B717-7643E61AC84E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{952CE4D7-45D5-4658-B717-7643E61AC84E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{952CE4D7-45D5-4658-B717-7643E61AC84E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{952CE4D7-45D5-4658-B717-7643E61AC84E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

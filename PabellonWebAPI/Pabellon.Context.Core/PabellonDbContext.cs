@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Pabellon.Context.Core.Models;
 using Pabellon.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -19,5 +20,6 @@ namespace Pabellon.Core
         public DbSet<Product> Product { get; set; }
         public DbSet<Schedule> Schedule { get; set; }
         public DbSet<User> User { get; set; }
+        public DbSet<Option> Options { get; set; }
     }
 }

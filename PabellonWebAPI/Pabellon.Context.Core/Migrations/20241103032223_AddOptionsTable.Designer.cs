@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pabellon.Core;
 
@@ -10,9 +11,11 @@ using Pabellon.Core;
 namespace Pabellon.Context.Core.Migrations
 {
     [DbContext(typeof(PabellonDbContext))]
-    partial class PabellonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241103032223_AddOptionsTable")]
+    partial class AddOptionsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
@@ -41,9 +44,6 @@ namespace Pabellon.Context.Core.Migrations
                     b.Property<string>("OptionName")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("REAL");
 
                     b.HasKey("Id");
 

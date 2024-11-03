@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pabellon.Context.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,6 @@ namespace Pabellon.Core.Models
         public string Image {  get; set; }
         public double Price { get; set; }
         public Catalog Catalog { get; set; }
+        public ICollection<Option> Options { get; set; } = new List<Option>();
     }
 }

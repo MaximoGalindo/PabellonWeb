@@ -1,4 +1,5 @@
 
+using BussinessLogicLayer.Services;
 using Microsoft.EntityFrameworkCore;
 using Pabellon.Core;
 
@@ -22,7 +23,12 @@ namespace PabellonWebAPI
             builder.Services.AddDbContext<PabellonDbContext>(options =>
                 options.UseSqlite($"Data Source={databasePath}"));
 
+     
+            builder.Services.AddScoped<ProductService>();
+
             var app = builder.Build();
+
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

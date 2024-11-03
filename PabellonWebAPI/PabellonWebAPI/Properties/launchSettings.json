@@ -19,7 +19,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "PabellonWebAPI": {
+    "Pabellon.Web.API": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
