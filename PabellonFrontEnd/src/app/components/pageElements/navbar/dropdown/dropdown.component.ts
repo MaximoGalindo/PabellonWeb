@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-dropdown',
@@ -8,4 +8,12 @@ import { Component, Input } from '@angular/core';
 })
 export class DropdownComponent {
   @Input() isMenuOpen = false;
+  @Output() isMenuOpenEvent = new EventEmitter<boolean>();
+
+  emitIsMenuOpen() {
+    this.isMenuOpen = !this.isMenuOpen
+    console.log(this.isMenuOpen);
+    
+    this.isMenuOpenEvent.emit(this.isMenuOpen);
+  }
 }

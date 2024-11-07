@@ -16,7 +16,7 @@
 .section {
     height: 4rem;
     width: 100%;
-    background-color: #363636;
+    background-color: #7B0C66;
     color: white;
     display: flex;
     align-items: center;
@@ -24,15 +24,36 @@
     text-decoration: none;
 }
 
-.section h1 {
+.section h1, .section h2 {
     margin: 0;
     margin-left: 1rem;
 }
+
 .section i {
     font-size: 2rem;
 }
 
 body {
-    background-color: #A840A4 !important;
+    background-color: #CFAECF !important;
     font-family: 'Poppins', sans-serif !important; 
+}
+
+.chevron-right {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border-right: 3px solid black;
+    border-top: 3px solid black;
+    transform: rotate(45deg);
+    margin-right: 1rem;
+}
+
+.chevron-down {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border-right: 3px solid black;
+    border-top: 3px solid black;
+    transform: rotate(-45deg);
+    padding-bottom: 10px;
 }

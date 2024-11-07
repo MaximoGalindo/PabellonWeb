@@ -1,20 +1,21 @@
 <a routerLink="/home" class="section aling-elements">
     <i class="fa-solid fa-arrow-left fa-2xl ms-3"></i>
-    <h1>{{ catalogName }}</h1>
+    <h1>{{ catalog.name }}</h1>
 </a>
 <div class="container">
     <div class="row">
         <div class="col-sm-12 col-md-6 col-12" *ngFor="let product of products">
-            <div class="item">
+            <div class="item" (click)="openProduct(product)">
                 <div class="item-image">
-                    <img [src]="product.img" >
+                    <img [src]="product.imageUrl" >
                 </div>
                 <div class="item-content">
-                    <p>{{ product.name }}</p>
+                    <p class="pt-3">{{ formatTextAvoidOrphans(product.name)  }}</p>
                     <p>$ {{ product.price }}</p>                   
                 </div>
-                <i class="fa-solid fa-chevron-right"></i>
+                <div class="chevron-right"></div>
             </div>
         </div>
     </div>
 </div>
+<app-footer *ngIf="orderHasElements" (click)="seeOrder()" [title]="'Ver pedido'" [ShowIcon]="true"></app-footer>

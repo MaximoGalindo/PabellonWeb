@@ -2,11 +2,13 @@
     margin-top: 1rem;
     display: flex;
     align-items: center;
-    background-color: #ffffff;
+    background-color: #7B0C66;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+    max-width: 500px;
+    height: 120px;
     overflow: hidden;
+    color: white;
 }
 
 .item i {
@@ -16,23 +18,42 @@
 
 .item p {
     font-weight: 600;
+    line-height: 1.2; 
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .item-content {
-    padding: 20px;
     display: flex;
     flex-direction: column;
-    flex: 1; 
+    flex: 1;
+    padding: 1rem;
 }
 
 .item-image {
-    width: 150px; 
+    width: 150px;
     overflow: hidden;
     position: relative;
+    margin-left: 0.5rem;
+    border-radius: 0.5rem;
 }
 
 .item-image img {
     max-width: 100%;
-    padding-left: 1rem;
-    object-fit: cover;
+}
+
+
+.footer {
+    position: sticky;
+    bottom: 0;
+    background-color: #393939;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+.footer p {
+    margin: 0;
+    margin-left: 1rem;
+    margin-right: 3rem;
 }

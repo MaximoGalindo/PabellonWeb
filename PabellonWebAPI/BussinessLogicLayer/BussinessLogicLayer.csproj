@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GlobalResourses\GlobalResourses.csproj" />
     <ProjectReference Include="..\Pabellon.Context.Core\Pabellon.Context.Core.csproj" />
   </ItemGroup>
 

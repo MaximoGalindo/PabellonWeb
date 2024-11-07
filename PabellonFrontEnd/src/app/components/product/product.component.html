@@ -1,0 +1,29 @@
+<a (click)="goBack()" class="section aling-elements">
+    <i class="fa-solid fa-arrow-left fa-2xl ms-3"></i>
+    <h2> {{ product.name }}</h2>
+</a>
+<div class="container">
+    <div class="center-elements flex-column">
+        <img src="/assets/images/hamburguesa.png" alt="">
+        <div class="description">
+            <h2>Ingredientes</h2>
+            <ul>
+              <li>500g de carne de res</li>
+              <li>2 rodajas de queso cheddar</li>
+              <li>4 tiras de tocino</li>
+              <li>Lechuga fresca</li>
+              <li>1 tomate en rodajas</li>
+              <li>1 cebolla caramelizada</li>
+              <li>Pan brioche</li>
+            </ul>
+        </div>
+        <div class="custom" > <!-- Aca se debe hacer un ngFor por cada producto. Se envia opcion + index para el [title] y [product] -->
+            <app-collapse></app-collapse>  
+            <app-collapse></app-collapse>  
+            <app-collapse></app-collapse>  
+            <app-collapse></app-collapse>  
+        </div>
+        <!-- Hacer otro con un ngIf para cuando no es promocion y no existen mas de 2 productos en una promocion -->
+    </div>    
+</div>
+<app-footer (click)="addToOrder()" [title]="'Agregar al Pedido'" [ShowIcon]="true"></app-footer>

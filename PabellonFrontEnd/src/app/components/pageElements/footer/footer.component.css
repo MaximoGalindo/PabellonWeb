@@ -1,0 +1,15 @@
+
+.footer {
+    position: sticky;
+    bottom: 0;
+    background-color: #393939;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    z-index: 100;
+}
+
+.footer p {
+    margin: 0;
+    margin-left: 1rem;
+}

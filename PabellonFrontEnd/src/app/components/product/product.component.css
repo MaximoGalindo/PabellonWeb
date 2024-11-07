@@ -1,0 +1,23 @@
+img {
+    width: 350px;
+    border-radius: 1rem;
+    margin-top: 1rem;
+}
+
+.description {
+    width: 330px;
+    margin-top: 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #393939;
+    color: white;
+}
+
+.description h2 {
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+
+.custom{
+    min-width: 100%;
+}

@@ -1,6 +1,10 @@
-
-using BussinessLogicLayer.Services;
+using BussinessLogicLayer.Services.Products;
 using Microsoft.EntityFrameworkCore;
+using Pabellon.Context.Core.Repositories.CatalogRepository;
+using Pabellon.Context.Core.Repositories.OptionRepository;
+using Pabellon.Context.Core.Repositories.OptionsRepository;
+using Pabellon.Context.Core.Repositories.ProductRepository;
+using Pabellon.Context.Core.Repositories.UserRepository;
 using Pabellon.Core;
 
 namespace PabellonWebAPI
@@ -25,6 +29,10 @@ namespace PabellonWebAPI
 
      
             builder.Services.AddScoped<ProductService>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<ICatalogRepository, CatalogRepository>();
+            builder.Services.AddScoped<IOptionRepository, OptionRepository>();
+
 
             var app = builder.Build();
 

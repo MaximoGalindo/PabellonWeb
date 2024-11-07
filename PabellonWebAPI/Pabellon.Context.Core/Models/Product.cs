@@ -13,6 +13,7 @@ namespace Pabellon.Core.Models
         public string Name { get; set; }
         public string Image {  get; set; }
         public double Price { get; set; }
+        public int Units { get; set; }
         public Catalog Catalog { get; set; }
         public ICollection<Option> Options { get; set; } = new List<Option>();
     }

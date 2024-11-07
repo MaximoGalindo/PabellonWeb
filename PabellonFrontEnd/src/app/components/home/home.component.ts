@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Catalog } from '../../models/Catalog';
 import { Router } from '@angular/router';
+import { NavegationService } from 'src/app/services/navegation.service';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   catalogs: Catalog[] = []
+  orderHasElements: boolean = false;
   
   ngOnInit() {
     this.catalogs = [
@@ -20,14 +22,21 @@ export class HomeComponent implements OnInit {
       { id: 5, name: "Pizzas", img: "/assets/images/pizza.jpg" },
       { id: 6, name: "Papas Fritas", img: "/assets/images/papas-fritas.webp" },
     ];
-  }
 
-  constructor(private router: Router) {}
+    this.orderHasElements = this.navegationService.getOrderCount();
+  }
+  
+  constructor(private router: Router, private navegationService: NavegationService) {}
 
   openCatalog(catalog: Catalog) {
     if (catalog) {
-      this.router.navigate(['catalogo', catalog.name,catalog.id]);
+      this.navegationService.setCatalog(catalog);
+      this.router.navigate(['catalogo', catalog.name.toLowerCase()]);      
     }
+  }
+
+  openOrder() {
+    this.router.navigate(['pedido']);
   }
 
 }

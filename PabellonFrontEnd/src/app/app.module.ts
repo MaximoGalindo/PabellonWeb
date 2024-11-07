@@ -9,6 +9,10 @@ import { HomeComponent } from './components/home/home.component';
 import { DropdownComponent } from './components/pageElements/navbar/dropdown/dropdown.component';
 import { CatalogItemsComponent } from './components/catalog-items/catalog-items.component';
 import { CommonModule } from '@angular/common';
+import { ProductComponent } from './components/product/product.component';
+import { CollapseComponent } from './components/pageElements/collapse/collapse.component';
+import { FooterComponent } from './components/pageElements/footer/footer.component';
+import { OrderDetailComponent } from './components/order-detail/order-detail.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +22,10 @@ import { CommonModule } from '@angular/common';
     HomeComponent,
     DropdownComponent,
     CatalogItemsComponent,
+    ProductComponent,
+    CollapseComponent,
+    FooterComponent,
+    OrderDetailComponent
   ],
   imports: [
     BrowserModule,
