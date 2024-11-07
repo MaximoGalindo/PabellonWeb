@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="rectangle">
+        <div class="order-number">
+            <span>Pedido: #{{ orderNumber }}</span>
+        </div>
+        <div class="row">
+            <div class="col-12" *ngFor="let product of order.products">
+                <div class="menu-item">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="menu-title">{{ product.name }}</div>
+                            <ul class="menu-options">
+                                <li> 
+                                    <span style="font-weight: bold;"> Opcion 1: </span> 
+                                    <span  *ngFor="let option of product.options"> {{ option.name }}, </span>
+                                </li>                        
+                            </ul>
+                        </div>
+                        <div class="col-3">
+                            <div class="menu-price">
+                                ${{ product.price }}
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </div>
+                    </div>          
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer [title]="'Confirmar Pedido'" [ShowIcon]="false" [showSpan]="false"></app-footer>

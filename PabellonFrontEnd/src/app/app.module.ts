@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 import { ProductComponent } from './components/product/product.component';
 import { CollapseComponent } from './components/pageElements/collapse/collapse.component';
 import { FooterComponent } from './components/pageElements/footer/footer.component';
-import { OrderDetailComponent } from './components/order-detail/order-detail.component';
+import { OrderDetailComponent } from './components/pageElements/order-detail/order-detail.component';
 
 @NgModule({
   declarations: [

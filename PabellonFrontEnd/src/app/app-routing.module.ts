@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { CatalogItemsComponent } from './components/catalog-items/catalog-items.component';
 import { ProductComponent } from './components/product/product.component';
-import { OrderDetailComponent } from './components/order-detail/order-detail.component';
+import { OrderDetailComponent } from './components/pageElements/order-detail/order-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' }, 

@@ -10,6 +10,7 @@ export class FooterComponent implements OnInit {
 
     @Input() title: string = '';
     @Input() ShowIcon: boolean = false;
+    @Input() showSpan: boolean = true;
     cartElements: number = 0;
 
     constructor(private navegationService: NavegationService) { }
