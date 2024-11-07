@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CatalogNotExist" xml:space="preserve">
-    <value>El Catalogo seleccionado no existe</value>
+  <data name="CatalogNonExist" xml:space="preserve">
+    <value>El catalogo seleccionado no existe</value>
   </data>
   <data name="OptionNonExist" xml:space="preserve">
     <value>La opcion seleccionada no existe</value>
+  </data>
+  <data name="ErrorSaveProduct" xml:space="preserve">
+    <value>Error al intentar guardar el producto</value>
+  </data>
+  <data name="ErrorSaveOption" xml:space="preserve">
+    <value>Error al intentar guardar la opcion</value>
   </data>
 </root>

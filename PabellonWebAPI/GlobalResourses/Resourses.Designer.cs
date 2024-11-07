@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BussinessLogicLayer.Resources {
+namespace GlobalResourses {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace BussinessLogicLayer.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class GlobalResourses {
+    internal class Resourses {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal GlobalResourses() {
+        internal Resourses() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace BussinessLogicLayer.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BussinessLogicLayer.Resources.GlobalResourses", typeof(GlobalResourses).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GlobalResourses.Resourses", typeof(Resourses).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,16 +61,34 @@ namespace BussinessLogicLayer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to El catalogo seleccionado no existe.
         /// </summary>
-        internal static string CatalogNotExist {
+        internal static string CatalogNonExist {
             get {
-                return ResourceManager.GetString("CatalogNotExist", resourceCulture);
+                return ResourceManager.GetString("CatalogNonExist", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Error al intentar guardar la opcion.
+        /// </summary>
+        internal static string ErrorSaveOption {
+            get {
+                return ResourceManager.GetString("ErrorSaveOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error al intentar guardar el producto.
+        /// </summary>
+        internal static string ErrorSaveProduct {
+            get {
+                return ResourceManager.GetString("ErrorSaveProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La opcion seleccionada no existe.
         /// </summary>
         internal static string OptionNonExist {
             get {

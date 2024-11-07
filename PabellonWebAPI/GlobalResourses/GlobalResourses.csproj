@@ -7,17 +7,26 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\Resourses.Designer.cs">
-      <DependentUpon>Resourses.resx</DependentUpon>
+    <Compile Update="Resourses - Copy.Designer.cs">
+      <DependentUpon>Resourses - Copy.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resourses.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resourses.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Resourses.resx">
-      <LastGenOutput>Resourses.Designer.cs</LastGenOutput>
+    <EmbeddedResource Update="Resourses - Copy.resx">
+      <LastGenOutput>Resourses - Copy.Designer.cs</LastGenOutput>
       <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resourses.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resourses.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

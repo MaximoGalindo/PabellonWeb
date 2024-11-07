@@ -26,13 +26,13 @@ namespace BussinessLogicLayer.Services.Products
         {
             var catalog = await _catalogRepository.GetById(request.CatalogId);
             if (catalog == null)
-                throw new ArgumentException(Resources.GlobalResourses.CatalogNotExist);
+                throw new ArgumentException(GlobalResourses.ResourceAccessor.GetString("CatalogNonExist"));
 
             var options = await _optionRepository.GetByIds(request.OptionIds);
 
             var missingOptionIds = request.OptionIds.Except(options.Select(o => o.Id)).ToList();
             if (missingOptionIds.Any())
-                throw new ArgumentException(Resources.GlobalResourses.OptionNonExist);
+                throw new ArgumentException(GlobalResourses.ResourceAccessor.GetString("OptionNonExist"));
 
             var product = new Product
             {

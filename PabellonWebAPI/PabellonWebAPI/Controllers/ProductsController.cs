@@ -17,9 +17,9 @@ namespace PabellonWebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveProduct(ProductRequest request)
+        public async Task SaveProduct(ProductRequest request)
         {
-            return Ok(await _productsService.SaveProduct(request));
+            await _productsService.SaveProduct(request);
         }
     }
 }

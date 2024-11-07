@@ -21,7 +21,6 @@ namespace Pabellon.Context.Core.Repositories.UserRepository
 
         public async Task Insert(Product product)
         {
-
             try
             {
                 await _context.Product.AddAsync(product);
@@ -29,7 +28,7 @@ namespace Pabellon.Context.Core.Repositories.UserRepository
             }
             catch (Exception ex)
             {
-                throw new Exception("Ah ocurrido un error al intentar guardar el documento");
+                throw new Exception(GlobalResourses.ResourceAccessor.GetString("ErrorSaveProduct"));
             }
         }
     }
