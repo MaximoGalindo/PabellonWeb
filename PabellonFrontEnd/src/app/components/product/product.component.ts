@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Order } from 'src/app/models/Order';
 import { Options, Product } from 'src/app/models/Product';
+import { EventBusService } from 'src/app/services/event-bus.service';
 import { NavegationService } from 'src/app/services/navegation.service';
 
 @Component({
@@ -11,11 +12,11 @@ import { NavegationService } from 'src/app/services/navegation.service';
 })
 export class ProductComponent implements OnInit {
 
-  product: Product = new Product(); // { id: 1, name: "2 Hamburguesas Completas", imageUrl: "/assets/images/hamburguesa.png", price: 12000, catalogId: 1, options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)]};
+  product: Product = new Product();//{ id: 1, name: "2 Hamburguesas Completas", imageUrl: "/assets/images/hamburguesa.png", price: 12000, catalogId: 1, options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)]};
 
   catalogName: string = '';
   cartElements: number = 0;
-  constructor(private router: Router, private navegationService: NavegationService) { }
+  constructor(private router: Router, private navegationService: NavegationService, private eventBus:EventBusService) { }
   
   ngOnInit() : void {
     this.navegationService.currentProduct.subscribe(product => this.product = product);
@@ -28,19 +29,18 @@ export class ProductComponent implements OnInit {
     this.router.navigateByUrl('/catalogo/' + this.catalogName.toLowerCase());
   }
 
-  addToOrder() {
-    let order: Order = new Order();
-    this.navegationService.currentOrder.subscribe(o => {
-      order = o;
-    });
-        
-    order.products.push(this.product);
-    this.navegationService.setOrder(order);
-
-    console.log(this.product);
-    console.log(order);
+  updateOption(option: Options) {
+    option.isSelected = !option.isSelected;    
     
+    var optionSelected = this.product.options.findIndex(x => x.id == option.id);
+    this.product.options[optionSelected] = option;
+    
+    if(option.isSelected) {
+      this.product.price += option.price;
+    } else {
+      this.product.price -= option.price;
+    }
 
-    this.router.navigateByUrl('/catalogo/' + this.catalogName.toLowerCase());
+    this.navegationService.setProduct(this.product);
   }
 }

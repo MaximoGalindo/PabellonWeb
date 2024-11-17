@@ -20,7 +20,7 @@ namespace BussinessLogicLayer.Services.Products
             _productRepository = productRepository;
             _catalogRepository = catalogRepository;
             _optionRepository = optionRepository;
-        }
+        }   
 
         public async Task SaveProduct(ProductRequest request)
         {
@@ -40,7 +40,6 @@ namespace BussinessLogicLayer.Services.Products
                 Price = request.Price,
                 Image = request.ImageUrl,
                 Options = options,
-                Units = request.Units,
                 Catalog = catalog
             };
 

@@ -14,7 +14,7 @@
 }
 
 .section {
-    height: 4rem;
+    height: 3rem;
     width: 100%;
     background-color: #7B0C66;
     color: white;
@@ -24,18 +24,25 @@
     text-decoration: none;
 }
 
-.section h1, .section h2 {
+.section h1,
+.section h2 {
     margin: 0;
     margin-left: 1rem;
+    font-size: 1.2rem;
 }
 
 .section i {
-    font-size: 2rem;
+    font-size: 1.3rem;
 }
 
+
+html,
 body {
+    margin: 0;
+    padding: 0;
     background-color: #CFAECF !important;
-    font-family: 'Poppins', sans-serif !important; 
+    font-family: 'Poppins', sans-serif !important;
+    height: 100%;
 }
 
 .chevron-right {

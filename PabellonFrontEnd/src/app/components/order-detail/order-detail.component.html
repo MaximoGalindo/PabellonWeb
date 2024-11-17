@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="rectangle">
+        <div class="order-number">
+            <span>Pedido: #{{ orderNumber }}</span>
+        </div>
+        <div class="row">
+            <div class="col-12" *ngFor="let product of order.products">
+                <div class="menu-item">
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="menu-title"> <span class="truncate-text"> {{ product.name }} </span> | ${{ product.price }}</div>
+                            <ul class="menu-options">
+                                <li *ngFor="let option of product.options"> 
+                                    <span > {{ option.name }} </span>     
+                                    <span *ngIf="option.price > 0">| $ {{ option.price }} </span>                               
+                                </li>                        
+                            </ul>
+                        </div>
+                        <div class="col-2">
+                            <i class="fa-regular fa-trash-can fa-2xl"></i>
+                        </div>
+                    </div>          
+                </div>
+                <div class="menu-footer">
+                    <span>Total: ${{ getTotalPerProduct(product) }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer [title]="'Confirmar Pedido'" (click)="confirmOrder()" [ShowIcon]="false" [showSpan]="false"></app-footer>

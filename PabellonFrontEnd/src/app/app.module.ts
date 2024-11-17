@@ -10,9 +10,10 @@ import { DropdownComponent } from './components/pageElements/navbar/dropdown/dro
 import { CatalogItemsComponent } from './components/catalog-items/catalog-items.component';
 import { CommonModule } from '@angular/common';
 import { ProductComponent } from './components/product/product.component';
-import { CollapseComponent } from './components/pageElements/collapse/collapse.component';
 import { FooterComponent } from './components/pageElements/footer/footer.component';
-import { OrderDetailComponent } from './components/pageElements/order-detail/order-detail.component';
+import { OrderDetailComponent } from './components/order-detail/order-detail.component';
+import { ConfirmOrderComponent } from './components/confirm-order/confirm-order.component';
+import { AddToOrderComponent } from './components/add-to-order/add-to-order.component';
 
 @NgModule({
   declarations: [
@@ -23,9 +24,10 @@ import { OrderDetailComponent } from './components/pageElements/order-detail/ord
     DropdownComponent,
     CatalogItemsComponent,
     ProductComponent,
-    CollapseComponent,
     FooterComponent,
-    OrderDetailComponent
+    OrderDetailComponent,
+    ConfirmOrderComponent,
+    AddToOrderComponent
   ],
   imports: [
     BrowserModule,

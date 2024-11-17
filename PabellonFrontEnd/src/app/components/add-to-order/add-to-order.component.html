@@ -1,0 +1,17 @@
+<div class="footer">
+    <div class="row">
+        <div class="col-5">
+            <div class="counter">
+                <button class="btn decrement" (click)="decrement()">-</button>
+                <span class="value">{{ counter }}</span>
+                <button class="btn increment" (click)="increment()">+</button>
+            </div>
+        </div>
+        <div class="col-7">
+            <button class="addToOrder" (click)="addToOrder()">
+                <span> Agregar </span>
+                <span> ${{ getTotalPrice()}} </span>
+            </button>
+        </div>
+    </div>
+</div>
