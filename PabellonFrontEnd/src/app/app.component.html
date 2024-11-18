@@ -3,4 +3,12 @@
     <main class="main-content">
       <router-outlet></router-outlet>
     </main>
+    <app-footer 
+      *ngIf="footerConfig.ShowFooter"
+      (click)="actionFooter()" 
+      [title]="footerConfig.title" 
+      [ShowIcon]="footerConfig.ShowIcon" 
+      [showSpan]=" footerConfig.ShowSpan" 
+    ></app-footer>
+    <app-add-to-order *ngIf="footerConfig.ShowAddToOrder"></app-add-to-order>
 </div>

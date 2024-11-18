@@ -20,7 +20,7 @@ export class OrderDetailComponent implements OnInit {
   ngOnInit(): void {  
     this.order.products = [{ id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)]},
     { id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Medallon Extra", 1200)]},
-   /* { id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Medallon Extra", 1200)]},
+    /*{ id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Medallon Extra", 1200)]},
     { id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Medallon Extra", 1200)]},
     { id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Medallon Extra", 1200)]},
     { id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Medallon Extra", 1200)]}*/];
@@ -33,9 +33,5 @@ export class OrderDetailComponent implements OnInit {
       this.total += option.price;
     });
     return product.price + this.total;
-  }
-
-  confirmOrder() {
-    this.router.navigate(['confirmar-pedido']);
   }
 }

@@ -35,8 +35,6 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  openOrder() {
-    this.router.navigate(['pedido']);
-  }
+
 
 }
