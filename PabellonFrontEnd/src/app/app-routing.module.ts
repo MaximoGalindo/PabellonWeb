@@ -10,11 +10,11 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full', data: { footer: { ShowFooter: true, title: 'Ver Pedido', ShowIcon: true, ShowSpan: true }} }, 
   { path: 'catalogo', redirectTo: '/home', pathMatch: 'full', data: { footer: { ShowFooter: true, title: 'Ver Pedido', ShowIcon: true, ShowSpan: true }} },
   
-  { path: 'home', component: HomeComponent, data: { footer: { ShowFooter: true, title: 'Ver Pedido', ShowIcon: true, ShowSpan: true}} },
-  { path: 'catalogo/:catalogName', component: CatalogItemsComponent , data: { footer: { ShowFooter: true, title: 'Ver Pedido', ShowIcon: true, ShowSpan: true }} },
-  { path: 'catalogo/:catalogName/:productName', component: ProductComponent, data: { footer: { ShowFooter: false , ShowAddToOrder: true}} },
-  { path: 'pedido' , component: OrderDetailComponent , data: { footer: { ShowFooter: true, title: 'Confirmar Pedido', ShowIcon: false, ShowSpan: false }}},
-  { path: 'confirmar-pedido', component: ConfirmOrderComponent , data: { footer: { ShowFooter: true, title: 'Confirmar Pedido', ShowIcon: false, ShowSpan: false }}},
+  { path: 'home', component: HomeComponent, data: { footer: { ShowFooter: true, title: 'Ver Pedido', ShowIcon: true, ShowSpan: true, NavegateTo: 'order'}} },
+  { path: 'catalogo/:catalogName', component: CatalogItemsComponent , data: { footer: { ShowFooter: true, title: 'Ver Pedido', ShowIcon: true, ShowSpan: true, NavegateTo: 'order' }} },
+  { path: 'catalogo/:catalogName/:productName', component: ProductComponent, data: { footer: { ShowFooter: false , ShowAddToOrder: true }} },
+  { path: 'pedido' , component: OrderDetailComponent , data: { footer: { ShowFooter: true, title: 'Confirmar Pedido', ShowIcon: false, ShowSpan: false, NavegateTo: 'confirm' }}},
+  { path: 'confirmar-pedido', component: ConfirmOrderComponent , data: { footer: { ShowFooter: true, title: 'Finalizar Pedido', ShowIcon: false, ShowSpan: false }}},
 ];
 
 @NgModule({

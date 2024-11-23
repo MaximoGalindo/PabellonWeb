@@ -49,11 +49,7 @@ export class AddToOrderComponent implements OnInit {
       order = o;
     });
         
-    order.products.push(this.product);
-    this.navegationService.setOrder(order);
-
-    console.log(this.product);
-    console.log(order);    
+    order.products.push(this.product);   
 
     this.router.navigateByUrl('/catalogo/' + this.catalogName.toLowerCase());
   }

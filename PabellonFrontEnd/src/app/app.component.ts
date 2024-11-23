@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.orderHasElements = this.navegationService.getOrderCount();
+   
     this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd),
@@ -38,14 +38,17 @@ export class AppComponent implements OnInit {
           return route.snapshot.data['footer'] || null;
         })
       )
-      .subscribe((footerConfig: any) => {
+      .subscribe((footerConfig: any) => {       
         this.footerConfig = footerConfig;
-      });
+        this.orderHasElements = this.navegationService.getOrderCount();
+
+        this.footerConfig.ShowFooter = this.orderHasElements && !this.footerConfig.ShowAddToOrder;
+      });      
   }
 
   actionFooter() {
     switch(this.footerConfig.NavegateTo) {
-      /*case 'catalog':
+      case 'catalog':
         this.router.navigate(['catalogo']);
         break;
       case 'order':
@@ -53,7 +56,7 @@ export class AppComponent implements OnInit {
         break;
       case 'confirm':
         this.confirmOrder();
-        break;*/
+        break;
     }
   }
 

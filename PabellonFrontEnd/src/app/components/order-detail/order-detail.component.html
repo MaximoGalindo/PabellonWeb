@@ -7,24 +7,27 @@
             <div class="col-12" *ngFor="let product of order.products">
                 <div class="menu-item">
                     <div class="row">
-                        <div class="col-10">
-                            <div class="menu-title"> <span class="truncate-text"> {{ product.name }} </span> | ${{ product.price }}</div>
+                        <div class="col-10 col-md-11">
+                            <div class="menu-title"> <span class="truncate-text"> {{ product.name }} </span> | ${{
+                                product.price - getOptionsPrice(product) }}</div>
                             <ul class="menu-options">
-                                <li *ngFor="let option of product.options"> 
-                                    <span > {{ option.name }} </span>     
-                                    <span *ngIf="option.price > 0">| $ {{ option.price }} </span>                               
-                                </li>                        
+                                <ng-container *ngFor="let option of product.options">
+                                    <li *ngIf="option.isSelected">
+                                        <span>{{ option.name }}</span>
+                                        <span *ngIf="option.price > 0"> | ${{ option.price }}</span>
+                                    </li>
+                                </ng-container>
                             </ul>
                         </div>
-                        <div class="col-2">
-                            <i class="fa-regular fa-trash-can fa-2xl"></i>
+                        <div class="col-1 mb-3">
+                            <div class="red-cross"></div>
                         </div>
-                    </div>          
+                    </div>
                 </div>
                 <div class="menu-footer">
-                    <span>Total: ${{ getTotalPerProduct(product) }}</span>
+                    <span>Total: ${{ product.price }}</span>
                 </div>
             </div>
         </div>
-    </div>   
+    </div>
 </div>

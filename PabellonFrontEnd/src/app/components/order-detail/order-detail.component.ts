@@ -18,20 +18,21 @@ export class OrderDetailComponent implements OnInit {
   constructor(private navegationService: NavegationService, private router: Router) { }
 
   ngOnInit(): void {  
-    this.order.products = [{ id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)]},
-    { id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Medallon Extra", 1200)]},
+    this.order.products = [{ id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)]}];
+   // { id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Medallon Extra", 1200)]},
     /*{ id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Medallon Extra", 1200)]},
     { id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Medallon Extra", 1200)]},
     { id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Medallon Extra", 1200)]},
-    { id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Medallon Extra", 1200)]}*/];
+    { id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Medallon Extra", 1200)]}]*/;
     //this.navegationService.currentOrder.subscribe(order => this.order = order);
   }
 
-  getTotalPerProduct(product: Product): number {
-    this.total = 0;
+  getOptionsPrice(product: Product): number {
+    let total = 0;
     product.options.forEach(option => {
-      this.total += option.price;
+      if (option.isSelected && option.price > 0)
+        total += option.price;
     });
-    return product.price + this.total;
+    return total;
   }
 }
