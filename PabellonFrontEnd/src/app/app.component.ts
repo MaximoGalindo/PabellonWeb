@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { NavegationService } from './services/navegation.service';
 import { filter, map } from 'rxjs';
+import { Order } from './models/Order';
+import { OrderTemplate } from './components/templates/OrderTemplate';
 
 @Component({
   selector: 'app-root',
@@ -25,8 +27,7 @@ export class AppComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {
-   
+  ngOnInit(): void {   
     this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd),
@@ -40,9 +41,10 @@ export class AppComponent implements OnInit {
       )
       .subscribe((footerConfig: any) => {       
         this.footerConfig = footerConfig;
-        this.orderHasElements = this.navegationService.getOrderCount();
-
-        this.footerConfig.ShowFooter = this.orderHasElements && !this.footerConfig.ShowAddToOrder;
+        this.navegationService.currentOrder.subscribe(order => {
+          this.orderHasElements = order.products.length > 0;
+          this.footerConfig.ShowFooter = this.orderHasElements && !this.footerConfig.ShowAddToOrder;
+        });
       });      
   }
 
@@ -57,6 +59,8 @@ export class AppComponent implements OnInit {
       case 'confirm':
         this.confirmOrder();
         break;
+      case 'finish-order':
+        this.finishOrder();
     }
   }
 
@@ -66,5 +70,16 @@ export class AppComponent implements OnInit {
 
   confirmOrder() {
     this.router.navigate(['confirmar-pedido']);
+  }
+
+  finishOrder() {
+    let order:Order = new Order();
+    this.navegationService.currentOrder.subscribe(o => {
+      order = o;
+    })
+    const message = OrderTemplate.generateMessage(order);
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/3516430938?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
   }
 }

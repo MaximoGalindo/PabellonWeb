@@ -30,8 +30,8 @@ namespace BussinessLogicLayer.Services.Products
 
             var options = await _optionRepository.GetByIds(request.OptionIds);
 
-            var missingOptionIds = request.OptionIds.Except(options.Select(o => o.Id)).ToList();
-            if (missingOptionIds.Any())
+            var optionIdsNonExist = request.OptionIds.Except(options.Select(o => o.Id)).ToList();
+            if (optionIdsNonExist.Any())
                 throw new ArgumentException(GlobalResourses.ResourceAccessor.GetString("OptionNonExist"));
 
             var product = new Product
@@ -40,10 +40,34 @@ namespace BussinessLogicLayer.Services.Products
                 Price = request.Price,
                 Image = request.ImageUrl,
                 Options = options,
-                Catalog = catalog
+                Catalog = catalog,
+                Observation =  !string.IsNullOrWhiteSpace(request.Observation) ? request.Observation : string.Empty,
+                Units = request.Units               
             };
 
             await _productRepository.Insert(product);            
+        }
+
+        public async Task<List<ProductResponse>> GetProductListByCatalog(int catalogId)
+        {
+            var products = await _productRepository.GetByCatalogId(catalogId);
+
+            var productResponses = products.Select(product => new ProductResponse
+            {
+                Id = product.Id,
+                Name = product.Name,
+                ImageUrl = product.Image,
+                Price = product.Price,
+                CatalogId = product.Catalog.Id,
+                Options = product.Options.Select(o => new OptionResponse
+                {
+                    Id = o.Id,
+                    Name = o.OptionName,
+                    Price = o.Price
+                }).ToList()
+            }).ToList();
+
+            return productResponses;
         }
     }
 }

@@ -91,3 +91,7 @@ body {
 .red-cross::after {
     transform: rotate(-45deg);
 }
+
+.hover-hand {
+    cursor: pointer;
+}

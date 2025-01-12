@@ -18,6 +18,9 @@ export class NavegationService {
   private sharedOrder = new BehaviorSubject<Order>(new Order());
   currentOrder = this.sharedOrder.asObservable();
 
+  private sharedProductsCount = new BehaviorSubject<number>(0);
+  currentProductsCount = this.sharedProductsCount.asObservable();
+
   constructor() { }
 
   setCatalog(catalog: Catalog) {
@@ -34,6 +37,10 @@ export class NavegationService {
   getOrderCount(): boolean {
     const currentOrder = this.sharedOrder.getValue();
     return currentOrder.products && currentOrder.products.length > 0; 
+  }
+  
+  setProductsCount(count: number) {
+    this.sharedProductsCount.next(count);
   }
 
 }

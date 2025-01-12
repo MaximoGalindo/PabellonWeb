@@ -33,7 +33,7 @@ input[type="radio"] {
 
 .radio-label {
     display: flex;
-    align-items: center;    
+    align-items: center;
     justify-content: center;
     margin-top: 1rem;
     border-radius: 0.5rem;
@@ -47,7 +47,7 @@ input[type="radio"] {
     transition: background-color 0.3s;
 }
 
-input[type="radio"]:checked + span {
+input[type="radio"]:checked+span {
     background-color: #30092E;
     height: 4rem;
     width: 100%;
@@ -55,4 +55,72 @@ input[type="radio"]:checked + span {
     align-items: center;
     justify-content: center;
     border-radius: 0.5rem;
+}
+
+
+/* ORDER SECTION */
+.order-summary {
+    background-color: #a64ca6;
+    color: white;
+    padding: 20px;
+    max-width: 100%;
+    border-radius: 10px;
+    margin: auto;
+    margin-bottom: 1rem;
+}
+
+.order-summary h2 {
+    margin: 0 0 15px;
+    font-size: 1.5rem;
+}
+
+.order-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.product-item {
+    margin-bottom: 15px;
+}
+
+.product-details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.product-name {
+    font-weight: bold;
+}
+
+.product-options {
+    list-style: disc;
+    padding-left: 20px;
+    margin: 0;
+}
+
+.option-item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.shipping-cost {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    border-top: 1px solid white;
+    padding-top: 10px;
+}
+
+.total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.total-price {
+    font-size: 1.4rem;
 }

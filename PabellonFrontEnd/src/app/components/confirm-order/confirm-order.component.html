@@ -5,23 +5,23 @@
     <div class="row form-container">
         <div class="col">
             <label for="">Nombre y Apellido</label>
-            <input type="text">
+            <input type="text" [(ngModel)]="order.name" (change)="orderOnChange()">
         </div>
         <div class="col">
             <label for="">Telefono</label>
-            <input type="text">
+            <input type="text" [(ngModel)]="order.phone" (change)="orderOnChange()">
         </div>
         <div class="col">   
             <div class="row">
                 <div class="col">
                     <label class="radio-label">
-                        <input type="radio" name="paymentMethod" value="cash" />
+                        <input type="radio" name="paymentMethod" [value]="PaymentMethod.Cash" [(ngModel)]="order.paymentMethod" (change)="orderOnChange()"/>
                         <span>Pago en Efectivo</span>
                     </label>
                 </div>
                 <div class="col">
                     <label class="radio-label">
-                        <input type="radio" name="paymentMethod" value="transfer" />
+                        <input type="radio" name="paymentMethod" [value]="PaymentMethod.Transfer" [(ngModel)]="order.paymentMethod" (change)="orderOnChange()"/>
                         <span>Pago por Transferencia</span>
                     </label>
                 </div>
@@ -31,25 +31,52 @@
             <div class="row">
                 <div class="col">
                     <label class="radio-label">
-                        <input type="radio" name="deliveryOptions" value="local" />
+                        <input type="radio" name="deliveryOptions" [value]="DeliveryOption.Pickup" [(ngModel)]="order.deliveryOption" (change)="orderOnChange()" />
                         <span>Retiro en el Local</span>
                     </label>
                 </div>
                 <div class="col">
                     <label class="radio-label">
-                        <input type="radio" name="deliveryOptions" value="delivery" />
+                        <input type="radio" name="deliveryOptions" [value]="DeliveryOption.Delivery" [(ngModel)]="order.deliveryOption" (change)="orderOnChange()" />
                         <span>Envío a Domicilio</span>
                     </label>
                 </div>
             </div>        
         </div>        
-        <div class="col">
+        <div class="col" *ngIf="order.deliveryOption === DeliveryOption.Delivery">
             <label for="">Direccion</label>
-            <input type="text">
+            <input type="text" [(ngModel)]="order.address" (change)="orderOnChange()">
         </div>
-        <div class="col">
+        <div class="col mb-4" *ngIf="order.deliveryOption === DeliveryOption.Delivery">
             <label for="">Mas Informacion</label>
-            <input type="text">
+            <input type="text" [(ngModel)]="order.moreInfo" (change)="orderOnChange()">
         </div>
     </div>
+    <div class="order-summary">
+        <h2>Pedido</h2>
+        <ul class="order-items">
+          <li class="product-item" *ngFor="let product of order.products">
+            <div class="product-details">
+              <span class="product-name">{{ product.name }}</span>
+              <span class="product-price">${{ product.price - getOptionsPrice(product) }}</span>
+            </div>
+            <ul class="product-options" *ngFor="let option of product.options">
+              <li class="option-item" *ngIf="option.isSelected">
+                <span class="option-name">{{ option.name }}</span>
+                <span class="option-price" *ngIf="option.price > 0">${{ option.price }}</span>
+              </li>
+            </ul>
+          </li>
+          <li class="shipping-cost" *ngIf="order.deliveryOption !== null">
+            <span class="shipping-text">Costo de Envío</span>
+            <span class="shipping-price"> {{ order.deliveryOption === DeliveryOption.Delivery ? '$700' : 'Gratis' }}</span>
+          </li>
+        </ul>
+        <div class="total">
+          <span>Total:</span>
+          <span class="total-price">${{ calculateTotal() }}</span>
+        </div>
+      </div>      
 </div>
+
+

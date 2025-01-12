@@ -13,7 +13,6 @@ import { NavegationService } from 'src/app/services/navegation.service';
 export class ProductComponent implements OnInit {
 
   product: Product = new Product();//{ id: 1, name: "2 Hamburguesas Completas", imageUrl: "/assets/images/hamburguesa.png", price: 12000, catalogId: 1, options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)]};
-
   catalogName: string = '';
   cartElements: number = 0;
   constructor(private router: Router, private navegationService: NavegationService, private eventBus:EventBusService) { }
@@ -23,6 +22,7 @@ export class ProductComponent implements OnInit {
     this.navegationService.currentCatalog.subscribe(catalog => {
       this.catalogName = catalog.name;
     })
+    
   }
 
   goBack() {

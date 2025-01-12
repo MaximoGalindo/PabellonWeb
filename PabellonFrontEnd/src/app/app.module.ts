@@ -14,6 +14,7 @@ import { FooterComponent } from './components/pageElements/footer/footer.compone
 import { OrderDetailComponent } from './components/order-detail/order-detail.component';
 import { ConfirmOrderComponent } from './components/confirm-order/confirm-order.component';
 import { AddToOrderComponent } from './components/add-to-order/add-to-order.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,12 +28,13 @@ import { AddToOrderComponent } from './components/add-to-order/add-to-order.comp
     FooterComponent,
     OrderDetailComponent,
     ConfirmOrderComponent,
-    AddToOrderComponent
+    AddToOrderComponent 
   ],
   imports: [
     BrowserModule,
     CommonModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

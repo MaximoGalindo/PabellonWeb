@@ -21,5 +21,11 @@ namespace PabellonWebAPI.Controllers
         {
             await _productsService.SaveProduct(request);
         }
+
+        [HttpGet("by-catalog/{catalogId}")]
+        public async Task<IActionResult> GetProductListByCatalogId(int catalogId)
+        {
+            return Ok(await _productsService.GetProductListByCatalog(catalogId));
+        }
     }
 }

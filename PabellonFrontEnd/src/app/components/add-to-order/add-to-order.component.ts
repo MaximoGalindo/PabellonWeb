@@ -27,16 +27,22 @@ export class AddToOrderComponent implements OnInit {
       this.catalogName = catalog.name;
     })
 
+    this.navegationService.setProductsCount(this.counter);
+
   }
 
   increment(): void {
-    this.counter++;
+    if (this.counter < 15) {
+      this.counter++;
+    }
+    this.navegationService.setProductsCount(this.counter);
   }
 
   decrement(): void {
     if (this.counter > 1) {
       this.counter--;
     }
+    this.navegationService.setProductsCount(this.counter);
   }
 
   getTotalPrice(): number {
@@ -50,7 +56,7 @@ export class AddToOrderComponent implements OnInit {
     });
         
     order.products.push(this.product);   
-
+    this.navegationService.setOrder(order);
     this.router.navigateByUrl('/catalogo/' + this.catalogName.toLowerCase());
   }
 

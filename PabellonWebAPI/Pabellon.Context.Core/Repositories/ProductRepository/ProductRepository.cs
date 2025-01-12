@@ -1,4 +1,5 @@
-﻿using Pabellon.Context.Core.Repositories.ProductRepository;
+﻿using Microsoft.EntityFrameworkCore;
+using Pabellon.Context.Core.Repositories.ProductRepository;
 using Pabellon.Core;
 using Pabellon.Core.Models;
 using System;
@@ -19,6 +20,14 @@ namespace Pabellon.Context.Core.Repositories.UserRepository
             _context = context;
         }
 
+        public async Task<List<Product>> GetByCatalogId(int catalogId)
+        {
+            return await _context.Product
+                .Include(p => p.Catalog)
+                .Include(p => p.Options)
+                .Where(p => p.Catalog.Id == catalogId).ToListAsync();
+        }
+
         public async Task Insert(Product product)
         {
             try
@@ -31,5 +40,7 @@ namespace Pabellon.Context.Core.Repositories.UserRepository
                 throw new Exception(GlobalResourses.ResourceAccessor.GetString("ErrorSaveProduct"));
             }
         }
+
+
     }
 }

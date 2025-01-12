@@ -1,7 +1,7 @@
 <div class="container">
     <div class="rectangle">
         <div class="order-number">
-            <span>Pedido: #{{ orderNumber }}</span>
+            <span>Pedido: #{{ order.id }}</span>
         </div>
         <div class="row">
             <div class="col-12" *ngFor="let product of order.products">
@@ -20,12 +20,19 @@
                             </ul>
                         </div>
                         <div class="col-1 mb-3">
-                            <div class="red-cross"></div>
+                            <div class="red-cross hover-hand" (click)="removeProduct(product)"></div>
                         </div>
                     </div>
                 </div>
                 <div class="menu-footer">
                     <span>Total: ${{ product.price }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" *ngIf="order.products.length === 0">
+                <div class="no-product-container">
+                    <h2>No cuenta con productos en el carrito</h2>
                 </div>
             </div>
         </div>
