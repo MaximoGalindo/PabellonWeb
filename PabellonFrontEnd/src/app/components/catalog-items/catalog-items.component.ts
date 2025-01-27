@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Catalog } from 'src/app/models/Catalog';
 import { Options, Product } from 'src/app/models/Product';
+import { ProductService } from 'src/app/services/Entities/product.service';
 import { EventBusService } from 'src/app/services/event-bus.service';
 import { NavegationService } from 'src/app/services/navegation.service';
 
@@ -14,21 +15,24 @@ import { NavegationService } from 'src/app/services/navegation.service';
 export class CatalogItemsComponent implements OnInit {
   catalog: Catalog = new Catalog();
   orderHasElements: boolean = false;
+  products: Product[] = [];
 
-  products: Product[] = [
+  /*products: Product[] = [
     { id: 2, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
     { id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)]},
     { id: 3, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
     { id: 4, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
     { id: 5, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
     { id: 6, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
-  ];
+  ];*/
 
-  constructor(private router: Router, private navegationService: NavegationService) { }
+  constructor(private router: Router, private navegationService: NavegationService, private productService: ProductService) { }
+
 
   ngOnInit() : void {
     this.navegationService.currentCatalog.subscribe(catalog => this.catalog = catalog);
-    this.orderHasElements = this.navegationService.getOrderCount();
+    this.productService.getProductByCatalogId(this.catalog.id).subscribe(products => this.products = products);
+    this.orderHasElements = this.navegationService.getOrderTotal();
   }
 
   openProduct(product: any) {

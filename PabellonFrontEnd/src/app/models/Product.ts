@@ -13,9 +13,10 @@ export class Options {
     price: number = 0;
     isSelected: boolean = false;
 
-    constructor(id: number, name: string, price: number) {
+    constructor(id: number, name: string, price: number, isSelected: boolean = false) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.isSelected = isSelected;
     }
 }

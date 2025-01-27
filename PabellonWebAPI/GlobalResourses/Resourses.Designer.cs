@@ -88,6 +88,24 @@ namespace GlobalResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La carpeta con las imagenes no existe. Contacte con el administrador.
+        /// </summary>
+        internal static string ImgFolderNonExist {
+            get {
+                return ResourceManager.GetString("ImgFolderNonExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La imagen {0} no fue encontrada.
+        /// </summary>
+        internal static string ImgNotFound {
+            get {
+                return ResourceManager.GetString("ImgNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to La opcion seleccionada no existe.
         /// </summary>
         internal static string OptionNonExist {

@@ -10,5 +10,6 @@ namespace Pabellon.Context.Core.Repositories.CatalogRepository
     public interface ICatalogRepository
     {
         Task<Catalog?> GetById(int catalogId);
+        Task<List<Catalog>> GetAll();
     }
 }

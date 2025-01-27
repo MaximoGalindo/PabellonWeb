@@ -14,7 +14,6 @@ namespace Pabellon.Core.Models
         public string Image {  get; set; }
         public double Price { get; set; }
         public Catalog Catalog { get; set; }
-        public int Units { get; set; }
         public ICollection<Option> Options { get; set; } = new List<Option>();
         public string? Observation { get; set; }
     }

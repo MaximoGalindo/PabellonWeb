@@ -11,20 +11,17 @@ import { NavegationService } from 'src/app/services/navegation.service';
 })
 export class OrderDetailComponent implements OnInit {
 
-  total: number = 0;
   order: Order = new Order();
   orderNumber: string = '4540';
+  orderListSimplify: Order[] = [];
 
   constructor(private navegationService: NavegationService, private router: Router) { }
 
-  ngOnInit(): void {  
-    //this.order.products = [{ id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)]}];
-   // { id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Medallon Extra", 1200)]},
-    /*{ id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Medallon Extra", 1200)]},
-    { id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Medallon Extra", 1200)]},
-    { id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Medallon Extra", 1200)]},
-    { id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Medallon Extra", 1200)]}]*/;
+  ngOnInit(): void {
     this.navegationService.currentOrder.subscribe(order => this.order = order);
+
+   /* this.order.orderDetail = [{ product: { id: 1, name: "Hamburguesa Completa Con Papas Fritas", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Sin lechuga", 0, true), new Options(2, "Sin Tomate", 0, true), new Options(3, "Medallon Extra", 1200, true)] }, quantity: 3, totalPrice: 20000 },
+    { product: { id: 1, name: "Hamburguesa Completa Con Papas Fritas", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Sin lechuga", 0, true), new Options(2, "Sin Tomate", 0, true), new Options(3, "Medallon Extra", 1200, true)] }, quantity: 3, totalPrice: 20000 }];*/
   }
 
   getOptionsPrice(product: Product): number {
@@ -36,8 +33,12 @@ export class OrderDetailComponent implements OnInit {
     return total;
   }
 
-  removeProduct(product: Product) {
-    this.order.products.splice(this.order.products.indexOf(product), 1);
-    this.navegationService.setOrder(this.order);
+  removeDetail(detail: any) {
+    {
+      this.order.orderDetail.splice(this.order.orderDetail.indexOf(detail), 1);
+      if(this.order.orderDetail.length === 0)
+        this.order.total = 0;
+      this.navegationService.setOrder(this.order);
+    }
   }
 }

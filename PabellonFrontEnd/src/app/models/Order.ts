@@ -11,7 +11,13 @@ export class Order {
     total: number = 0
     deliveryOption: DeliveryOption | null = null
     paymentMethod: PaymentMethod | null = null
-    products: Product[] = []
+    orderDetail: OrderDetail[] = []
+}
+
+export class OrderDetail {
+    product: Product = new Product()
+    quantity: number = 0
+    totalPrice: number = 0
 }
 
 export enum DeliveryOption {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Catalog } from '../../models/Catalog';
 import { Router } from '@angular/router';
 import { NavegationService } from 'src/app/services/navegation.service';
+import { CatalogService } from 'src/app/services/Entities/catalog.service';
 
 @Component({
   selector: 'app-home',
@@ -13,20 +14,22 @@ export class HomeComponent implements OnInit {
   catalogs: Catalog[] = []
   orderHasElements: boolean = false;
   
-  ngOnInit() {
-    this.catalogs = [
-      { id: 1, name: "Promociones", img: "/assets/images/promociones.jpg" },
-      { id: 2, name: "Lomitos", img: "/assets/images/lomitos.jpg" },
-      { id: 3, name: "Hamburguesas", img: "/assets/images/hamburguesa.png" },
-      { id: 4, name: "Empanadas", img: "/assets/images/empanadas.webp" },
-      { id: 5, name: "Pizzas", img: "/assets/images/pizza.jpg" },
-      { id: 6, name: "Papas Fritas", img: "/assets/images/papas-fritas.webp" },
-    ];
+  constructor(private router: Router, private navegationService: NavegationService, private catalogService: CatalogService) {}
 
-    this.orderHasElements = this.navegationService.getOrderCount();
+  ngOnInit() {
+    const storedCatalogs = sessionStorage.getItem('catalogs');
+
+    if (storedCatalogs !== null) {
+      this.catalogs = JSON.parse(storedCatalogs);
+    } else {
+      this.catalogService.getAllCatalogs().subscribe((data) => {
+        this.catalogs = data;
+        sessionStorage.setItem('catalogs', JSON.stringify(this.catalogs));
+      });
+    }
+
+    this.orderHasElements = this.navegationService.getOrderTotal();
   }
-  
-  constructor(private router: Router, private navegationService: NavegationService) {}
 
   openCatalog(catalog: Catalog) {
     if (catalog) {
@@ -34,6 +37,7 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['catalogo', catalog.name.toLowerCase()]);      
     }
   }
+
 
 
 

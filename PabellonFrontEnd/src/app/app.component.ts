@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
       .subscribe((footerConfig: any) => {       
         this.footerConfig = footerConfig;
         this.navegationService.currentOrder.subscribe(order => {
-          this.orderHasElements = order.products.length > 0;
+          this.orderHasElements = order.total > 0;
           this.footerConfig.ShowFooter = this.orderHasElements && !this.footerConfig.ShowAddToOrder;
         });
       });      
@@ -56,9 +56,6 @@ export class AppComponent implements OnInit {
       case 'order':
         this.openOrder();
         break;
-      case 'confirm':
-        this.confirmOrder();
-        break;
       case 'finish-order':
         this.finishOrder();
     }
@@ -68,18 +65,16 @@ export class AppComponent implements OnInit {
     this.router.navigate(['pedido']);
   }
 
-  confirmOrder() {
-    this.router.navigate(['confirmar-pedido']);
-  }
-
   finishOrder() {
     let order:Order = new Order();
     this.navegationService.currentOrder.subscribe(o => {
       order = o;
     })
+    order.date = new Date();
     const message = OrderTemplate.generateMessage(order);
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/3516430938?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
+    this.router.navigate(['catalogo']);
   }
 }

@@ -9,6 +9,12 @@
     align-items: center;
 }
 
+.space-between-elements {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .black {
     color: black;
 }
@@ -79,7 +85,7 @@ body {
     height: 20%;
     background-color: red;
     top: 40%;
-    left: 0;
+    left: -50%;
     transform-origin: center;
     border-radius: 1rem;
 }

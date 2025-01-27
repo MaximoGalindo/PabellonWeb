@@ -34,9 +34,9 @@ export class NavegationService {
   setOrder(order: Order) {
     this.sharedOrder.next(order);
   }
-  getOrderCount(): boolean {
+  getOrderTotal(): boolean {
     const currentOrder = this.sharedOrder.getValue();
-    return currentOrder.products && currentOrder.products.length > 0; 
+    return currentOrder.total > 0;
   }
   
   setProductsCount(count: number) {

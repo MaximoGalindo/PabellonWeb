@@ -1,10 +1,8 @@
-﻿using BussinessLogicLayer.Reponses;
-using Microsoft.EntityFrameworkCore;
-using Pabellon.Context.Core.Models;
+﻿using BussinessLogicLayer.Helpers;
+using BussinessLogicLayer.Reponses;
 using Pabellon.Context.Core.Repositories.CatalogRepository;
 using Pabellon.Context.Core.Repositories.OptionsRepository;
 using Pabellon.Context.Core.Repositories.ProductRepository;
-using Pabellon.Core;
 using Pabellon.Core.Models;
 
 namespace BussinessLogicLayer.Services.Products
@@ -14,13 +12,15 @@ namespace BussinessLogicLayer.Services.Products
         private readonly IProductRepository _productRepository;
         private readonly ICatalogRepository _catalogRepository;
         private readonly IOptionRepository _optionRepository;
+        private readonly ImagesHelper _imagesHelper;
 
-        public ProductService(IProductRepository productRepository, ICatalogRepository catalogRepository, IOptionRepository optionRepository)
+        public ProductService(IProductRepository productRepository, ICatalogRepository catalogRepository, IOptionRepository optionRepository, ImagesHelper imagesHelper)
         {
             _productRepository = productRepository;
             _catalogRepository = catalogRepository;
             _optionRepository = optionRepository;
-        }   
+            _imagesHelper = imagesHelper;
+        }
 
         public async Task SaveProduct(ProductRequest request)
         {
@@ -38,11 +38,10 @@ namespace BussinessLogicLayer.Services.Products
             {
                 Name = request.Name,
                 Price = request.Price,
-                Image = request.ImageUrl,
+                Image = await _imagesHelper.SaveImage(request.Image),
                 Options = options,
                 Catalog = catalog,
-                Observation =  !string.IsNullOrWhiteSpace(request.Observation) ? request.Observation : string.Empty,
-                Units = request.Units               
+                Observation =  !string.IsNullOrWhiteSpace(request.Observation) ? request.Observation : string.Empty              
             };
 
             await _productRepository.Insert(product);            

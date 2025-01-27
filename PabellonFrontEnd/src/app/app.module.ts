@@ -15,6 +15,7 @@ import { OrderDetailComponent } from './components/order-detail/order-detail.com
 import { ConfirmOrderComponent } from './components/confirm-order/confirm-order.component';
 import { AddToOrderComponent } from './components/add-to-order/add-to-order.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     CommonModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

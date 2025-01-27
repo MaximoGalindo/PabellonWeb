@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Order } from 'src/app/models/Order';
+import { Order, OrderDetail } from 'src/app/models/Order';
 import { Product } from 'src/app/models/Product';
 import { EventBusService } from 'src/app/services/event-bus.service';
 import { NavegationService } from 'src/app/services/navegation.service';
@@ -54,8 +54,15 @@ export class AddToOrderComponent implements OnInit {
     this.navegationService.currentOrder.subscribe(o => {
       order = o;
     });
-        
-    order.products.push(this.product);   
+
+    order.orderDetail.push({
+      product: this.product,
+      quantity: this.counter,
+      totalPrice: this.product.price * this.counter
+    });
+    
+    order.total = order.total + this.getTotalPrice();
+    
     this.navegationService.setOrder(order);
     this.router.navigateByUrl('/catalogo/' + this.catalogName.toLowerCase());
   }

@@ -1,6 +1,5 @@
 ﻿using BussinessLogicLayer.Reponses;
 using BussinessLogicLayer.Services.Products;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PabellonWebAPI.Controllers
@@ -26,6 +25,6 @@ namespace PabellonWebAPI.Controllers
         public async Task<IActionResult> GetProductListByCatalogId(int catalogId)
         {
             return Ok(await _productsService.GetProductListByCatalog(catalogId));
-        }
+        }        
     }
 }

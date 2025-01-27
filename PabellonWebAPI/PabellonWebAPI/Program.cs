@@ -1,3 +1,5 @@
+using BussinessLogicLayer.Helpers;
+using BussinessLogicLayer.Services.Catalog;
 using BussinessLogicLayer.Services.Products;
 using Microsoft.EntityFrameworkCore;
 using Pabellon.Context.Core.Repositories.CatalogRepository;
@@ -29,13 +31,31 @@ namespace PabellonWebAPI
 
      
             builder.Services.AddScoped<ProductService>();
+            builder.Services.AddScoped<CatalogService>();
+            builder.Services.AddScoped<ImagesHelper>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<ICatalogRepository, CatalogRepository>();
             builder.Services.AddScoped<IOptionRepository, OptionRepository>();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigins", policy =>
+                {
+                    policy.AllowAnyOrigin() // Dominios permitidos
+                          .AllowAnyHeader() // Permite cualquier encabezado
+                          .AllowAnyMethod(); // Permite cualquier método HTTP
+                });
+            });
+
+
+            string basePath = Path.Combine("C:\\", "Pabellon", "Imagenes");
+            if (!Directory.Exists(basePath))
+            {
+                Directory.CreateDirectory(basePath);
+            }
 
             var app = builder.Build();
-
+            app.UseCors("AllowSpecificOrigins");
             app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             // Configure the HTTP request pipeline.

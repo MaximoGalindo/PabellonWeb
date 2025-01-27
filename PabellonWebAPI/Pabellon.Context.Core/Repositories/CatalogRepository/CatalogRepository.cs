@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Pabellon.Core;
 using Pabellon.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pabellon.Context.Core.Repositories.CatalogRepository
 {
@@ -16,6 +11,11 @@ namespace Pabellon.Context.Core.Repositories.CatalogRepository
         public CatalogRepository(PabellonDbContext context)
         {
             _context = context;
+        }
+
+        public async Task<List<Catalog>> GetAll()
+        {
+            return await _context.Catalog.ToListAsync();
         }
 
         public async Task<Catalog?> GetById(int catalogId)

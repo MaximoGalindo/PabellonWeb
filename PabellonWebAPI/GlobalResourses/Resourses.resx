@@ -129,4 +129,10 @@
   <data name="ErrorSaveOption" xml:space="preserve">
     <value>Error al intentar guardar la opcion</value>
   </data>
+  <data name="ImgFolderNonExist" xml:space="preserve">
+    <value>La carpeta con las imagenes no existe. Contacte con el administrador</value>
+  </data>
+  <data name="ImgNotFound" xml:space="preserve">
+    <value>La imagen {0} no fue encontrada</value>
+  </data>
 </root>

@@ -1,16 +1,18 @@
+import { Utils } from "src/app/Helpers/Utils";
 import { DeliveryOption, Order, PaymentMethod } from "src/app/models/Order";
+import { Product } from "src/app/models/Product";
 
 export class OrderTemplate
 {
     static generateMessage(order: Order): string {
         const message = `
-            _¡Hola! Te paso el resumen de mi pedido_\n\n*Pedido*: ${order.id}\n*Fecha*: 26/10/24 - 21:26hs\n*Nombre*: ${order.name}\n*Teléfono*: ${order.phone}\n\n*Forma de pago*: ${this.getPaymentMethod(order.paymentMethod)}\n*Total*: $ ${order.total}\n*Entrega*: ${this.getDeliveryOption(order.deliveryOption)}\n\n${
+            _¡Hola! Te paso el resumen de mi pedido_\n\n*Fecha*: ${Utils.formatDate(order.date, 'dd/MM/yyyy - HH:mm')} \n*Nombre*: ${order.name}\n*Teléfono*: ${order.phone}\n\n*Forma de pago*: ${this.getPaymentMethod(order.paymentMethod)}\n*Total*: $ ${order.total}\n*Entrega*: ${this.getDeliveryOption(order.deliveryOption)}\n\n${
                 order.deliveryOption === DeliveryOption.Pickup.toString() || order.deliveryOption == null 
                     ? ''
-                    : `*Dirección*: ${order.address}, ${order.moreInfo}\n\n` 
-            }\n\nMi pedido es:\n${order.products.map(product => {
-                return `*${product.name}*: $${product.price}\n${
-                    product.options
+                    : `*Dirección*: ${order.address}, ${order.moreInfo}\n` 
+            }\nMi pedido es:\n${order.orderDetail.map(orderDetail => {
+                return `*${orderDetail.product.name}*: $${orderDetail.product.price - this.getOptionsPrice(orderDetail.product)} ${orderDetail.quantity > 1 ? `| x${orderDetail.quantity}` : ''}\n${
+                    orderDetail.product.options
                         .filter(option => option.isSelected) // Filtra solo las opciones seleccionadas
                         .map(option => 
                             option.price > 0 
@@ -19,7 +21,7 @@ export class OrderTemplate
                         )
                         .join('\n') // Une las opciones en líneas separadas
                 }`;
-            }).join('\n')}\n\n_Espero tu respuesta para confirmar mi pedido_`;
+            }).join('\n')}\n_Espero tu respuesta para confirmar mi pedido_`;
         
         return message.trim();
     }
@@ -44,5 +46,14 @@ export class OrderTemplate
             default:
                 return 'Error al encontrar metodo de entrega'
         }
+    }
+
+    static getOptionsPrice(product: Product): number {
+    let total = 0;
+    product.options.forEach(option => {
+        if (option.isSelected && option.price > 0)
+        total += option.price;
+    });
+    return total;
     }
 }
