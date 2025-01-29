@@ -1,5 +1,5 @@
 export class Catalog {
-    public id: number = 0;
+    public id: string = "";
     public name: string = "";
     public img: string = "";
 }

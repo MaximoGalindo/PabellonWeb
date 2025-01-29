@@ -30,13 +30,13 @@
                 <div class="col">
                     <label class="radio-label">
                         <input type="radio" name="deliveryOptions" [value]="DeliveryOption.Pickup" [(ngModel)]="order.deliveryOption" (change)="orderOnChange()" />
-                        <span>Retiro en el Local</span>
+                        <span> <i class="fa-solid fa-shop"></i> Retiro en el Local</span>
                     </label>
                 </div>
                 <div class="col">
                     <label class="radio-label">
                         <input type="radio" name="deliveryOptions" [value]="DeliveryOption.Delivery" [(ngModel)]="order.deliveryOption" (change)="orderOnChange()" />
-                        <span>Envío a Domicilio</span>
+                        <span> <i class="fa-solid fa-motorcycle"></i> Envío a Domicilio</span>
                     </label>
                 </div>
             </div>        

@@ -1,10 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Catalog } from 'src/app/models/Catalog';
-import { Options, Product } from 'src/app/models/Product';
+import { Product } from 'src/app/models/Product';
 import { ProductService } from 'src/app/services/Entities/product.service';
-import { EventBusService } from 'src/app/services/event-bus.service';
 import { NavegationService } from 'src/app/services/navegation.service';
 
 @Component({
@@ -13,6 +11,8 @@ import { NavegationService } from 'src/app/services/navegation.service';
   styleUrls: ['./catalog-items.component.css']
 })
 export class CatalogItemsComponent implements OnInit {
+
+  loading: boolean = false;
   catalog: Catalog = new Catalog();
   orderHasElements: boolean = false;
   products: Product[] = [];
@@ -31,7 +31,15 @@ export class CatalogItemsComponent implements OnInit {
 
   ngOnInit() : void {
     this.navegationService.currentCatalog.subscribe(catalog => this.catalog = catalog);
-    this.productService.getProductByCatalogId(this.catalog.id).subscribe(products => this.products = products);
+
+    this.loading = true;
+    this.productService.getProductByCatalogId(this.catalog.id).subscribe((data) => {
+      this.products = data;     
+      this.loading = false;
+    },
+    (error) => {
+      this.loading = false;
+    });
     this.orderHasElements = this.navegationService.getOrderTotal();
   }
 

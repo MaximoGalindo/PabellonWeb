@@ -11,6 +11,7 @@ import { CatalogService } from 'src/app/services/Entities/catalog.service';
 })
 export class HomeComponent implements OnInit {
 
+  loading: boolean = false
   catalogs: Catalog[] = []
   orderHasElements: boolean = false;
   
@@ -19,13 +20,19 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     const storedCatalogs = sessionStorage.getItem('catalogs');
 
+    this.loading = true;
     if (storedCatalogs !== null) {
       this.catalogs = JSON.parse(storedCatalogs);
+      this.loading = false;
     } else {
       this.catalogService.getAllCatalogs().subscribe((data) => {
         this.catalogs = data;
         sessionStorage.setItem('catalogs', JSON.stringify(this.catalogs));
-      });
+        this.loading = false;
+      },
+      (error) => {
+        this.loading = false;
+      });  
     }
 
     this.orderHasElements = this.navegationService.getOrderTotal();

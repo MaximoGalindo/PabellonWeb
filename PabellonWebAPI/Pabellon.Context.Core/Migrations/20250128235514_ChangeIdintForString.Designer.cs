@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pabellon.Core;
 
@@ -10,9 +11,11 @@ using Pabellon.Core;
 namespace Pabellon.Context.Core.Migrations
 {
     [DbContext(typeof(PabellonDbContext))]
-    partial class PabellonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250128235514_ChangeIdintForString")]
+    partial class ChangeIdintForString
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
@@ -62,9 +65,6 @@ namespace Pabellon.Context.Core.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

@@ -41,13 +41,13 @@ namespace BussinessLogicLayer.Services.Products
                 Image = await _imagesHelper.SaveImage(request.Image),
                 Options = options,
                 Catalog = catalog,
-                Observation =  !string.IsNullOrWhiteSpace(request.Observation) ? request.Observation : string.Empty              
+                Description =  !string.IsNullOrWhiteSpace(request.Description) ? request.Description : string.Empty              
             };
 
             await _productRepository.Insert(product);            
         }
 
-        public async Task<List<ProductResponse>> GetProductListByCatalog(int catalogId)
+        public async Task<List<ProductResponse>> GetProductListByCatalog(string catalogId)
         {
             var products = await _productRepository.GetByCatalogId(catalogId);
 
@@ -55,7 +55,7 @@ namespace BussinessLogicLayer.Services.Products
             {
                 Id = product.Id,
                 Name = product.Name,
-                ImageUrl = product.Image,
+                Image = _imagesHelper.GetImage(product.Image),
                 Price = product.Price,
                 CatalogId = product.Catalog.Id,
                 Options = product.Options.Select(o => new OptionResponse

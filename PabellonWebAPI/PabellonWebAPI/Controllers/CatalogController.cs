@@ -1,5 +1,6 @@
 ﻿using BussinessLogicLayer.Reponses;
-using BussinessLogicLayer.Services.Catalog;
+using BussinessLogicLayer.Request;
+using BussinessLogicLayer.Services.Catalogs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Pabellon.Web.API.Controllers
@@ -19,6 +20,12 @@ namespace Pabellon.Web.API.Controllers
         public async Task<IActionResult> GetAllCatalogs()
         {
             return Ok(await catalogService.GetAllCatalogs());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCatalog([FromForm] CatalogRequest request)
+        {
+            return Ok(await catalogService.CreateCatalog(request));
         }
     }
 }

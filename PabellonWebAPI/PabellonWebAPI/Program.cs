@@ -1,5 +1,5 @@
 using BussinessLogicLayer.Helpers;
-using BussinessLogicLayer.Services.Catalog;
+using BussinessLogicLayer.Services.Catalogs;
 using BussinessLogicLayer.Services.Products;
 using Microsoft.EntityFrameworkCore;
 using Pabellon.Context.Core.Repositories.CatalogRepository;

@@ -3,8 +3,11 @@
 </a>
 <div class="container">       
     <div class="row">
-        <div class="col-12 center-elements" *ngFor="let catalog of catalogs">
-            <app-catalog (click)="openCatalog(catalog)"  [catalog]="catalog"></app-catalog>
+        <loading-component *ngIf="loading"></loading-component>
+        <div *ngIf="!loading">
+            <div class="col-12 center-elements" *ngFor="let catalog of catalogs">
+                <app-catalog (click)="openCatalog(catalog)"  [catalog]="catalog"></app-catalog>
+            </div>
         </div>
     </div>
 </div>

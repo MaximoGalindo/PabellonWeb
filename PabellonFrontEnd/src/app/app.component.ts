@@ -74,7 +74,17 @@ export class AppComponent implements OnInit {
     const message = OrderTemplate.generateMessage(order);
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/3516430938?text=${encodedMessage}`;
-    window.open(whatsappUrl, '_blank');
+
+    const whatsappWindow = window.open(whatsappUrl, '_blank');
+    if (whatsappWindow) {
+      const checkWindowFocus = setInterval(() => {
+        if (whatsappWindow.document.hasFocus()) {
+          this.navegationService.setOrder(new Order());
+          clearInterval(checkWindowFocus); 
+        }
+      }, 500);
+    }
+
     this.router.navigate(['catalogo']);
   }
 }

@@ -13,7 +13,7 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  getProductByCatalogId(catalogId: number): Observable<Product[]> {
+  getProductByCatalogId(catalogId: string): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.apiUrl}/by-catalog/${catalogId}`);
   }
 

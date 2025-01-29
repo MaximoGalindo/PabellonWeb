@@ -47,6 +47,10 @@ input[type="radio"] {
     transition: background-color 0.3s;
 }
 
+.radio-label i {
+    margin-right: 0.5rem;
+}
+
 input[type="radio"]:checked+span {
     background-color: #30092E;
     height: 4rem;

@@ -16,6 +16,7 @@ import { ConfirmOrderComponent } from './components/confirm-order/confirm-order.
 import { AddToOrderComponent } from './components/add-to-order/add-to-order.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
     FooterComponent,
     OrderDetailComponent,
     ConfirmOrderComponent,
-    AddToOrderComponent 
+    AddToOrderComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

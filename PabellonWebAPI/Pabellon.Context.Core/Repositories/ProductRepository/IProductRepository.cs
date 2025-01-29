@@ -10,6 +10,6 @@ namespace Pabellon.Context.Core.Repositories.ProductRepository
     public interface IProductRepository
     {
         Task Insert(Product product);
-        Task<List<Product>> GetByCatalogId(int catalogId);
+        Task<List<Product>> GetByCatalogId(string catalogId);
     }
 }

@@ -1,20 +1,12 @@
-﻿using Pabellon.Context.Core.Models;
-using Pabellon.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BussinessLogicLayer.Reponses
+﻿namespace BussinessLogicLayer.Reponses
 {
     public class ProductResponse
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string ImageUrl { get; set; }
+        public string Image { get; set; }
         public double Price { get; set; }
-        public int CatalogId { get; set; }
+        public string CatalogId { get; set; }
         public List<OptionResponse> Options { get; set; } = new List<OptionResponse>();
     }
 

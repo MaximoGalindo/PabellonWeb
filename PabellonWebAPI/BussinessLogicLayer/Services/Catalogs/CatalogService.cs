@@ -1,17 +1,33 @@
 ﻿using BussinessLogicLayer.Helpers;
 using BussinessLogicLayer.Reponses;
+using BussinessLogicLayer.Request;
 using Pabellon.Context.Core.Repositories.CatalogRepository;
+using Pabellon.Core.Models;
 
-namespace BussinessLogicLayer.Services.Catalog
+namespace BussinessLogicLayer.Services.Catalogs
 {
     public class CatalogService : ICatalogService
     {
         private readonly ICatalogRepository _catalogRepository;
         private readonly ImagesHelper _imagesHelper;
 
-        public CatalogService(ICatalogRepository catalogRepository)
+        public CatalogService(ICatalogRepository catalogRepository, ImagesHelper imagesHelper)
         {
             _catalogRepository = catalogRepository;
+            _imagesHelper = imagesHelper;
+        }
+
+        public async Task<int> CreateCatalog(CatalogRequest catalogRequest)
+        {
+            var catalog = new Catalog
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = catalogRequest.Name,
+                Img = await _imagesHelper.SaveImage(catalogRequest.ImgUrl),
+                Order = catalogRequest.Order
+            };
+
+            return await _catalogRepository.Insert(catalog);
         }
 
         public async Task<List<CatalogResponse>> GetAllCatalogs()
@@ -21,13 +37,11 @@ namespace BussinessLogicLayer.Services.Catalog
 
             foreach(var catalog in catalogs) 
             {
-                string imgCatalog = $"{catalog.Id}-{catalog.Name.Replace(" ", "-")}";
-
                 catalogResponses.Add(new CatalogResponse
                 {
                     Id = catalog.Id,
                     Name = catalog.Name,
-                    Img = _imagesHelper.GetImage(imgCatalog),
+                    Img = _imagesHelper.GetImage(catalog.Img),
                 });          
             }
             return catalogResponses;

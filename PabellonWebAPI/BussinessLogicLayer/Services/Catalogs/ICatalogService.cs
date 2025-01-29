@@ -1,6 +1,6 @@
 ﻿using BussinessLogicLayer.Reponses;
 
-namespace BussinessLogicLayer.Services.Catalog
+namespace BussinessLogicLayer.Services.Catalogs
 {
     public interface ICatalogService
     {

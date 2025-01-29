@@ -4,6 +4,15 @@
     justify-content: center;
 }
 
+.loading {
+    height: 80vh;
+}
+
+.spinner-border {
+    width: 3rem !important;
+    height: 3rem !important;
+}
+
 .aling-elements {
     display: flex;
     align-items: center;
