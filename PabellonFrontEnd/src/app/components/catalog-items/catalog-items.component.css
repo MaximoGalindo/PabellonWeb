@@ -2,7 +2,7 @@
     margin-top: 1rem;
     display: flex;
     align-items: center;
-    background-color: #7B0C66;
+    background-color: var(--primary-color);
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     max-width: 500px;
@@ -46,7 +46,7 @@
 .footer {
     position: sticky;
     bottom: 0;
-    background-color: #393939;
+    background-color: var(--footer-color);
     color: white;
     text-align: center;
     padding: 15px;

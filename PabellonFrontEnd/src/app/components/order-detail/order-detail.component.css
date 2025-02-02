@@ -1,5 +1,5 @@
 .menu-item {
-    background-color: #1a1a1a;
+    background-color: var(--menu-color);
     border-radius: 15px 15px;
     padding: 20px;
     color: white;
@@ -66,14 +66,14 @@
 
 .rectangle {
     margin-top: 1rem;
-    background-color: #7B4D69;
+    background-color: var(--primary-color);
     height: 100%;
     border-radius: 1rem;
 }
 
 .order-number {
     width: 100%;
-    background-color: #620F5F;
+    background-color: var(--order-number);
     height: 8vh;
     display: flex;
     align-items: center;

@@ -14,9 +14,11 @@ import { FooterComponent } from './components/pageElements/footer/footer.compone
 import { OrderDetailComponent } from './components/order-detail/order-detail.component';
 import { ConfirmOrderComponent } from './components/confirm-order/confirm-order.component';
 import { AddToOrderComponent } from './components/add-to-order/add-to-order.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LoadingComponent } from './components/loading/loading.component';
+import { AddProductComponent } from './components/ADMIN/add-product/add-product.component';
+import { LoginComponent } from './components/ADMIN/login/login.component';
 
 @NgModule({
   declarations: [
@@ -31,13 +33,16 @@ import { LoadingComponent } from './components/loading/loading.component';
     OrderDetailComponent,
     ConfirmOrderComponent,
     AddToOrderComponent,
-    LoadingComponent
+    LoadingComponent,
+    AddProductComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     CommonModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [],

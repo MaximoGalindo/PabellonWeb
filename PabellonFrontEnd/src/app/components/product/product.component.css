@@ -9,7 +9,7 @@ img {
     margin-top: 0.5rem;
     border-radius: 0.5rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    background-color: #393939;
+    background-color: var(--footer-color);
     color: white;
     margin-bottom: 1rem;
 }
@@ -53,8 +53,8 @@ img {
 
 
 .custom-checkbox:checked {
-    background-color: #7B0C66;
-    border-color: #7B0C66;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
 .custom-checkbox:checked::before {
@@ -68,7 +68,7 @@ img {
 }
 
 .custom-checkbox:hover {
-    border-color: #7B0C66;
+    border-color: var(--primary-color);
 }
 
 .option {

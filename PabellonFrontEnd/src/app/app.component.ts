@@ -43,7 +43,9 @@ export class AppComponent implements OnInit {
         this.footerConfig = footerConfig;
         this.navegationService.currentOrder.subscribe(order => {
           this.orderHasElements = order.total > 0;
-          this.footerConfig.ShowFooter = this.orderHasElements && !this.footerConfig.ShowAddToOrder;
+          if (!footerConfig.isAdmin) {
+            this.footerConfig.ShowFooter = this.orderHasElements && !this.footerConfig.ShowAddToOrder;
+          }          
         });
       });      
   }
@@ -58,6 +60,10 @@ export class AppComponent implements OnInit {
         break;
       case 'finish-order':
         this.finishOrder();
+        break;
+      case 'add-product':
+        //this.router.navigate(['admin/agregar-producto']);
+        break;
     }
   }
 

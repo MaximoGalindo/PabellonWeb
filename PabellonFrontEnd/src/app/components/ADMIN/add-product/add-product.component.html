@@ -1,0 +1,69 @@
+<a routerLink="/home" class="section">
+    <h1>Agregar Producto</h1>
+</a>
+
+<div class="container">
+    <loading-component *ngIf="loading"></loading-component>
+    <div *ngIf="!loading" class="row form-container">
+        <div class="col">
+            <label for="">Catalogo</label>
+            <select [(ngModel)]="productRequest.catalogId">
+                <option *ngFor="let catalog of catalogItems" [value]="catalog.id">{{ catalog.name }}</option>
+            </select>
+        </div>
+        <div class="col">
+            <label for="">Nombre</label>
+            <input [(ngModel)]="productRequest.name" type="text">
+        </div>
+        <div class="col">
+            <label for="">Precio</label>
+            <input [(ngModel)]="productRequest.price" type="number">
+        </div>
+        <div class="line"></div>
+        <div class="col">
+            <label for="">Descripcion</label>
+            <textarea [(ngModel)]="productRequest.description" name="" id="" rows="7"></textarea>
+        </div>
+        <div class="line"></div>
+        <div class="col">
+            <div class="aling-elements space-between-elements mb-3">
+                <label>Personalizar</label>
+                <button >Crear Opcion</button>
+            </div>
+
+            <div *ngFor="let customOption of customOptionItems; let i = index">
+                <div class="row aling-elements">
+                    <div class="col">
+                        <label>{{ i + 1 }}</label>
+                    </div>
+                    <div class="col">
+                        <select [(ngModel)]="customOption.selectedOption" (change)="updateSelectedOptions(customOption.selectedOption)">
+                            <ng-container *ngFor="let option of optionItems">
+                                <option [disabled]="option.isSelected" [value]="option.id">
+                                    {{ option.name }} | ${{ option.price }}
+                                </option>
+                            </ng-container>                    
+                        </select>
+                    </div>
+                    <div class="col">
+                        <div class="red-cross hover-hand" (click)="removeOption(i, customOption.selectedOption)"></div>
+                    </div>
+                    <div class="col">
+                        <div *ngIf="i === 0"  class="add-cross hover-hand" (click)="addOption()"></div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="line"></div>
+        <div class="col">
+            <label for="fileInput">Portada</label>
+            <input type="file" id="fileInput" accept="image/*" (change)="onFileSelected($event)" style="height: 3rem;"
+                accept="image/*">
+            <br>
+            <div class="image-preview">
+                <img *ngIf="imageUrl" [src]="imageUrl" alt="Vista previa" style="max-width: 100%;">
+            </div>
+        </div>
+        <button class="product-btn" (click)="addProduct()">Agregar Producto</button>
+    </div>
+</div>

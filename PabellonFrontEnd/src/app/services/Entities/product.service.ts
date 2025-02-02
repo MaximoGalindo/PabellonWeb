@@ -17,4 +17,8 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.apiUrl}/by-catalog/${catalogId}`);
   }
 
+  createProduct(formData: FormData): Observable<any> {
+    return this.http.post(this.apiUrl, formData);
+  }
+
 }
