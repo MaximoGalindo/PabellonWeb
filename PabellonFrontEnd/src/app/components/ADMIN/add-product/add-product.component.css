@@ -5,6 +5,10 @@
     justify-content: center;
 }
 
+.section {
+    background-color: var(--footer-color);
+}
+
 .col {
     display: flex;
     flex-direction: column;
@@ -17,7 +21,7 @@ input {
     border: none;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
     height: 2.5rem;
-    background-color: var(--primary-color);
+    background-color: var(--input-admin);
     color: white;
     padding: 0.5rem;
 }
@@ -27,17 +31,18 @@ select {
     border: none;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
     height: 2.5rem;
-    background-color: var(--primary-color);
+    background-color: var(--input-admin);
     color: white;
     padding: 0.5rem;
     z-index: 999;
+    width: 100%;
 }
 
 textarea {
     border-radius: 0.5rem;
     border: none;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-    background-color: var(--primary-color);
+    background-color: var(--input-admin);
     color: white;
     padding: 0.5rem;
 }
@@ -46,7 +51,7 @@ button {
     border-radius: 0.5rem;
     border: none;
     height: 2.5rem;
-    background-color: var(--primary-color);
+    background-color: var(--footer-color);
     color: white;
     padding: 0.5rem;
 }
@@ -68,7 +73,7 @@ label {
 
 .image-preview {
     padding: 1rem;
-    background-color: var(--primary-color);
+    background-color: var(--input-admin);
     border-radius: 0.5rem;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
     margin-bottom: 1.5rem;
@@ -81,4 +86,14 @@ label {
     background-color: var(--footer-color);
     width: 80%;
     margin-bottom: 1rem;
+}
+
+.error {
+    margin-top: 0.5rem;
+    color: red;
+    margin-left: 0.5rem;
+}
+
+.error-input {
+    border: 2px solid red;
 }

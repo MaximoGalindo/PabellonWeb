@@ -4,6 +4,7 @@ import { NavegationService } from './services/navegation.service';
 import { filter, map } from 'rxjs';
 import { Order } from './models/Order';
 import { OrderTemplate } from './components/templates/OrderTemplate';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,8 @@ import { OrderTemplate } from './components/templates/OrderTemplate';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title: string = 'Catalogo';
+
+  isAdminRoute: boolean = false;
   orderHasElements: boolean = false;
   footerConfig: any = {
     title: '',
@@ -21,10 +23,13 @@ export class AppComponent implements OnInit {
     ShowAddToOrder: false,
     NavegateTo: ''
   };
+  isLoggedUser: boolean = false;
+  isLoginRoute: boolean = true;
   constructor(
     private navegationService: NavegationService, 
     private router:Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {   
@@ -39,15 +44,26 @@ export class AppComponent implements OnInit {
           return route.snapshot.data['footer'] || null;
         })
       )
-      .subscribe((footerConfig: any) => {       
-        this.footerConfig = footerConfig;
-        this.navegationService.currentOrder.subscribe(order => {
+      .subscribe((footerConfig: any) => {   
+        this.isAdminRoute = this.router.url.startsWith('/admin');
+        this.isLoginRoute = this.router.url.startsWith('/admin/login');
+
+        if (this.isAdminRoute) {
+          document.documentElement.style.setProperty('--background-color', 'var(--admin-backgorund-color)');
+        } else {
+          document.documentElement.style.setProperty('--background-color', 'var(--background-color)');
+          this.footerConfig = footerConfig;
+        
+          this.navegationService.currentOrder.subscribe(order => {
           this.orderHasElements = order.total > 0;
-          if (!footerConfig.isAdmin) {
-            this.footerConfig.ShowFooter = this.orderHasElements && !this.footerConfig.ShowAddToOrder;
-          }          
-        });
-      });      
+          this.footerConfig.ShowFooter = this.orderHasElements && !this.footerConfig.ShowAddToOrder;        
+          });
+        }
+      });
+      
+      this.authService.isLoggedUser$.subscribe(status => {
+        this.isLoggedUser = status;
+      });
   }
 
   actionFooter() {

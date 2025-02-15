@@ -1,0 +1,11 @@
+<nav class="navbar navbar-light black">
+    <a class="navbar-brand center-elements">
+        <div class="menu-icon" (click)="isMenuOpen = !isMenuOpen">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+        <img src="assets/images/pabellon-navbar.svg" class="d-inline-block align-top ms-2 image-size" alt="">
+    </a>
+    <app-admin-dropdown [isMenuOpen]="isMenuOpen" (isMenuOpenEvent)="isMenuOpen = $event"></app-admin-dropdown>
+</nav>

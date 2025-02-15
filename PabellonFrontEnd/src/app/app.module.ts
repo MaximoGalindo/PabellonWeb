@@ -19,6 +19,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoadingComponent } from './components/loading/loading.component';
 import { AddProductComponent } from './components/ADMIN/add-product/add-product.component';
 import { LoginComponent } from './components/ADMIN/login/login.component';
+import { AdminNavbarComponent } from './components/ADMIN/admin-navbar/admin-navbar.component';
+import { AdminDropdownComponent } from './components/ADMIN/admin-navbar/admin-dropdown/admin-dropdown.component';
+import { ProductManagementComponent } from './components/ADMIN/product-management/product-management.component';
+import { CatalogManagementComponent } from './components/ADMIN/catalog-management/catalog-management.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +39,11 @@ import { LoginComponent } from './components/ADMIN/login/login.component';
     AddToOrderComponent,
     LoadingComponent,
     AddProductComponent,
-    LoginComponent
+    LoginComponent,
+    AdminNavbarComponent,
+    AdminDropdownComponent,
+    ProductManagementComponent,
+    CatalogManagementComponent
   ],
   imports: [
     BrowserModule,

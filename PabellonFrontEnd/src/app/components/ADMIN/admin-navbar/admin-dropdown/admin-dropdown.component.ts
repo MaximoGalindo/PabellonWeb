@@ -1,12 +1,11 @@
-import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-dropdown',
-  templateUrl: './dropdown.component.html',
-  styleUrls: ['./dropdown.component.css']
+  selector: 'app-admin-dropdown',
+  templateUrl: './admin-dropdown.component.html',
+  styleUrls: ['./admin-dropdown.component.css']
 })
-export class DropdownComponent {
+export class AdminDropdownComponent {
   @Input() isMenuOpen = false;
   @Output() isMenuOpenEvent = new EventEmitter<boolean>();
 

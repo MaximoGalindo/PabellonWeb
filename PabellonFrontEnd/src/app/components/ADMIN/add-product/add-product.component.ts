@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Catalog } from 'src/app/models/Catalog';
 import { Options } from 'src/app/models/Product';
 import { ProductRequest } from 'src/app/models/Request/ProductRequest';
@@ -16,6 +17,7 @@ export class AddProductComponent {
   customOptionItems: { selectedOption?: number }[] = [{}];
   imageUrl: string | ArrayBuffer | null = null;
   productRequest: ProductRequest = new ProductRequest()
+  fileInputRequired: boolean = false
 
   ngOnInit() {
     this.catalogItems = [{ id: "1", name: 'Catalogo 1', img: " " }, { id: "1", name: 'Catalogo 2', img: " " }, { id: "1", name: 'Catalogo 3', img: " " },]
@@ -29,6 +31,7 @@ export class AddProductComponent {
       const file = input.files[0];
       if (file.type.startsWith('image/')) {
         this.productRequest.image = file;
+        this.fileInputRequired = false
         const reader = new FileReader();
         reader.onload = () => {
           this.imageUrl = reader.result;
@@ -39,7 +42,7 @@ export class AddProductComponent {
   }
 
   addOption(): void {
-    if ( this.customOptionItems.length < this.optionItems.length) {
+    if (this.customOptionItems.length < this.optionItems.length) {
       this.customOptionItems.push({});
     }
   }
@@ -61,7 +64,15 @@ export class AddProductComponent {
     }    
   }
 
-  addProduct() {
+  addProduct(form:NgForm) {
+    console.log(this.productRequest);
+    this.productRequest.image.name === "" ? this.fileInputRequired = true : this.fileInputRequired = false
+
+    if (form.invalid) {
+        this.markAllAsTouched(form);
+        return; 
+    }
+
     const optionsIds = this.customOptionItems.map(option => {
       return option.selectedOption ? +option.selectedOption : NaN;
     });
@@ -69,6 +80,14 @@ export class AddProductComponent {
     this.productRequest.optionIds = optionsIds.filter(optionId => !isNaN(optionId));   
 
     console.log(this.productRequest)
-  }
+    this.fileInputRequired = false
+  } 
+
+  markAllAsTouched(form: NgForm) {
+    Object.keys(form.controls).forEach((controlName) => {
+        const control = form.controls[controlName];
+        control.markAsTouched();  // Marca el campo como tocado
+    });
+}
 
 }

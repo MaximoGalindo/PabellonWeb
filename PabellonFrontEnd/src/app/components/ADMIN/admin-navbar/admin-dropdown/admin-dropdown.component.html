@@ -1,0 +1,12 @@
+<div class="dropdown" [ngClass]="{'show': isMenuOpen}">
+    <div class="dropdown-content">
+        <a routerLink="/admin/catalogo" (click)="emitIsMenuOpen()">
+            <span class="material-icons">library_books</span>
+            <h3>Catalog</h3>
+        </a>
+        <a routerLink="/admin/productos" (click)="emitIsMenuOpen()">
+            <span class="material-icons">fastfood</span>
+            <h3>Productos</h3>
+        </a>       
+    </div>
+</div>

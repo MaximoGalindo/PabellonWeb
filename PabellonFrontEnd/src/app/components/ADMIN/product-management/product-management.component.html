@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="search-container">
+        <label style="margin: 0;" for="">Buscar</label>
+        <input type="text">
+        <button (click)="addProduct()">Agregar</button>
+    </div>
+    <div *ngFor="let product of products" class="products-container">
+        <div class="row">
+            <div class="col-4 col-lg-3">
+                <label for="" style="width: 100%;">Imagen</label>
+                <img src="assets/images/hamburguesa.png" alt="Hamburguesa">
+            </div>
+            <div class="col-4 col-lg-3">
+                <label for="">Nombre</label>
+                <h5>Hamburguesa Completa</h5>
+            </div>
+            <div class="col-4 col-lg-4">
+                <label for="">Precio</label>
+                <h5>$12.000</h5>
+            </div>
+            <div class="aling-elements col-2 col-lg-1 d-none d-lg-block">
+                <span class="material-icons">edit</span>
+            </div>
+            <div class="aling-elements col-2 col-lg-1 d-none d-lg-block">
+                <span class="material-icons">delete</span>
+            </div>
+
+            <div class="aling-elements-end">
+                <div class="d-block d-lg-none">
+                    <span class="material-icons icons">edit</span>
+                    <span class="material-icons icons">delete</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
