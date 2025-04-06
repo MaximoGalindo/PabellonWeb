@@ -55,7 +55,7 @@ export class AddProductComponent {
     }
   }
 
-  updateSelectedOptions(selectedOptionId:any): void {   
+  updateSelectedOptions(selectedOptionId:any): void {  
     const selectedOption = this.optionItems.find(option => option.id === parseInt(selectedOptionId));
    
     if (selectedOption) {

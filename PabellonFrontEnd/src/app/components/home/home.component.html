@@ -1,13 +1,22 @@
-<a routerLink="/home" class="section">
-    <h1>Catalogo</h1>
+<a routerLink="/home" class="section section-flex">
+    <h1 class="section-title">Catálogo</h1>
+    <img src="assets/images/pabellon-navbar.png" class="section-image" alt="Catálogo">
 </a>
+
 <div class="container">       
-    <div class="row">
-        <loading-component *ngIf="loading"></loading-component>
-        <div *ngIf="!loading">
-            <div class="col-12 center-elements" *ngFor="let catalog of catalogs">
-                <app-catalog (click)="openCatalog(catalog)"  [catalog]="catalog"></app-catalog>
-            </div>
+      <loading-component *ngIf="loading"></loading-component>
+      <ng-container *ngIf="!loading">
+        <div class="row">
+          <div 
+            class="col-12 col-md-6 col-lg-4 center-elements" 
+            *ngFor="let catalog of catalogs"
+          >
+            <app-catalog 
+              (click)="openCatalog(catalog)"  
+              [catalog]="catalog">
+            </app-catalog>
+          </div>
         </div>
-    </div>
-</div>
+      </ng-container>
+  </div>
+  

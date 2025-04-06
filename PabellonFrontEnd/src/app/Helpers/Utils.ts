@@ -11,4 +11,8 @@ export class Utils {
   
       return format.replace(/dd|MM|yyyy|HH|mm|ss/g, (matched) => map[matched]);
     }
+
+    static formatNumberWithCommas(number: number): string {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    } 
   }

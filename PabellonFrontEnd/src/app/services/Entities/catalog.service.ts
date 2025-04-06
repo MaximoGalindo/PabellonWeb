@@ -9,11 +9,11 @@ import { BaseService } from 'src/app/Helpers/BaseService';
 })
 export class CatalogService {
 
-  private apiUrl = `${BaseService.baseUrl}/catalog`;
+  private apiUrl = `${BaseService.baseUrl}/catalogs`;
 
   constructor(private http: HttpClient) {}
 
   getAllCatalogs(): Observable<Catalog[]> {
-    return this.http.get<Catalog[]>(this.apiUrl + "/all-catalogs");
+    return this.http.get<Catalog[]>(this.apiUrl);
   }
 }

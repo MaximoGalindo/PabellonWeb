@@ -12,7 +12,7 @@ export class AuthService {
   constructor() {}
 
   private checkLoginStatus(): boolean {
-    return !!sessionStorage.getItem('user');
+    return !!sessionStorage.getItem('token');
   }
 
 }

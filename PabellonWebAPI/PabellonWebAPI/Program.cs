@@ -1,13 +1,17 @@
 using BussinessLogicLayer.Helpers;
 using BussinessLogicLayer.Services.Catalogs;
+using BussinessLogicLayer.Services.Login;
 using BussinessLogicLayer.Services.Products;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Pabellon.Context.Core.Repositories.CatalogRepository;
 using Pabellon.Context.Core.Repositories.OptionRepository;
 using Pabellon.Context.Core.Repositories.OptionsRepository;
 using Pabellon.Context.Core.Repositories.ProductRepository;
 using Pabellon.Context.Core.Repositories.UserRepository;
 using Pabellon.Core;
+using System.Text;
 
 namespace PabellonWebAPI
 {
@@ -30,12 +34,26 @@ namespace PabellonWebAPI
                 options.UseSqlite($"Data Source={databasePath}"));
 
      
-            builder.Services.AddScoped<ProductService>();
-            builder.Services.AddScoped<CatalogService>();
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<ICatalogService, CatalogService>();
+            builder.Services.AddScoped<ILoginService, LoginService>();
             builder.Services.AddScoped<ImagesHelper>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<ICatalogRepository, CatalogRepository>();
             builder.Services.AddScoped<IOptionRepository, OptionRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("JWT:Key").Value))
+                    };
+                }); 
 
             builder.Services.AddCors(options =>
             {
@@ -67,8 +85,9 @@ namespace PabellonWebAPI
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            app.UseAuthentication();
 
+            app.UseAuthorization();
 
             app.MapControllers();
 

@@ -1,14 +1,12 @@
 ﻿using BussinessLogicLayer.Reponses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BussinessLogicLayer.Request;
 
 namespace BussinessLogicLayer.Services.Products
 {
     public interface IProductService
     {
-        Task SaveProduct(ProductRequest request);
+        Task SaveProduct(CreateProductRequest request);
+        Task UpdateProduct(UpdateProductRequest request);
+        Task<List<ProductResponse>> GetProductListByCatalog(string catalogId);
     }
 }

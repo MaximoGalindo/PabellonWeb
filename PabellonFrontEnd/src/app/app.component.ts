@@ -5,7 +5,7 @@ import { filter, map } from 'rxjs';
 import { Order } from './models/Order';
 import { OrderTemplate } from './components/templates/OrderTemplate';
 import { AuthService } from './services/auth.service';
-
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -25,11 +25,14 @@ export class AppComponent implements OnInit {
   };
   isLoggedUser: boolean = false;
   isLoginRoute: boolean = true;
+  isMobile:boolean = false;
+
   constructor(
     private navegationService: NavegationService, 
     private router:Router,
     private activatedRoute: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private breakpointObserver: BreakpointObserver
   ) {}
 
   ngOnInit(): void {   
@@ -49,9 +52,9 @@ export class AppComponent implements OnInit {
         this.isLoginRoute = this.router.url.startsWith('/admin/login');
 
         if (this.isAdminRoute) {
-          document.documentElement.style.setProperty('--background-color', 'var(--admin-backgorund-color)');
+          document.documentElement.style.setProperty('--background-color', 'var(--admin-background-color)');
         } else {
-          document.documentElement.style.setProperty('--background-color', 'var(--background-color)');
+          document.documentElement.style.setProperty('--background-color', '#1b1122');
           this.footerConfig = footerConfig;
         
           this.navegationService.currentOrder.subscribe(order => {
@@ -64,6 +67,12 @@ export class AppComponent implements OnInit {
       this.authService.isLoggedUser$.subscribe(status => {
         this.isLoggedUser = status;
       });
+
+      this.breakpointObserver
+        .observe(['(max-width: 1000px)'])
+        .subscribe(result => {
+          this.isMobile = result.matches;
+        });
   }
 
   actionFooter() {

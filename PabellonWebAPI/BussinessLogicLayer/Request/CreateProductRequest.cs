@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace BussinessLogicLayer.Reponses
+namespace BussinessLogicLayer.Request
 {
-    public class ProductRequest
+    public class CreateProductRequest
     {
         public string Name { get; set; }
         public double Price { get; set; }

@@ -7,28 +7,27 @@
         <img src="{{ product.image }}" alt="">
         <div class="description">
             <div class="aling-elements space-between-elements">
-                <h2>Descripcion</h2>
-                <h2 style="margin-right: 1rem;">$ {{ product.price }}</h2>
+                <h1>Descripción</h1>
+                <h1 style="margin-right: 1rem;">$ {{ product.price }}</h1>
             </div>
-            
+
             <p>{{ product.description }}</p>
 
-            <div class="line"></div>
+            <h1>Personalizar</h1>
 
-            <h2>Personalizar</h2>
-            <ul>
-                <li *ngFor="let option of product.options">
-                    <div class="option aling-elements">
-                        <label for="option{{ option.id }}">
-                            {{ option.name }}
-                            <span *ngIf="option.price > 0">| $ {{ option.price }}</span>
-                        </label>
-                        <input (click)="updateOption(option)" class="custom-checkbox" type="checkbox"
-                            id="option{{ option.id }}" name="option{{ option.id }}" value="option{{ option.id }}">
-                    </div>
-                </li>
-            </ul>
+            <div *ngFor="let option of product.options">
+                <div class="option aling-elements">
+                    
+                    <input (click)="updateOption(option)" class="custom-checkbox" type="checkbox"
+                    id="option{{ option.id }}" name="option{{ option.id }}" value="option{{ option.id }}">
             
+                    <label for="option{{ option.id }}">
+                        {{ option.name }}
+                        <span *ngIf="option.price > 0">| $ {{ option.price }}</span>
+                    </label>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

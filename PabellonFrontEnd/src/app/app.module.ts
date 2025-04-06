@@ -15,7 +15,7 @@ import { OrderDetailComponent } from './components/order-detail/order-detail.com
 import { ConfirmOrderComponent } from './components/confirm-order/confirm-order.component';
 import { AddToOrderComponent } from './components/add-to-order/add-to-order.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingComponent } from './components/loading/loading.component';
 import { AddProductComponent } from './components/ADMIN/add-product/add-product.component';
 import { LoginComponent } from './components/ADMIN/login/login.component';
@@ -23,6 +23,8 @@ import { AdminNavbarComponent } from './components/ADMIN/admin-navbar/admin-navb
 import { AdminDropdownComponent } from './components/ADMIN/admin-navbar/admin-dropdown/admin-dropdown.component';
 import { ProductManagementComponent } from './components/ADMIN/product-management/product-management.component';
 import { CatalogManagementComponent } from './components/ADMIN/catalog-management/catalog-management.component';
+import { AuthInterceptor } from './services/interceptors/authInterceptor.service';
+
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { CatalogManagementComponent } from './components/ADMIN/catalog-managemen
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

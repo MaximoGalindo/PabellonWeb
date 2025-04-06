@@ -1,47 +1,50 @@
-<div class="container">
-    <div class="rectangle">
-        <div class="order-number">
-            <span>Detalle de Pedido</span>
-            <span>Total: ${{ order.total }}</span>         
-        </div>
-        <div class="row">
-            <div class="col-12" *ngFor="let orderDetail of order.orderDetail">
-                <div class="menu-item">
-                    <div class="row">
-                        <div class="col-4 col-md-2">
-                            <img
-                              [src]="orderDetail.product.image"
-                              alt="{{ orderDetail.product.name }}"
-                              class="product-image"
-                            />
+<a (click)="goBack()" class="section aling-elements">
+    <i class="fa-solid fa-arrow-left fa-2xl ms-3"></i>
+    <h2> Detalle de Pedido</h2>
+</a>
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-12" *ngFor="let orderDetail of order.orderDetail">
+            <div class="menu-item">
+                <div class="row">
+                    <div class="col-4 col-md-2 col-lg-2">
+                        <img
+                            [src]="orderDetail.product.image"
+                            alt="{{ orderDetail.product.name }}"
+                            class="product-image"
+                        />
+                    </div>
+                    <div class="col-6 col-md-9 col-lg-9">
+                        <div class="menu-title"> 
+                            <span class="truncate-text"> {{ orderDetail.product.name }} </span>
+                            <span>
+                                ${{ orderDetail.product.price - getOptionsPrice(orderDetail.product) }}
+                                <span *ngIf="orderDetail.quantity > 1"> | X{{ orderDetail.quantity }}</span>
+                            </span>
                         </div>
-                        <div class="col-7 col-md-9">
-                            <div class="menu-title"> 
-                                <span class="truncate-text"> {{ orderDetail.product.name }} </span>
-                                <span> ${{ orderDetail.product.price - getOptionsPrice(orderDetail.product) }} <span *ngIf="orderDetail.quantity > 1"> | X{{ orderDetail.quantity }}</span> </span>
-                                <!-- SE HACE price - getOptionsPrice() PORQUE YA VIENE INCLUDO LOS PRECIOS DE LAS OPCIONES -->
-                            </div>
-                            <ul class="menu-options">
-                                <ng-container *ngFor="let option of orderDetail.product.options">
-                                    <li *ngIf="option.isSelected">
-                                        <span>{{ option.name }}</span>
-                                        <span *ngIf="option.price > 0"> | ${{ option.price }}</span>
-                                    </li>
-                                </ng-container>
-                            </ul>
+                    
+                        <div class="menu-options">
+                            <ng-container *ngFor="let option of orderDetail.product.options">
+                                <div *ngIf="option.isSelected" class="menu-option">
+                                    <span>{{ option.name }}</span>
+                                    <span *ngIf="option.price > 0"> | ${{ option.price }}</span>
+                                </div>
+                            </ng-container>
                         </div>
-                        <div class="col-1 mb-3">
-                            <div class="red-cross hover-hand" (click)="removeDetail(orderDetail)"></div>
-                        </div>
+                    </div>
+                    
+                    <div class="col-2 col-md-1 col-lg-1">
+                        <div class="red-x hover-hand w-100 mt-1" (click)="removeDetail(orderDetail)"></div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-12" *ngIf="order.orderDetail.length === 0">
-                <div class="no-product-container">
-                    <h2>No cuenta con productos en el carrito</h2>
-                </div>
+        </div>            
+        <span class="total" *ngIf="order.orderDetail.length !== 0">Total: ${{ order.total }}</span>    
+    </div>
+    <div class="row">
+        <div class="col-12" *ngIf="order.orderDetail.length === 0">
+            <div class="no-product-container">
+                <h2>No cuenta con productos en el carrito</h2>
             </div>
         </div>
     </div>

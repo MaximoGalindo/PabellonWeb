@@ -1,18 +1,31 @@
-import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
 
-export const authGuard: CanActivateFn = (route, state) => {
-  const router = inject(Router);
-  const authService = inject(AuthService);
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthGuard implements CanActivate {
 
-  let isLogged = false;
-  authService.isLoggedUser$.subscribe(status => isLogged = status).unsubscribe();
+  constructor(private router: Router) {}
 
-  if (isLogged) {
+  canActivate(): boolean {
+    const token = sessionStorage.getItem('token');
+
+    if (!token || this.isTokenExpired(token)) {
+      this.router.navigate(['admin/login']);
+      return false;
+    }
+    
     return true;
-  } else {
-    router.navigate(['admin/login']); 
-    return false;
   }
-};
+
+  private isTokenExpired(token: string): boolean {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const expiryTime = payload.exp * 1000;
+      return Date.now() > expiryTime;
+    } catch (e) {
+      return true;
+    }
+  }
+}

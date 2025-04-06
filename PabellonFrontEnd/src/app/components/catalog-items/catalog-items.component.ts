@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Utils } from 'src/app/Helpers/Utils';
 import { Catalog } from 'src/app/models/Catalog';
-import { Product } from 'src/app/models/Product';
+import { Options, Product } from 'src/app/models/Product';
 import { ProductService } from 'src/app/services/Entities/product.service';
 import { NavegationService } from 'src/app/services/navegation.service';
 
@@ -18,16 +19,15 @@ export class CatalogItemsComponent implements OnInit {
   products: Product[] = [];
 
   /*products: Product[] = [
-    { id: 2, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
-    { id: 1, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)]},
-    { id: 3, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
-    { id: 4, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
-    { id: 5, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
-    { id: 6, name: "Hamburguesa Completa", imageUrl: "/assets/images/hamburguesa.png", price: 8000, catalogId: 1, options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
+    { id: 2, description: "Re rica la burga tiene muchas cosas para dfjklsdf", name: "Hamburguesa Completa", image: "/assets/images/hamburguesa.png", price: 80000, catalogId: "1", options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
+    { id: 1, description: "Re rica la burga tiene muchas cosas para dfjklsdf ", name: "Hamburguesa Doble Completa", image: "/assets/images/empanadas.webp", price: 60000, catalogId: "1", options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)]},
+    { id: 3, description: "Re rica la burga tiene muchas cosas para dfjklsdf ", name: "Hamburguesa Veggie Completa", image: "/assets/images/pizza.jpg", price: 12000, catalogId: "1", options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
+    { id: 4, description: "Re rica la burga tiene muchas cosas para dfjklsdf ", name: "Hamburguesa Roquefort Completa", image: "/assets/images/papas-fritas.webp", price: 23000, catalogId: "1", options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
+    { id: 5, description: "Re rica la burga tiene muchas cosas para dfjklsdf", name: "Hamburguesa Simple", image: "/assets/images/hamburguesa.png", price: 8000, catalogId: "1", options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
+    { id: 6, description: "Re rica la burga tiene muchas cosas para dfjklsdf ", name: "Hamburguesa Completa", image: "/assets/images/hamburguesa.png", price: 10000, catalogId: "1", options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
   ];*/
 
   constructor(private router: Router, private navegationService: NavegationService, private productService: ProductService) { }
-
 
   ngOnInit() : void {
     this.navegationService.currentCatalog.subscribe(catalog => this.catalog = catalog);
@@ -65,5 +65,10 @@ export class CatalogItemsComponent implements OnInit {
   seeOrder() {
     this.router.navigate(['pedido']);
   }
+
+  formatNumberWithCommas(number: number): string {
+      return Utils.formatNumberWithCommas(number);
+  }
+
 
 }

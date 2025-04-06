@@ -20,6 +20,7 @@ export class OrderDetailComponent implements OnInit {
   ngOnInit(): void {
     this.navegationService.currentOrder.subscribe(order => this.order = order);
 
+    /*COMENTAR ESTO DESPUES*/
     /*this.order.orderDetail = [{ product: { id: 1, name: "Hamburguesa Completa Con Papas Fritas", image: "/assets/images/hamburguesa.png", price: 8000, catalogId: "1", description: "", options: [new Options(1, "Sin lechuga", 0, true), new Options(2, "Sin Tomate", 0, true), new Options(3, "Medallon Extra", 1200, true)] }, quantity: 3, totalPrice: 20000 },
     { product: { id: 1, description: "", name: "Hamburguesa Completa Con Papas Fritas", image: "/assets/images/hamburguesa.png", price: 8000, catalogId: "1", options: [new Options(1, "Sin lechuga", 0, true), new Options(2, "Sin Tomate", 0, true), new Options(3, "Medallon Extra", 1200, true)] }, quantity: 3, totalPrice: 20000 }];*/
   }
@@ -40,5 +41,9 @@ export class OrderDetailComponent implements OnInit {
         this.order.total = 0;
       this.navegationService.setOrder(this.order);
     }
+  }
+
+  goBack() {
+    this.router.navigateByUrl('/home');
   }
 }

@@ -8,7 +8,8 @@ import { AddProductComponent } from './components/ADMIN/add-product/add-product.
 import { LoginComponent } from './components/ADMIN/login/login.component';
 import { ProductManagementComponent } from './components/ADMIN/product-management/product-management.component';
 import { CatalogManagementComponent } from './components/ADMIN/catalog-management/catalog-management.component';
-import { authGuard } from './Guards/auth.guard';
+import { AuthGuard } from './Guards/auth.guard';
+
 
 const routes: Routes = [ 
   { path: '', redirectTo: '/home', pathMatch: 'full', data: { footer: { ShowFooter: true, title: 'Ver Pedido', ShowIcon: true, ShowSpan: true }} }, 
@@ -19,10 +20,10 @@ const routes: Routes = [
   { path: 'catalogo/:catalogName/:productName', component: ProductComponent, data: { footer: { ShowFooter: false , ShowAddToOrder: true }} },
   { path: 'pedido' , component: OrderDetailComponent , data: { footer: { ShowFooter: true, title: 'Finalizar Pedido', ShowIcon: false, ShowSpan: false, NavegateTo: 'finish-order' }}},
   { path: 'admin/login' , component: LoginComponent },
-  { path: 'admin/agregar-producto' , component: AddProductComponent, canActivate: [authGuard] },
-  { path: 'admin/catalogo' , component: CatalogManagementComponent, canActivate: [authGuard] },
-  { path: 'admin/login' , component: LoginComponent, canActivate: [authGuard]},
-  { path: 'admin/productos/:catalogId' , component: ProductManagementComponent, canActivate: [authGuard]},
+  { path: 'admin/agregar-producto' , component: AddProductComponent,  canActivate: [AuthGuard] },
+  { path: 'admin/catalogo' , component: CatalogManagementComponent,  canActivate: [AuthGuard] },
+  { path: 'admin/login' , component: LoginComponent,  canActivate: [AuthGuard]},
+  { path: 'admin/productos' , component: ProductManagementComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/home' },
 ];
 

@@ -33,3 +33,9 @@ button {
     margin-top: 0.5rem;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); 
 }
+
+.spinner-border{
+    margin-top: 0.3rem;
+    width: 2rem !important;
+    height: 2rem !important;
+}

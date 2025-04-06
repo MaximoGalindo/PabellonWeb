@@ -1,6 +1,6 @@
 <div class="layout">
   <ng-container *ngIf="!isAdminRoute">
-    <app-navbar></app-navbar>
+    <app-navbar *ngIf="!isMobile" [isMobile]="isMobile"></app-navbar>
     <main class="main-content">
       <router-outlet></router-outlet>
     </main>
@@ -12,6 +12,7 @@
       [showSpan]="footerConfig.ShowSpan">
     </app-footer>
     <app-add-to-order *ngIf="footerConfig.ShowAddToOrder"></app-add-to-order>
+    <app-navbar *ngIf="isMobile" [isMobile]="isMobile"></app-navbar>
   </ng-container>
 
   <ng-container *ngIf="isAdminRoute">

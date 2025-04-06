@@ -2,19 +2,22 @@
     <div class="login-container">
         <div class="row">
             <div class="col">
-                <label for="">Usuario</label>
-                <input type="text">
+                <label for="" >Usuario</label>
+                <input type="text" [(ngModel)]="username">
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <label for="">Contraseña</label>
-                <input type="password">
+                <label for="" >Contraseña</label>
+                <input type="password" [(ngModel)]="password">
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <button type="button" (click)="login()">Iniciar Sesion</button>
+                <button type="button" (click)="login()" [disabled]="loading">
+                    <span *ngIf="loading" class="spinner-border" role="status" aria-hidden="true"></span>
+                    <span *ngIf="!loading">Iniciar Sesión</span>
+                </button>
             </div>
         </div>
     </div>

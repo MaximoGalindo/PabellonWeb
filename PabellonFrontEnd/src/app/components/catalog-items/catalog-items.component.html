@@ -3,21 +3,25 @@
     <h1>{{ catalog.name }}</h1>
 </a>
 <div class="container">
-    <div class="row">
-        <loading-component *ngIf="loading"></loading-component>
-        <div *ngIf="!loading">
-            <div class="col-sm-12 col-md-6 col-12" *ngFor="let product of products">
+    <loading-component *ngIf="loading"></loading-component>
+    <div *ngIf="!loading">
+        <div class="row">
+            <div class="col-12 col-lg-4" *ngFor="let product of products">
                 <div class="item" (click)="openProduct(product)">
                     <div class="item-image">
                         <img [src]="product.image" >
                     </div>
                     <div class="item-content">
-                        <p class="pt-3">{{ formatTextAvoidOrphans(product.name)  }}</p>
-                        <p>$ {{ product.price }}</p>                   
+                        <div>
+                            <p class="product-name">{{ formatTextAvoidOrphans(product.name)  }}</p>
+                        </div>
+                        <div class="description">
+                            <p class="product-description" >{{ product.description }}</p>                                
+                            <p class="product-price">$ {{ formatNumberWithCommas(product.price) }}</p>  
+                        </div>    
                     </div>
-                    <div class="chevron-right"></div>
                 </div>
             </div>
-        </div>
+        </div>            
     </div>
 </div>

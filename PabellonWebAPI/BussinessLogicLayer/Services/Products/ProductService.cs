@@ -1,5 +1,6 @@
 ﻿using BussinessLogicLayer.Helpers;
 using BussinessLogicLayer.Reponses;
+using BussinessLogicLayer.Request;
 using Pabellon.Context.Core.Repositories.CatalogRepository;
 using Pabellon.Context.Core.Repositories.OptionsRepository;
 using Pabellon.Context.Core.Repositories.ProductRepository;
@@ -22,7 +23,7 @@ namespace BussinessLogicLayer.Services.Products
             _imagesHelper = imagesHelper;
         }
 
-        public async Task SaveProduct(ProductRequest request)
+        public async Task SaveProduct(CreateProductRequest request)
         {
             var catalog = await _catalogRepository.GetById(request.CatalogId);
             if (catalog == null)
@@ -67,6 +68,11 @@ namespace BussinessLogicLayer.Services.Products
             }).ToList();
 
             return productResponses;
+        }
+
+        public Task UpdateProduct(UpdateProductRequest request)
+        {
+            throw new NotImplementedException();
         }
     }
 }

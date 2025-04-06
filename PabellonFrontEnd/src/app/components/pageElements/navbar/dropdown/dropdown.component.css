@@ -4,9 +4,9 @@
     flex-direction: column;
     background-color: black;
     position: absolute;
-    top: 8vh;
+    top: 6vh;
     left: -100%;
-    width: 55vw;
+    width: 20vw;
     height: 70vh;
     padding: 10px;
     border-radius: 0 0 10px 0px; 

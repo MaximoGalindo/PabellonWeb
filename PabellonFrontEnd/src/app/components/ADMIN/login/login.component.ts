@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -7,16 +8,33 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent { 
-  
-  constructor(private router: Router) {}
+
+  username:string = ''
+  password:string = ''
+  loading:boolean = false
+
+  constructor(private router: Router, private loginService:LoginService) {}
 
   login() {
     console.log('login');
-    
-    const user = { Id: 1, Name: 'Admin' };
-    sessionStorage.setItem('user', JSON.stringify(user));
+    this.loading = true;
+    this.loginService.login(this.username, this.password).subscribe(
+      (response) => {
+        console.log(response);
+        sessionStorage.setItem('token', JSON.stringify(response));
 
-    this.router.navigate(['admin/productos']); 
+        setTimeout(() => {
+          this.router.navigate(['admin/productos']);
+          this.loading = false;
+        }, 0);
+      },
+      (error) => {
+        this.loading = false
+        console.log(error);
+      }
+    )
+
+
   }
 
 }

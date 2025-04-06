@@ -14,7 +14,7 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
   getProductByCatalogId(catalogId: string): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.apiUrl}/by-catalog/${catalogId}`);
+    return this.http.get<Product[]>(`${this.apiUrl}/catalog/${catalogId}`);
   }
 
   createProduct(formData: FormData): Observable<any> {

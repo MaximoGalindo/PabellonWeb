@@ -1,5 +1,5 @@
 .catalog-container {
-    position: relative; /* Necesario para posicionar el pseudo-elemento */
+    position: relative; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -30,4 +30,19 @@
     color: white;
     position: relative; 
     z-index: 2; 
+}
+
+@media screen and (min-width: 1400px) {    
+    .catalog-container {
+        width: 25rem;
+    }
+    .catalog-container h1 {
+        font-size: 2rem;
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .catalog-container h1 {
+        font-size: 2rem;
+    }
 }
