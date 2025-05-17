@@ -14,12 +14,35 @@ namespace Pabellon.Context.Core.Repositories.UserRepository
             _context = context;
         }
 
+        public async Task Delete(int productId)
+        {
+            try
+            {
+                var product = await _context.Product.Include(p => p.Options).FirstOrDefaultAsync(p => p.Id == productId);
+                if (product == null)
+                    throw new ArgumentException(GlobalResourses.ResourceAccessor.GetString("ProductNonExist"));
+                _context.Product.Remove(product);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(GlobalResourses.ResourceAccessor.GetString("ErrorDeleteProduct"));
+            }
+        }
+
         public async Task<List<Product>> GetByCatalogId(string catalogId)
         {
             return await _context.Product
                 .Include(p => p.Catalog)
                 .Include(p => p.Options)
-                .Where(p => p.Catalog.Id == catalogId).ToListAsync();
+                .Where(p => p.Catalog.Id == catalogId && p.Catalog.ExpirationDate == null)
+                .ToListAsync();
+        }
+
+        public async Task<Product> GetById(int id)
+        {
+            var product = await _context.Product.Include(p => p.Options).FirstOrDefaultAsync(p => p.Id == id);
+            return product ?? throw new ArgumentException(GlobalResourses.ResourceAccessor.GetString("ProductNonExist"));
         }
 
         public async Task Insert(Product product)
@@ -35,6 +58,10 @@ namespace Pabellon.Context.Core.Repositories.UserRepository
             }
         }
 
-
+        public async Task Update(Product product)
+        {
+            _context.Update(product);
+            await _context.SaveChangesAsync();
+        }
     }
 }

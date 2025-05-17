@@ -59,6 +59,7 @@ namespace BussinessLogicLayer.Services.Products
                 Image = _imagesHelper.GetImage(product.Image),
                 Price = product.Price,
                 CatalogId = product.Catalog.Id,
+                Description = product.Description ?? "",
                 Options = product.Options.Select(o => new OptionResponse
                 {
                     Id = o.Id,
@@ -70,9 +71,24 @@ namespace BussinessLogicLayer.Services.Products
             return productResponses;
         }
 
-        public Task UpdateProduct(UpdateProductRequest request)
+        public async Task UpdateProduct(int productId, UpdateProductRequest request)
         {
-            throw new NotImplementedException();
+            var product = await _productRepository.GetById(productId);
+
+            product.Options.Clear();
+            product.Description = request.Description;
+            product.Name = request.Name;
+            product.Price = request.Price;
+            product.Image = await _imagesHelper.SaveImage(request.Image);
+            product.Options = await _optionRepository.GetByIds(request.OptionIds);
+            product.CatalogId = request.CatalogId;
+
+            await _productRepository.Update(product);
+        }
+
+        public async Task DeleteProduct(int productId)
+        {
+           await _productRepository.Delete(productId);
         }
     }
 }

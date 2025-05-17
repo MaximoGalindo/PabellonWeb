@@ -46,5 +46,27 @@ namespace BussinessLogicLayer.Services.Catalogs
             }
             return catalogResponses;
         }
+
+        public async Task UpdateCatalog(string catalogId, UpdateCatalogRequest catalogRequest)
+        {
+            var catalog = await _catalogRepository.GetById(catalogId);
+
+            if(catalog == null)
+                throw new ArgumentException(GlobalResourses.ResourceAccessor.GetString("CatalogNonExist"));
+
+            catalog.Order = catalogRequest.Order;
+            catalog.Name = catalogRequest.Name;
+            if (catalogRequest.ImgUrl != null)
+            {
+                catalog.Img = await _imagesHelper.SaveImage(catalogRequest.ImgUrl);
+            }
+
+            await _catalogRepository.Update(catalog);
+        }
+
+        public async Task DeleteCatalog(string catalogId)
+        {
+            await _catalogRepository.Delete(catalogId);
+        }
     }
 }

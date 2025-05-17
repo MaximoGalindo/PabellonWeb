@@ -7,32 +7,37 @@
     <div *ngIf="!loading" class="row form-container">
         <div class="col">
             <label for="">Catalogo</label>
-            <select [(ngModel)]="productRequest.catalogId" name="catalogId" required #catalogId="ngModel" [ngClass]="{'error-input': catalogId.invalid && catalogId.touched}">
+            <select [(ngModel)]="productRequest.catalogId" name="catalogId" required #catalogId="ngModel"
+                [ngClass]="{'error-input': catalogId.invalid && catalogId.touched}">
                 <option *ngFor="let catalog of catalogItems" [value]="catalog.id">{{ catalog.name }}</option>
             </select>
             <div *ngIf="catalogId.invalid && catalogId.touched" class="error">Seleccione un catalogo</div>
         </div>
         <div class="col">
             <label for="">Nombre</label>
-            <input [(ngModel)]="productRequest.name" name="name" type="text" required #name="ngModel" [ngClass]="{'error-input': name.invalid && name.touched}">
+            <input [(ngModel)]="productRequest.name" name="name" type="text" required #name="ngModel"
+                [ngClass]="{'error-input': name.invalid && name.touched}">
             <div *ngIf="name.invalid && name.touched" class="error">Este campo es obligatorio</div>
         </div>
         <div class="col">
             <label for="">Precio</label>
-            <input [(ngModel)]="productRequest.price" type="number" name="price" min="1" required #price="ngModel" [ngClass]="{'error-input': price.invalid && price.touched}">
+            <input [(ngModel)]="productRequest.price" type="number" name="price" min="1" required #price="ngModel"
+                [ngClass]="{'error-input': price.invalid && price.touched}">
             <div *ngIf="price.invalid && price.touched" class="error">El valor debe ser mayor a 0</div>
         </div>
         <div class="line"></div>
         <div class="col">
             <label for="">Descripcion</label>
-            <textarea [(ngModel)]="productRequest.description" name="description" required #description="ngModel" rows="7" [ngClass]="{'error-input': description.invalid && description.touched}"></textarea>
-            <div *ngIf="description.invalid && description.touched" class="error">Detalle una descripcion del producto</div>
+            <textarea [(ngModel)]="productRequest.description" name="description" required #description="ngModel"
+                rows="3" [ngClass]="{'error-input': description.invalid && description.touched}"></textarea>
+            <div *ngIf="description.invalid && description.touched" class="error">Detalle una descripcion del producto
+            </div>
         </div>
         <div class="line"></div>
         <div class="col">
             <div class="aling-elements space-between-elements mb-3">
                 <label>Personalizar</label>
-                <button type="button" >Crear Opcion</button>
+                <button type="button">Crear Opcion</button>
             </div>
             <div class="mb-2" *ngFor="let customOption of customOptionItems; let i = index">
                 <div class="row aling-elements">
@@ -40,23 +45,24 @@
                         <label>{{ i + 1 }}</label>
                     </div>
                     <div class="col-9">
-                        <select [(ngModel)]="customOption.selectedOption" (change)="updateSelectedOptions(customOption.selectedOption)" name="selectedOption" required #selectedOption="ngModel">
+                        <select [(ngModel)]="customOption.selectedOption"
+                            (change)="updateSelectedOptions(customOption.selectedOption)" name="selectedOption" required
+                            #selectedOption="ngModel">
                             <ng-container *ngFor="let option of optionItems">
                                 <option [disabled]="option.isSelected" [value]="option.id">
                                     {{ option.name }} | ${{ option.price }}
                                 </option>
-                            </ng-container>                    
+                            </ng-container>
                         </select>
                     </div>
-                    <div class="col-1">
+                    <div class="col-1 aling-elements">
                         <div class="red-x hover-hand" (click)="removeOption(i, customOption.selectedOption)"></div>
                     </div>
                     <div class="col-1">
-                        <div *ngIf="i === 0"  class="add-cross hover-hand" (click)="addOption()"></div> 
+                        <div *ngIf="i === 0" class="add-cross hover-hand" (click)="addOption()"></div>
                     </div>
                 </div>
             </div>
-           
         </div>
         <div class="line"></div>
         <div class="col">
@@ -65,7 +71,7 @@
                 accept="image/*" [ngClass]="{'error-input': fileInputRequired}">
             <div *ngIf="fileInputRequired" class="error">Seleccione una imagen</div>
             <br>
-            <div class="image-preview">
+            <div class="image-preview" *ngIf="imageUrl">
                 <img *ngIf="imageUrl" [src]="imageUrl" alt="Vista previa" style="max-width: 100%;">
             </div>
         </div>

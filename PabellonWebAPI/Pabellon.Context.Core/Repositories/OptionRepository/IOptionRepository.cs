@@ -1,10 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Pabellon.Context.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Pabellon.Context.Core.Models;
 
 namespace Pabellon.Context.Core.Repositories.OptionsRepository
 {

@@ -28,12 +28,31 @@ namespace Pabellon.Context.Core.Repositories.CatalogRepository
 
         public async Task<List<Catalog>> GetAll()
         {
-            return await _context.Catalog.OrderBy(c => c.Order).ToListAsync();
+            return await _context.Catalog.OrderBy(c => c.Order).Where(c => c.ExpirationDate == null).ToListAsync();
         }
 
-        public async Task<Catalog?> GetById(string catalogId)
+        public async Task<Catalog> GetById(string catalogId)
         {
-            return await _context.Catalog.FirstOrDefaultAsync(x => x.Id == catalogId);
+            var catalog = await _context.Catalog.FirstOrDefaultAsync(x => x.Id == catalogId && x.ExpirationDate == null);
+            if (catalog == null)
+                throw new ArgumentException(GlobalResourses.ResourceAccessor.GetString("CatalogNonExist"));
+            return catalog;
+        }
+
+        public async Task Delete(string catalogId)
+        {
+            var catalog = _context.Catalog.FirstOrDefault(x => x.Id == catalogId);
+            if (catalog == null)
+                throw new ArgumentException(GlobalResourses.ResourceAccessor.GetString("CatalogNonExist"));
+            catalog.ExpirationDate = DateTime.UtcNow;
+            _context.Catalog.Update(catalog);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Update(Catalog catalog)
+        {
+            _context.Catalog.Update(catalog);
+            await _context.SaveChangesAsync();
         }
     }
 }

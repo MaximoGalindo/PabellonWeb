@@ -42,6 +42,9 @@ export class AddProductComponent {
   }
 
   addOption(): void {
+    console.log(this.customOptionItems);
+    console.log(this.optionItems);
+    
     if (this.customOptionItems.length < this.optionItems.length) {
       this.customOptionItems.push({});
     }

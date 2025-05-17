@@ -23,17 +23,26 @@ namespace PabellonWebAPI.Controllers
             await _productsService.SaveProduct(request);
         }
 
-        [HttpPut]
-        [Authorize]
-        public async Task UpdateProduct([FromForm] UpdateProductRequest request)
-        {
-            await _productsService.UpdateProduct(request);
-        }
-
         [HttpGet("catalog/{catalogId}")]
         public async Task<IActionResult> GetProductListByCatalogId(string catalogId)
         {
             return Ok(await _productsService.GetProductListByCatalog(catalogId));
-        }        
+        }
+
+        [HttpPut("{productId:int}")]
+        [Authorize]
+        public async Task<IActionResult> UpdateProduct(int productId, [FromForm] UpdateProductRequest request)
+        {
+            await _productsService.UpdateProduct(productId, request);
+            return Ok();
+        }
+
+        [HttpDelete("{productId:int}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteProduct(int productId)
+        {
+            await _productsService.DeleteProduct(productId);
+            return Ok();
+        }
     }
 }

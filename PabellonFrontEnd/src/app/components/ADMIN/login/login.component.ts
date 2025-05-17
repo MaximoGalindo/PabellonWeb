@@ -16,13 +16,10 @@ export class LoginComponent {
   constructor(private router: Router, private loginService:LoginService) {}
 
   login() {
-    console.log('login');
     this.loading = true;
     this.loginService.login(this.username, this.password).subscribe(
       (response) => {
-        console.log(response);
         sessionStorage.setItem('token', JSON.stringify(response));
-
         setTimeout(() => {
           this.router.navigate(['admin/productos']);
           this.loading = false;
@@ -30,7 +27,6 @@ export class LoginComponent {
       },
       (error) => {
         this.loading = false
-        console.log(error);
       }
     )
 

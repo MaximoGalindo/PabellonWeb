@@ -10,24 +10,40 @@ namespace Pabellon.Web.API.Controllers
     [ApiController]
     public class CatalogController : ControllerBase
     {
-        private readonly ICatalogService catalogService;
+        private readonly ICatalogService _catalogService;
 
         public CatalogController(ICatalogService catalogService)
         {
-            this.catalogService = catalogService;
+            _catalogService = catalogService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllCatalogs()
         {
-            return Ok(await catalogService.GetAllCatalogs());
+            return Ok(await _catalogService.GetAllCatalogs());
         }
-                
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> CreateCatalog([FromForm] CatalogRequest request)
         {
-            return Ok(await catalogService.CreateCatalog(request));
+            return Ok(await _catalogService.CreateCatalog(request));
+        }
+
+        [HttpDelete("{catalogId}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteCatalog(string catalogId)
+        {
+            await _catalogService.DeleteCatalog(catalogId);
+            return Ok();
+        }
+
+        [HttpPut("{catalogId}")]
+        [Authorize]
+        public async Task<IActionResult> UpdateCatalog(string catalogId, [FromForm] UpdateCatalogRequest request)
+        {
+            await _catalogService.UpdateCatalog(catalogId, request);
+            return Ok();
         }
     }
 }
