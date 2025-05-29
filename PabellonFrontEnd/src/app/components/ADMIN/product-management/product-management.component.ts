@@ -66,8 +66,6 @@ export class ProductManagementComponent {
     this.loading = true;
     this.productService.getProductByCatalogId(this.selectedCatalog.id).subscribe((data) => {
       this.products = data;
-      console.log(this.products);
-      
       this.loading = false;
     })
   }
