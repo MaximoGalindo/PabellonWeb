@@ -56,7 +56,6 @@ export class AddProductComponent {
           this.productRequest.CatalogId = product.catalogId;
           this.imageUrl = product.image;
           this.productRequest.Image = this.base64ToFile(product.image);
-          console.log(product.options);
 
           if (product.options.length > 0) {
             this.customOptionItems = product.options.map(option => ({ selectedOption: option.id, previousSelection: option.id }));
@@ -112,9 +111,6 @@ export class AddProductComponent {
   }
 
   addOption(): void {
-    console.log(this.customOptionItems);
-    console.log(this.optionItems);
-
     if (this.customOptionItems.length < this.optionItems.length) {
       this.customOptionItems.push({});
     }
@@ -183,7 +179,6 @@ export class AddProductComponent {
 
         this.productRequest.OptionIds = optionsIds.filter(optionId => !isNaN(optionId));
 
-        console.log(this.productRequest)
         this.fileInputRequired = false
 
         if (this.productId) {
