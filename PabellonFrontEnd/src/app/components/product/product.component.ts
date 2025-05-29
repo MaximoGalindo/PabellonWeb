@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Options } from 'src/app/models/Options';
 import { Order } from 'src/app/models/Order';
-import { Options, Product } from 'src/app/models/Product';
+import { Product } from 'src/app/models/Product';
 import { EventBusService } from 'src/app/services/event-bus.service';
 import { NavegationService } from 'src/app/services/navegation.service';
 

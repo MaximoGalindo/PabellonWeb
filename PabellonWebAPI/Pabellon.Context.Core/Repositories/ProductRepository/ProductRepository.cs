@@ -59,9 +59,34 @@ namespace Pabellon.Context.Core.Repositories.UserRepository
         }
 
         public async Task Update(Product product)
+        {         
+            try
+            {
+                _context.Update(product);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(GlobalResourses.ResourceAccessor.GetString("ErrorUpdateProduct"));
+            }
+        }
+
+        public async Task<int> DisableProduct(int productId)
         {
-            _context.Update(product);
-            await _context.SaveChangesAsync();
+            var product = await _context.Product.FirstOrDefaultAsync(p => p.Id == productId);
+            if (product == null)
+                throw new ArgumentException(GlobalResourses.ResourceAccessor.GetString("ProductNonExist"));
+
+            product.Disabled = !product.Disabled;          
+            try
+            {
+                _context.Update(product);
+                return await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(GlobalResourses.ResourceAccessor.GetString("ErrorDisableProduct"));
+            }
         }
     }
 }

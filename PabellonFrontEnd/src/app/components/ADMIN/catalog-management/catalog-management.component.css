@@ -1,64 +1,155 @@
-input {
-    width: 100%;
-    margin-left: 1rem;
-    border-radius: 0.4rem;
-    border: none;
-    height: 2.5rem;
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  padding: 0.7rem 1rem;
+  height: 3rem;
 }
 
-button{
-    margin-left: 1rem ;
-    border-radius: 0.4rem;
-    border: none;
-    height: 2.5rem;
-    background-color: var(--footer-color);
-    color: white;
+.section h1 {
+  margin: 0;
 }
 
-.search-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1rem;
+.catalog-name {
+  height: 3rem;
 }
 
-.products-container{
-    background-color: var(--prodcucts-admin-background-color);
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin: 1rem 0; 
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+.container-mobile {
+  padding: 1rem;
 }
 
-label {
-    color: black;
-    margin-bottom: 0.4rem;
+.header {
+  margin-bottom: 1rem;
 }
 
-h5 {
-    color: white;
-    font-size: 0.9rem;
+.header label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: black;
+  font-weight: bold;
 }
 
-img {
-    width: 100%;
-    border-radius: 0.5rem;
+.search-add {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
 }
 
-.icons {
-    font-size: 2.3rem;
-    margin-left: 1rem;
+.search-add input {
+  flex-grow: 1;
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 0.4rem;
 }
 
-/* PARA PANTALLA DE PC */
-@media (min-width: 1024px) {
-    img {
-        width: 8rem;
-        border-radius: 0.5rem;
-    }
-
-    input {
-        width: 60%;
-    }
+.search-add button {
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 0.4rem;
+  background-color: var(--footer-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
 }
-  
+
+.catalog-item {
+  background-color: var(--prodcucts-admin-background-color);
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.catalog-info-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.catalog-image {
+  width: 7rem;
+  height: 4rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.catalog-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.catalog-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.catalog-details label {
+  color: black;
+  font-size: 0.8rem;
+  margin-bottom: 0.1rem;
+}
+
+.catalog-details h3 {
+  color: white;
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.catalog-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  /* Permite que los botones pasen a la siguiente línea en pantallas pequeñas */
+}
+
+.action-button {
+  flex-grow: 1;
+  /* Para que los botones ocupen el ancho disponible */
+  padding: 0.5rem 0.8rem;
+  border: none;
+  border-radius: 0.3rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.action-button.edit {
+  background-color: #007bff;
+  /* Azul */
+}
+
+.action-button.disable {
+  background-color: #ffc107;
+  /* Amarillo */
+}
+
+.action-button.delete {
+  background-color: #dc3545;
+  /* Rojo */
+}
+
+.action-button .material-icons {
+  font-size: 1rem;
+}
+
+/* Estilos para pantallas más grandes (opcional) */
+@media (min-width: 768px) {
+  .catalog-actions {
+    flex-wrap: nowrap;
+    /* Evitar el salto de línea en pantallas más grandes */
+  }
+
+  .action-button {
+    flex-grow: 0;
+    /* Los botones no crecen tanto en pantallas grandes */
+    min-width: 80px;
+    /* Ancho mínimo para los botones */
+  }
+}

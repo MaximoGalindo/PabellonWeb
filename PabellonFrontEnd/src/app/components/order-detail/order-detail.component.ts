@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Order } from 'src/app/models/Order';
-import { Options, Product } from 'src/app/models/Product';
+import { Product } from 'src/app/models/Product';
 import { NavegationService } from 'src/app/services/navegation.service';
 
 @Component({

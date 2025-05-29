@@ -25,14 +25,18 @@ export class HomeComponent implements OnInit {
       this.catalogs = JSON.parse(storedCatalogs);
       this.loading = false;
     } else {
-      this.catalogService.getAllCatalogs().subscribe((data) => {
-        this.catalogs = data;
-        sessionStorage.setItem('catalogs', JSON.stringify(this.catalogs));
-        this.loading = false;
-      },
-      (error) => {
-        this.loading = false;
-      });  
+      this.catalogService.getAllCatalogs().subscribe({
+        next: (data) => {
+          this.catalogs = data;
+          sessionStorage.setItem('catalogs', JSON.stringify(this.catalogs));
+        },
+        error: (error) => {
+          // Manejo de error opcional
+        },
+        complete: () => {
+          this.loading = false;
+        }
+      }); 
     }
 
     this.orderHasElements = this.navegationService.getOrderTotal();

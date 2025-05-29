@@ -1,0 +1,27 @@
+<a routerLink="/admin/catalogo" class="section">
+    <h1>Agregar Catalogo</h1>
+</a>
+
+<form #catalogFrom="ngForm" (ngSubmit)="addCatalog(catalogFrom)" class="container">
+    <loading-component *ngIf="loading"></loading-component>
+    <div *ngIf="!loading" class="row form-container">
+        <div class="col">
+            <label for="">Nombre</label>
+            <input [(ngModel)]="catalogRequest.Name" name="name" type="text" required #name="ngModel"
+                [ngClass]="{'error-input': name.invalid && name.touched}">
+            <div *ngIf="name.invalid && name.touched" class="error">Este campo es obligatorio</div>
+        </div>
+        <div class="line"></div>
+        <div class="col">
+            <label for="fileInput">Portada</label>
+            <input type="file" id="fileInput" accept="image/*" (change)="onFileSelected($event)" style="height: 3rem;"
+                accept="image/*" [ngClass]="{'error-input': fileInputRequired}">
+            <div *ngIf="fileInputRequired" class="error">Seleccione una imagen</div>
+            <br>
+            <div class="image-preview" *ngIf="imageUrl">
+                <img *ngIf="imageUrl" [src]="imageUrl" alt="Vista previa" style="max-width: 100%;">
+            </div>
+        </div>
+        <button class="catalog-btn" type="submit">Agregar Catalogo</button>
+    </div>
+</form>

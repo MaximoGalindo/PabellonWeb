@@ -1,0 +1,78 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.section {
+    background-color: var(--footer-color);
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+input {
+    border-radius: 0.5rem;
+    border: none;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    height: 2.5rem;
+    background-color: var(--input-admin);
+    color: white;
+    padding: 0.5rem;
+}
+
+button {
+    border-radius: 0.5rem;
+    border: none;
+    height: 2.5rem;
+    background-color: var(--footer-color);
+    color: white;
+    padding: 0.5rem;
+}
+
+label {
+    font-weight: 500;
+    color: black;
+    margin-top: 0.7rem;
+    margin-bottom: 0.3rem;
+}
+
+.line {
+    width: 95%;
+    height: 1px;
+    background-color: black;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.image-preview {
+    padding: 1rem;
+    background-color: var(--input-admin);
+    border-radius: 0.5rem;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.catalog-btn{
+    background-color: var(--footer-color);
+    width: 80%;
+    margin-bottom: 1rem;
+}
+
+.error {
+    margin-top: 0.5rem;
+    color: red;
+    margin-left: 0.5rem;
+}
+
+.error-input {
+    border: 2px solid red;
+}

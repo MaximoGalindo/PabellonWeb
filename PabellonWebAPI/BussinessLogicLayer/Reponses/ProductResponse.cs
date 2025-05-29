@@ -8,6 +8,7 @@
         public double Price { get; set; }
         public string Description { get; set; }
         public string CatalogId { get; set; }
+        public bool Disabled { get; set; }
         public List<OptionResponse> Options { get; set; } = new List<OptionResponse>();
     }
 
@@ -15,7 +16,8 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public double Price { get; set; }   
+        public double Price { get; set; } 
+        public bool IsSelected { get; set; }
     }
 
 }

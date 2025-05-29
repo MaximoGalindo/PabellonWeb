@@ -1,6 +1,7 @@
 ﻿using BussinessLogicLayer.Helpers;
 using BussinessLogicLayer.Reponses;
 using BussinessLogicLayer.Request;
+using Pabellon.Context.Core.Models;
 using Pabellon.Context.Core.Repositories.CatalogRepository;
 using Pabellon.Context.Core.Repositories.OptionsRepository;
 using Pabellon.Context.Core.Repositories.ProductRepository;
@@ -29,11 +30,15 @@ namespace BussinessLogicLayer.Services.Products
             if (catalog == null)
                 throw new ArgumentException(GlobalResourses.ResourceAccessor.GetString("CatalogNonExist"));
 
-            var options = await _optionRepository.GetByIds(request.OptionIds);
+            var options = new List<Option>();
+            if (request.OptionIds != null && request.OptionIds.Count > 0)
+            {
+                options = await _optionRepository.GetByIds(request.OptionIds);
 
-            var optionIdsNonExist = request.OptionIds.Except(options.Select(o => o.Id)).ToList();
-            if (optionIdsNonExist.Any())
-                throw new ArgumentException(GlobalResourses.ResourceAccessor.GetString("OptionNonExist"));
+                var optionIdsNonExist = request.OptionIds.Except(options.Select(o => o.Id)).ToList();
+                if (optionIdsNonExist.Any())
+                    throw new ArgumentException(GlobalResourses.ResourceAccessor.GetString("OptionNonExist"));
+            }
 
             var product = new Product
             {
@@ -60,13 +65,17 @@ namespace BussinessLogicLayer.Services.Products
                 Price = product.Price,
                 CatalogId = product.Catalog.Id,
                 Description = product.Description ?? "",
+                Disabled = product.Disabled,
                 Options = product.Options.Select(o => new OptionResponse
                 {
                     Id = o.Id,
                     Name = o.OptionName,
-                    Price = o.Price
+                    Price = o.Price,
+                    IsSelected = false
                 }).ToList()
-            }).ToList();
+            })
+            .OrderBy(p => p.Disabled)
+            .ToList();
 
             return productResponses;
         }
@@ -89,6 +98,40 @@ namespace BussinessLogicLayer.Services.Products
         public async Task DeleteProduct(int productId)
         {
            await _productRepository.Delete(productId);
+        }
+
+        public async Task<ProductResponse> GetProductById(int productId)
+        {
+            var product = await _productRepository.GetById(productId);
+
+            var response = new ProductResponse
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Image = _imagesHelper.GetImage(product.Image),
+                Price = product.Price,
+                CatalogId = product.CatalogId,
+                Description = product.Description ?? "",
+                Disabled = product.Disabled,
+                Options = product.Options.Select(o => new OptionResponse
+                {
+                    Id = o.Id,
+                    Name = o.OptionName,
+                    Price = o.Price,
+                    IsSelected = false
+                }).ToList()
+            };
+
+            return response;
+        }
+
+        public async Task<bool> DisableProduct(int productId)
+        {
+            var result = await _productRepository.DisableProduct(productId);
+            if (result > 0)
+                return true;
+            else
+                throw new Exception(GlobalResourses.ResourceAccessor.GetString("ErrorDisableProduct"));
         }
     }
 }

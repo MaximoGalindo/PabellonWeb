@@ -14,6 +14,11 @@ namespace Pabellon.Context.Core.Repositories.OptionRepository
             _context = context;
         }
 
+        public async Task<List<Option>> GetAllOptions()
+        {
+            return await _context.Options.ToListAsync();
+        }
+
         public async Task<Option?> GetById(int id)
         {
             return await _context.Options.FirstOrDefaultAsync(x => x.Id == id);

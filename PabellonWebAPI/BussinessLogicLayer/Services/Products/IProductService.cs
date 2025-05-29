@@ -9,5 +9,7 @@ namespace BussinessLogicLayer.Services.Products
         Task UpdateProduct(int productId, UpdateProductRequest request);
         Task DeleteProduct(int productId);
         Task<List<ProductResponse>> GetProductListByCatalog(string catalogId);
+        Task<ProductResponse> GetProductById(int productId);
+        Task<bool> DisableProduct(int productId);
     }
 }

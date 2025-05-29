@@ -1,5 +1,13 @@
+<a routerLink="/admin/productos" class="section" *ngIf="!loading && !showProducts">
+    <h1 class="section-title">Agregar Producto</h1>
+    <span>Seleccione un Catalogo para agregar productos</span>
+</a>
 
-<div class="container">       
+<a (click)="showCatalogs()" class="section catalog-name" *ngIf="!loading && showProducts">
+    <h1 class="section-title">{{ selectedCatalog.name }}</h1>
+</a>
+
+<div class="container">
     <div class="row">
         <loading-component *ngIf="loading"></loading-component>
         <div *ngIf="!loading && !showProducts">
@@ -10,39 +18,40 @@
     </div>
 </div>
 
-<div class="container" *ngIf="!loading && showProducts">
-    <div class="search-container">
-        <label style="margin: 0;" for="">Buscar</label>
-        <input type="text">
-        <button (click)="addProduct()">Agregar</button>
+<div class="container-mobile" *ngIf="showProducts && !loading">
+    <div class="header">
+        <label for="search">Buscar</label>
+        <div class="search-add">
+            <input type="text" id="search" placeholder="Nombre del producto">
+            <button (click)="addProduct()">
+                <span class="material-icons">add</span> Agregar
+            </button>
+        </div>
     </div>
-    <div *ngFor="let product of products" class="products-container">
-        <div class="row">
-            <div class="col-4 col-lg-3">
-                <label for="" style="width: 100%;">Imagen</label>
-                <img src="assets/images/hamburguesa.png" alt="Hamburguesa">
-            </div>
-            <div class="col-4 col-lg-3">
-                <label for="">Nombre</label>
-                <h5>Hamburguesa Completa</h5>
-            </div>
-            <div class="col-4 col-lg-4">
-                <label for="">Precio</label>
-                <h5>$12.000</h5>
-            </div>
-            <div class="aling-elements col-2 col-lg-1 d-none d-lg-block">
-                <span class="material-icons">edit</span>
-            </div>
-            <div class="aling-elements col-2 col-lg-1 d-none d-lg-block">
-                <span class="material-icons">delete</span>
-            </div>
 
-            <div class="aling-elements-end">
-                <div class="d-block d-lg-none">
-                    <span class="material-icons icons">edit</span>
-                    <span class="material-icons icons">delete</span>
-                </div>
+    <div *ngFor="let product of products" class="product-item">
+        <div class="product-info-container">
+            <div class="product-image">
+                <img [src]="product.image" alt="{{ product.name }}">
             </div>
+            <div class="product-details">
+                <h3>{{ product.name }}</h3>
+                <h3>${{ product.price }}</h3>
+            </div>
+        </div>
+        <div class="product-actions">
+            <button class="action-button edit" (click)="editProduct(product)">
+                <span class="material-icons">edit</span> Editar
+            </button>
+            <button *ngIf="!product.disabled" class="action-button disable" (click)="disableProduct(product)">
+                <span class="material-icons">visibility_off</span> Deshabilitar
+            </button>
+            <button *ngIf="product.disabled" class="action-button disable" (click)="disableProduct(product)">
+                <span class="material-icons">visibility</span> Habilitar
+            </button>
+            <button class="action-button delete" (click)="deleteProduct(product)">
+                <span class="material-icons">delete</span> Eliminar
+            </button>
         </div>
     </div>
 </div>

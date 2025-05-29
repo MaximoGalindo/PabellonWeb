@@ -1,4 +1,4 @@
-<a routerLink="/admin/productos/1" class="section">
+<a routerLink="/admin/productos" class="section">
     <h1>Agregar Producto</h1>
 </a>
 
@@ -7,7 +7,7 @@
     <div *ngIf="!loading" class="row form-container">
         <div class="col">
             <label for="">Catalogo</label>
-            <select [(ngModel)]="productRequest.catalogId" name="catalogId" required #catalogId="ngModel"
+            <select [(ngModel)]="productRequest.CatalogId" name="catalogId" required #catalogId="ngModel"
                 [ngClass]="{'error-input': catalogId.invalid && catalogId.touched}">
                 <option *ngFor="let catalog of catalogItems" [value]="catalog.id">{{ catalog.name }}</option>
             </select>
@@ -15,20 +15,20 @@
         </div>
         <div class="col">
             <label for="">Nombre</label>
-            <input [(ngModel)]="productRequest.name" name="name" type="text" required #name="ngModel"
+            <input [(ngModel)]="productRequest.Name" name="name" type="text" required #name="ngModel"
                 [ngClass]="{'error-input': name.invalid && name.touched}">
             <div *ngIf="name.invalid && name.touched" class="error">Este campo es obligatorio</div>
         </div>
         <div class="col">
             <label for="">Precio</label>
-            <input [(ngModel)]="productRequest.price" type="number" name="price" min="1" required #price="ngModel"
+            <input [(ngModel)]="productRequest.Price" type="number" name="price" min="1" required #price="ngModel"
                 [ngClass]="{'error-input': price.invalid && price.touched}">
             <div *ngIf="price.invalid && price.touched" class="error">El valor debe ser mayor a 0</div>
         </div>
         <div class="line"></div>
         <div class="col">
             <label for="">Descripcion</label>
-            <textarea [(ngModel)]="productRequest.description" name="description" required #description="ngModel"
+            <textarea [(ngModel)]="productRequest.Description" name="description" required #description="ngModel"
                 rows="3" [ngClass]="{'error-input': description.invalid && description.touched}"></textarea>
             <div *ngIf="description.invalid && description.touched" class="error">Detalle una descripcion del producto
             </div>
@@ -39,24 +39,26 @@
                 <label>Personalizar</label>
                 <button type="button">Crear Opcion</button>
             </div>
-            <div class="mb-2" *ngFor="let customOption of customOptionItems; let i = index">
+            <div class="mb-2" *ngFor="let customOption of customOptionItems; let i = index; trackBy: trackByIndex">
                 <div class="row aling-elements">
                     <div class="col-1">
                         <label>{{ i + 1 }}</label>
                     </div>
                     <div class="col-9">
                         <select [(ngModel)]="customOption.selectedOption"
-                            (change)="updateSelectedOptions(customOption.selectedOption)" name="selectedOption" required
+                            (change)="updateSelectedOptions($event, i)" 
+                            name="selectedOption_{{i}}"                            
                             #selectedOption="ngModel">
-                            <ng-container *ngFor="let option of optionItems">
-                                <option [disabled]="option.isSelected" [value]="option.id">
+                            <ng-container *ngFor="let option of optionItems; trackBy: trackByOptionId">
+                                <option [disabled]="option.isSelected && option.id !== customOption.selectedOption" 
+                                        [value]="option.id">
                                     {{ option.name }} | ${{ option.price }}
                                 </option>
                             </ng-container>
                         </select>
                     </div>
                     <div class="col-1 aling-elements">
-                        <div class="red-x hover-hand" (click)="removeOption(i, customOption.selectedOption)"></div>
+                        <div class="red-x hover-hand" (click)="removeOption(i)"></div>
                     </div>
                     <div class="col-1">
                         <div *ngIf="i === 0" class="add-cross hover-hand" (click)="addOption()"></div>

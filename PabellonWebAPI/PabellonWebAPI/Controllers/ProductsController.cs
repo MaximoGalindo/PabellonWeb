@@ -18,9 +18,10 @@ namespace PabellonWebAPI.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task SaveProduct([FromForm] CreateProductRequest request)
+        public async Task<IActionResult> SaveProduct([FromForm] CreateProductRequest request)
         {
             await _productsService.SaveProduct(request);
+            return Ok();
         }
 
         [HttpGet("catalog/{catalogId}")]
@@ -43,6 +44,20 @@ namespace PabellonWebAPI.Controllers
         {
             await _productsService.DeleteProduct(productId);
             return Ok();
+        }
+
+        [HttpGet("{productId:int}")]
+        [Authorize]
+        public async Task<IActionResult> GetProductById(int productId)
+        {
+            return Ok(await _productsService.GetProductById(productId));
+        }
+
+        [HttpPatch("disable/{productId:int}")]
+        public async Task<IActionResult> DisableProduct(int productId)
+        {
+            var result = await _productsService.DisableProduct(productId);
+            return Ok(result);
         }
     }
 }

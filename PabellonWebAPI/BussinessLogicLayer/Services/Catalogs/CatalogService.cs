@@ -68,5 +68,32 @@ namespace BussinessLogicLayer.Services.Catalogs
         {
             await _catalogRepository.Delete(catalogId);
         }
+
+        public async Task<List<CatalogResponse>> GetCatalogsName()
+        {
+            var catalogs = await _catalogRepository.GetAll();
+            var response = catalogs.Select(c => new CatalogResponse
+            {
+                Id = c.Id,
+                Name = c.Name
+            }).ToList();
+
+            return response;
+        }
+
+        public async Task<CatalogResponse> GetCatalogById(string catalogId)
+        {
+            var catalog = await _catalogRepository.GetById(catalogId);
+            if (catalog == null)
+                throw new ArgumentException(GlobalResourses.ResourceAccessor.GetString("CatalogNonExist"));
+
+            var response = new CatalogResponse
+            { 
+                Id = catalog.Id, 
+                Name = catalog.Name,
+                Img = _imagesHelper.GetImage(catalog.Img),
+            };
+            return response; 
+        }
     }
 }

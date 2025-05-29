@@ -24,6 +24,7 @@ import { AdminDropdownComponent } from './components/ADMIN/admin-navbar/admin-dr
 import { ProductManagementComponent } from './components/ADMIN/product-management/product-management.component';
 import { CatalogManagementComponent } from './components/ADMIN/catalog-management/catalog-management.component';
 import { AuthInterceptor } from './services/interceptors/authInterceptor.service';
+import { AddCatalogComponent } from './components/ADMIN/add-catalog/add-catalog.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { AuthInterceptor } from './services/interceptors/authInterceptor.service
     AdminNavbarComponent,
     AdminDropdownComponent,
     ProductManagementComponent,
-    CatalogManagementComponent
+    CatalogManagementComponent,
+    AddCatalogComponent
   ],
   imports: [
     BrowserModule,

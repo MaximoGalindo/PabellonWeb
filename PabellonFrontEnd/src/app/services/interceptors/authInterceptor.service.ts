@@ -7,14 +7,15 @@ import { Router } from '@angular/router';
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private router: Router) {}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('token');
+    const stored = sessionStorage.getItem('token');
+    const token = stored ? JSON.parse(stored).token : null;
 
     if (token) {
       const authReq = req.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`
         }
-      });
+      });      
       return next.handle(authReq);
     }
 
@@ -22,7 +23,7 @@ export class AuthInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
           sessionStorage.removeItem('token');
-          this.router.navigate(['/login']);
+          this.router.navigate(['admin/login']);
         }
         return throwError(() => error);
       })

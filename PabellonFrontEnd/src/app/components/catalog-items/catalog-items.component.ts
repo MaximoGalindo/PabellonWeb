@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Utils } from 'src/app/Helpers/Utils';
 import { Catalog } from 'src/app/models/Catalog';
-import { Options, Product } from 'src/app/models/Product';
+import { Product } from 'src/app/models/Product';
 import { ProductService } from 'src/app/services/Entities/product.service';
 import { NavegationService } from 'src/app/services/navegation.service';
 
@@ -34,7 +34,7 @@ export class CatalogItemsComponent implements OnInit {
 
     this.loading = true;
     this.productService.getProductByCatalogId(this.catalog.id).subscribe((data) => {
-      this.products = data;     
+      this.products = data;    
       this.loading = false;
     },
     (error) => {

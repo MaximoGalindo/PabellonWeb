@@ -23,6 +23,20 @@ namespace Pabellon.Web.API.Controllers
             return Ok(await _catalogService.GetAllCatalogs());
         }
 
+        [HttpGet("names")]
+        public async Task<IActionResult> GetCatalogsName()
+        {
+            return Ok(await _catalogService.GetCatalogsName());
+        }
+
+        [HttpGet("{catalogId}")]
+        [Authorize]
+        public async Task<IActionResult> GetCatalogById(string catalogId)
+        {
+            var catalog = await _catalogService.GetCatalogById(catalogId);
+            return Ok(catalog);
+        }
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> CreateCatalog([FromForm] CatalogRequest request)

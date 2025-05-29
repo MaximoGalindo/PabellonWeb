@@ -1,6 +1,7 @@
 using BussinessLogicLayer.Helpers;
 using BussinessLogicLayer.Services.Catalogs;
 using BussinessLogicLayer.Services.Login;
+using BussinessLogicLayer.Services.Options;
 using BussinessLogicLayer.Services.Products;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +38,7 @@ namespace PabellonWebAPI
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ICatalogService, CatalogService>();
             builder.Services.AddScoped<ILoginService, LoginService>();
+            builder.Services.AddScoped<IOptionService, OptionService>();
             builder.Services.AddScoped<ImagesHelper>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<ICatalogRepository, CatalogRepository>();
@@ -53,7 +55,18 @@ namespace PabellonWebAPI
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("JWT:Key").Value))
                     };
-                }); 
+                });
+
+
+            /*builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigins", policy =>
+                {
+                    policy.WithOrigins("http://10.0.0.155:4200", "http://10.0.0.155:7115")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });*/
 
             builder.Services.AddCors(options =>
             {
@@ -65,6 +78,12 @@ namespace PabellonWebAPI
                 });
             });
 
+            /*builder.WebHost.ConfigureKestrel(options =>
+            {
+                options.ListenAnyIP(7115); // Escucha en puerto 5000 y todas las interfaces
+            });*/
+
+            builder.WebHost.UseUrls("http://localhost:7115", "https://localhost:7116");
 
             string basePath = Path.Combine("C:\\", "Pabellon", "Imagenes");
             if (!Directory.Exists(basePath))
@@ -82,6 +101,7 @@ namespace PabellonWebAPI
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
 
             app.UseHttpsRedirection();
 

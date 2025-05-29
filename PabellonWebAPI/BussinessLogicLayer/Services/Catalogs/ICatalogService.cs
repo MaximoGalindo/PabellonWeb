@@ -9,5 +9,7 @@ namespace BussinessLogicLayer.Services.Catalogs
         Task<int> CreateCatalog(CatalogRequest catalogRequest);
         Task UpdateCatalog(string catalogId, UpdateCatalogRequest catalogRequest);
         Task DeleteCatalog(string catalogId);
+        Task<List<CatalogResponse>> GetCatalogsName();
+        Task<CatalogResponse> GetCatalogById(string catalogId);
     }
 }

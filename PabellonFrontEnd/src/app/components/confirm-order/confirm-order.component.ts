@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DeliveryOption, Order, PaymentMethod } from 'src/app/models/Order';
-import { Options, Product } from 'src/app/models/Product';
 import { NavegationService } from 'src/app/services/navegation.service';
 
 @Component({
