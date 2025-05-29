@@ -58,17 +58,17 @@ namespace PabellonWebAPI
                 });
 
 
-            /*builder.Services.AddCors(options =>
+            builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigins", policy =>
                 {
-                    policy.WithOrigins("http://10.0.0.155:4200", "http://10.0.0.155:7115")
+                    policy.WithOrigins("https://b03e-181-104-5-87.ngrok-free.app", "https://pabellonweb.vercel.app")
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                 });
-            });*/
+            });
 
-            builder.Services.AddCors(options =>
+            /*builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigins", policy =>
                 {
@@ -76,7 +76,7 @@ namespace PabellonWebAPI
                           .AllowAnyHeader() // Permite cualquier encabezado
                           .AllowAnyMethod(); // Permite cualquier método HTTP
                 });
-            });
+            });*/
 
             /*builder.WebHost.ConfigureKestrel(options =>
             {
