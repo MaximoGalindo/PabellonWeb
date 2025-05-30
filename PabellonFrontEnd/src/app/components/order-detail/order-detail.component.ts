@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Options } from 'src/app/models/Options';
 import { Order } from 'src/app/models/Order';
-import { Product } from 'src/app/models/Product';
+import { CustomizedProduct, Product } from 'src/app/models/Product';
 import { NavegationService } from 'src/app/services/navegation.service';
 
 @Component({
@@ -9,41 +11,53 @@ import { NavegationService } from 'src/app/services/navegation.service';
   templateUrl: './order-detail.component.html',
   styleUrls: ['./order-detail.component.css']
 })
-export class OrderDetailComponent implements OnInit {
-
+export class OrderDetailComponent implements OnInit, OnDestroy {
+  customizedProducts: CustomizedProduct[] = [];
+  total: number = 0;
+  private subscription: Subscription | undefined;
   order: Order = new Order();
-  orderNumber: string = '4540';
-  orderListSimplify: Order[] = [];
 
-  constructor(private navegationService: NavegationService, private router: Router) { }
+  constructor(private navegationService: NavegationService, private router: Router) {}
 
   ngOnInit(): void {
-    this.navegationService.currentOrder.subscribe(order => this.order = order);
-
-    /*COMENTAR ESTO DESPUES*/
-    /*this.order.orderDetail = [{ product: { id: 1, name: "Hamburguesa Completa Con Papas Fritas", image: "/assets/images/hamburguesa.png", price: 8000, catalogId: "1", description: "", options: [new Options(1, "Sin lechuga", 0, true), new Options(2, "Sin Tomate", 0, true), new Options(3, "Medallon Extra", 1200, true)] }, quantity: 3, totalPrice: 20000 },
-    { product: { id: 1, description: "", name: "Hamburguesa Completa Con Papas Fritas", image: "/assets/images/hamburguesa.png", price: 8000, catalogId: "1", options: [new Options(1, "Sin lechuga", 0, true), new Options(2, "Sin Tomate", 0, true), new Options(3, "Medallon Extra", 1200, true)] }, quantity: 3, totalPrice: 20000 }];*/
-  }
-
-  getOptionsPrice(product: Product): number {
-    let total = 0;
-    product.options.forEach(option => {
-      if (option.isSelected && option.price > 0)
-        total += option.price;
+    this.subscription = this.navegationService.currentOrder.subscribe(order => {
+      this.order = order;
+      for(var orderDetail of order.orderDetail) {
+        this.customizedProducts = this.customizedProducts.concat(orderDetail.customizedProducts);
+      }
+      this.calculateTotal();
     });
-    return total;
   }
 
-  removeDetail(detail: any) {
-    {
-      this.order.orderDetail.splice(this.order.orderDetail.indexOf(detail), 1);
-      if(this.order.orderDetail.length === 0)
-        this.order.total = 0;
-      this.navegationService.setOrder(this.order);
+  ngOnDestroy(): void {
+    if (this.subscription) this.subscription.unsubscribe();
+  }
+
+  getFinalProductPrice(product: Product, selectedOptions: Options[]): number {
+    return product.price + selectedOptions.reduce((sum, option) => sum + option.price, 0);
+  }
+
+  removeDetail(index: number, uuid:string): void {
+    this.customizedProducts.splice(index, 1);
+    for(var orderDetail of this.order.orderDetail) {
+      for(var customizedProduct of orderDetail.customizedProducts) {
+        if(customizedProduct.id == uuid) {
+          orderDetail.customizedProducts.splice(orderDetail.customizedProducts.indexOf(customizedProduct), 1);
+        }
+      }
     }
+    this.calculateTotal();
   }
 
-  goBack() {
+  calculateTotal(): void {
+    this.total = this.customizedProducts.reduce((sum, item) => {
+      return sum + this.getFinalProductPrice(item.product, item.selectedOptions);
+    }, 0);
+    this.order.total = this.total;
+    this.navegationService.setOrderTotal(this.total);
+  }
+
+  goBack(): void {
     this.router.navigateByUrl('/home');
   }
 }

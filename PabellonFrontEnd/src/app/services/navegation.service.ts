@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Catalog } from '../models/Catalog';
-import { Product } from '../models/Product';
+import { CustomizedProduct, Product } from '../models/Product';
 import { Order } from '../models/Order';
 
 @Injectable({
@@ -20,6 +20,12 @@ export class NavegationService {
 
   private sharedProductsCount = new BehaviorSubject<number>(0);
   currentProductsCount = this.sharedProductsCount.asObservable();
+
+  private sharedCustomizedProducts = new BehaviorSubject<CustomizedProduct[]>([]);
+  currentCustomizedProducts = this.sharedCustomizedProducts.asObservable();
+
+  private sharedOrderTotal = new BehaviorSubject<number>(0);
+  currentOrderTotal = this.sharedOrderTotal.asObservable();
 
   constructor() { }
 
@@ -41,6 +47,14 @@ export class NavegationService {
   
   setProductsCount(count: number) {
     this.sharedProductsCount.next(count);
+  }
+
+  setCustomizedProductsCount(customizedProducts: CustomizedProduct[]) {
+    this.sharedCustomizedProducts.next(customizedProducts);
+  }
+
+  setOrderTotal(total: number) {
+    this.sharedOrderTotal.next(total);
   }
 
 }

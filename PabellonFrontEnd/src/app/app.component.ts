@@ -58,8 +58,8 @@ export class AppComponent implements OnInit {
           this.footerConfig = footerConfig;
         
           this.navegationService.currentOrder.subscribe(order => {
-          this.orderHasElements = order.total > 0;
-          this.footerConfig.ShowFooter = this.orderHasElements && !this.footerConfig.ShowAddToOrder;        
+            this.orderHasElements = order.total > 0;
+            this.footerConfig.ShowFooter = this.orderHasElements && !this.footerConfig.ShowAddToOrder;        
           });
         }
       });

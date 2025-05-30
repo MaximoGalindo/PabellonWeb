@@ -1,4 +1,4 @@
-import { Product } from "./Product"
+import { CustomizedProduct } from "./Product"
 
 export class Order {
     id: number = 0
@@ -15,9 +15,12 @@ export class Order {
 }
 
 export class OrderDetail {
-    product: Product = new Product()
-    quantity: number = 0
-    totalPrice: number = 0
+    customizedProducts: CustomizedProduct[] = [];
+    productName: string = '';
+    totalDetail: number = 0;
+    getTotalPrice(): number {
+        return this.customizedProducts.reduce((sum, cp) => sum + cp.getTotalPrice(), 0);
+    }
 }
 
 export enum DeliveryOption {
@@ -29,3 +32,4 @@ export enum PaymentMethod {
     Cash = 'Cash',
     Transfer = 'Transfer'
 }
+

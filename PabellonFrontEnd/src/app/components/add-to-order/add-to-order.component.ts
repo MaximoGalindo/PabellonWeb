@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Order, OrderDetail } from 'src/app/models/Order';
-import { Product } from 'src/app/models/Product';
+import { CustomizedProduct, Product } from 'src/app/models/Product';
 import { EventBusService } from 'src/app/services/event-bus.service';
 import { NavegationService } from 'src/app/services/navegation.service';
 
@@ -14,12 +14,17 @@ export class AddToOrderComponent implements OnInit {
   counter: number = 1; 
   product:Product = new Product();
   catalogName: string = '';
+  customizedProducts: CustomizedProduct[] = [];
 
-  constructor(private navegationService: NavegationService, private router:Router) { }
+  constructor(
+    private navegationService: NavegationService, 
+    private router:Router,
+    private eventBus: EventBusService
+  ) { }
 
   ngOnInit(): void {
-    this.navegationService.currentProduct.subscribe((product) => {
-      this.product = product;
+    this.navegationService.currentCustomizedProducts.subscribe((customizedProducts) => {
+      this.customizedProducts = customizedProducts;
       this.getTotalPrice();
     });
 
@@ -28,7 +33,6 @@ export class AddToOrderComponent implements OnInit {
     })
 
     this.navegationService.setProductsCount(this.counter);
-
   }
 
   increment(): void {
@@ -46,7 +50,7 @@ export class AddToOrderComponent implements OnInit {
   }
 
   getTotalPrice(): number {
-    return this.product.price * this.counter;
+    return this.customizedProducts.reduce((acc, cp) => acc + cp.getTotalPrice(), 0);
   }
 
   addToOrder() {
@@ -55,15 +59,17 @@ export class AddToOrderComponent implements OnInit {
       order = o;
     });
 
-    order.orderDetail.push({
-      product: this.product,
-      quantity: this.counter,
-      totalPrice: this.product.price * this.counter
-    });
-    
+    let orderDetail = new OrderDetail();
+    orderDetail.customizedProducts = this.customizedProducts;
+    orderDetail.productName = this.product.name;
+    orderDetail.totalDetail = this.getTotalPrice();
+    order.orderDetail.push(orderDetail);
+   
     order.total = order.total + this.getTotalPrice();
     
     this.navegationService.setOrder(order);
+    this.navegationService.setOrderTotal(order.total);
+    
     this.router.navigateByUrl('/catalogo/' + this.catalogName.toLowerCase());
   }
 

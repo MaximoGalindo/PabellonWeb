@@ -4,27 +4,30 @@
 </a>
 <div class="container">
     <div class="center-elements flex-column">
-        <img src="{{ product.image }}" alt="">
+        <img [src]="product.image" alt="">
         <div class="description">
             <div class="aling-elements space-between-elements">
                 <h1>Descripción</h1>
-                <h1 style="margin-right: 1rem;">$ {{ product.price }}</h1>
+                <h1 style="margin-right: 1rem;">$ {{ getTotalPrice() }}</h1>
             </div>
 
             <p>{{ product.description }}</p>
 
-            <h1>Personalizar</h1>
+            <div *ngIf="product.options.length > 0">
+                <h1>Personalizar</h1>
 
-            <div *ngFor="let option of product.options">
-                <div class="option aling-elements">
-                    
-                    <input (click)="updateOption(option)" class="custom-checkbox" type="checkbox"
-                    id="option{{ option.id }}" name="option{{ option.id }}" value="option{{ option.id }}">
-            
-                    <label for="option{{ option.id }}">
-                        {{ option.name }}
-                        <span *ngIf="option.price > 0">| $ {{ option.price }}</span>
-                    </label>
+                <div *ngFor="let customizedProduct of customizedProducts; let i = index">
+                    <h3>- Producto {{ i + 1 }}</h3>
+                    <div *ngFor="let option of product.options" class="option aling-elements">
+                        <input type="checkbox" class="custom-checkbox" [id]="'option' + option.id + '_item' + i"
+                            [name]="'option' + option.id + '_item' + i"
+                            [checked]="isOptionSelected(customizedProduct, option)" (change)="toggleOption(i, option)">
+                        <label [for]="'option' + option.id + '_item' + i">
+                            {{ option.name }}
+                            <span *ngIf="option.price > 0">| $ {{ option.price }}</span>
+                        </label>
+                    </div>
+                    <hr>
                 </div>
             </div>
 

@@ -16,6 +16,6 @@ export class FooterComponent implements OnInit {
     constructor(private navegationService: NavegationService) { }
 
     ngOnInit(): void {
-        this.navegationService.currentOrder.subscribe(order => this.total = order.total);
+        this.navegationService.currentOrderTotal.subscribe(total => this.total = total);
     }
 }
