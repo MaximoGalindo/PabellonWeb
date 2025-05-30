@@ -27,6 +27,9 @@ export class NavegationService {
   private sharedOrderTotal = new BehaviorSubject<number>(0);
   currentOrderTotal = this.sharedOrderTotal.asObservable();
 
+  private sharedFinalOrder = new BehaviorSubject<Order>(new Order());
+  currentFinalOrder = this.sharedFinalOrder.asObservable();
+
   constructor() { }
 
   setCatalog(catalog: Catalog) {
@@ -40,6 +43,11 @@ export class NavegationService {
   setOrder(order: Order) {
     this.sharedOrder.next(order);
   }
+
+  setFinalOrder(order: Order) {
+    this.sharedFinalOrder.next(order);
+  }
+
   getOrderTotal(): boolean {
     const currentOrder = this.sharedOrder.getValue();
     return currentOrder.total > 0;

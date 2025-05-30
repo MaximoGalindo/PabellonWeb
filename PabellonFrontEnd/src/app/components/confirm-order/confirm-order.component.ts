@@ -22,7 +22,7 @@ export class ConfirmOrderComponent implements OnInit {
   }
   
   orderOnChange() {
-    this.navegationService.setOrder(this.order);
+    this.navegationService.setFinalOrder(this.order);
   }
 
 }

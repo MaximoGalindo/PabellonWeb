@@ -98,7 +98,7 @@ export class AppComponent implements OnInit {
 
   finishOrder() {
     let order:Order = new Order();
-    this.navegationService.currentOrder.subscribe(o => {
+    this.navegationService.currentFinalOrder.subscribe(o => {
       order = o;
     })
     order.date = new Date();
