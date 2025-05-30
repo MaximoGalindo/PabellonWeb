@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://belts-values-estimate-seeker.trycloudflare.com/api'
+  apiUrl: 'https://expansys-joyce-watson-segment.trycloudflare.com/api'
 };
