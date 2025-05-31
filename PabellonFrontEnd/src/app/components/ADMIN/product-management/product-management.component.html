@@ -1,11 +1,16 @@
 <a routerLink="/admin/productos" class="section" *ngIf="!loading && !showProducts">
     <h1 class="section-title">Agregar Producto</h1>
-    <span>Seleccione un Catalogo para agregar productos</span>
 </a>
 
 <a (click)="showCatalogs()" class="section catalog-name" *ngIf="!loading && showProducts">
     <h1 class="section-title">{{ selectedCatalog.name }}</h1>
 </a>
+
+<div class="add-button-container">
+    <button (click)="addProduct()" class="add-button">
+        <span class="material-icons">add</span> Agregar Producto
+    </button>
+</div>
 
 <div class="container">
     <div class="row">
@@ -23,9 +28,6 @@
         <label for="search">Buscar</label>
         <div class="search-add">
             <input type="text" id="search" placeholder="Nombre del producto">
-            <button (click)="addProduct()">
-                <span class="material-icons">add</span> Agregar
-            </button>
         </div>
     </div>
 

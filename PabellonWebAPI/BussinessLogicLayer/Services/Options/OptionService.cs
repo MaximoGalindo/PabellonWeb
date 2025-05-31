@@ -1,4 +1,5 @@
 ﻿using BussinessLogicLayer.Reponses;
+using BussinessLogicLayer.Request;
 using Pabellon.Context.Core.Models;
 using Pabellon.Context.Core.Repositories.OptionsRepository;
 
@@ -13,9 +14,15 @@ namespace BussinessLogicLayer.Services.Options
             _optionRepository = optionRepository;
         }
 
-        public Task<Option> CreateOption()
+        public async Task<bool> CreateOption(OptionRequest request)
         {
-            throw new NotImplementedException();
+            var option = new Option
+            {
+                OptionName = request.Name,
+                Price = request.Price
+            };
+
+            return await _optionRepository.CreateOption(option);
         }
 
         public async Task<List<OptionResponse>> GetOptionList()

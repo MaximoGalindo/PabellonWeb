@@ -37,7 +37,7 @@
         <div class="col">
             <div class="aling-elements space-between-elements mb-3">
                 <label>Personalizar</label>
-                <button type="button">Crear Opcion</button>
+                <button type="button" (click)="createOption()">Crear Opcion</button>
             </div>
             <div class="mb-2" *ngFor="let customOption of customOptionItems; let i = index; trackBy: trackByIndex">
                 <div class="row aling-elements">

@@ -62,28 +62,13 @@ namespace PabellonWebAPI
             {
                 options.AddPolicy("AllowSpecificOrigins", policy =>
                 {
-                    policy.WithOrigins("https://b03e-181-104-5-87.ngrok-free.app", "https://pabellonweb.vercel.app")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
-                });
-            });
-
-            /*builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("AllowSpecificOrigins", policy =>
-                {
                     policy.AllowAnyOrigin() // Dominios permitidos
                           .AllowAnyHeader() // Permite cualquier encabezado
                           .AllowAnyMethod(); // Permite cualquier método HTTP
                 });
-            });*/
+            });
 
-            /*builder.WebHost.ConfigureKestrel(options =>
-            {
-                options.ListenAnyIP(7115); // Escucha en puerto 5000 y todas las interfaces
-            });*/
-
-            builder.WebHost.UseUrls("http://localhost:7115", "https://localhost:7116");
+            builder.WebHost.UseUrls("http://localhost:7115");
 
             string basePath = Path.Combine("C:\\", "Pabellon", "Imagenes");
             if (!Directory.Exists(basePath))
@@ -102,8 +87,7 @@ namespace PabellonWebAPI
                 app.UseSwaggerUI();
             }
 
-
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseAuthentication();
 

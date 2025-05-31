@@ -39,4 +39,37 @@ export class AlertService {
       timerProgressBar: true
     });
   }
+
+  crearOpcion(): Promise<{ nombre: string, precio?: number } | null> {
+    return Swal.fire({
+      title: 'Crear opción',
+      html: `
+      <input id="swal-nombre" class="swal2-input" placeholder="Nombre">
+      <input id="swal-precio" type="number" class="swal2-input" placeholder="Precio (opcional)">
+    `,
+      showCancelButton: true,
+      confirmButtonText: 'Crear',
+      cancelButtonText: 'Cancelar',
+      focusConfirm: false,
+      preConfirm: () => {
+        const nombre = (document.getElementById('swal-nombre') as HTMLInputElement).value.trim();
+        const precioStr = (document.getElementById('swal-precio') as HTMLInputElement).value;
+
+        if (!nombre) {
+          Swal.showValidationMessage('El nombre es obligatorio');
+          return;
+        }
+
+        const precio = precioStr ? parseFloat(precioStr) : 0;
+
+        if (precioStr && isNaN(precio)) {
+          Swal.showValidationMessage('El precio debe ser un número válido');
+          return;
+        }
+
+        return { nombre, precio };
+      }
+    }).then(result => result.isConfirmed ? result.value : null);
+  }
+
 }

@@ -13,13 +13,12 @@ import { NavegationService } from 'src/app/services/navegation.service';
 export class AddToOrderComponent implements OnInit {
   counter: number = 1; 
   product:Product = new Product();
-  catalogName: string = '';
+  catalogId: string = '';
   customizedProducts: CustomizedProduct[] = [];
 
   constructor(
     private navegationService: NavegationService, 
-    private router:Router,
-    private eventBus: EventBusService
+    private router:Router
   ) { }
 
   ngOnInit(): void {
@@ -27,10 +26,6 @@ export class AddToOrderComponent implements OnInit {
       this.customizedProducts = customizedProducts;
       this.getTotalPrice();
     });
-
-    this.navegationService.currentCatalog.subscribe(catalog => {
-      this.catalogName = catalog.name;
-    })
 
     this.navegationService.setProductsCount(this.counter);
   }
@@ -70,7 +65,7 @@ export class AddToOrderComponent implements OnInit {
     this.navegationService.setOrder(order);
     this.navegationService.setOrderTotal(order.total);
     
-    this.router.navigateByUrl('/catalogo/' + this.catalogName.toLowerCase());
+    this.router.navigateByUrl('/home');
   }
 
 }

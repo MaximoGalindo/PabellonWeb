@@ -14,6 +14,19 @@ namespace Pabellon.Context.Core.Repositories.OptionRepository
             _context = context;
         }
 
+        public async Task<bool> CreateOption(Option option)
+        {
+            try
+            {
+                _context.Add(option);
+                return await _context.SaveChangesAsync() > 0;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error creating option: {ex.Message}", ex);
+            };
+        }
+
         public async Task<List<Option>> GetAllOptions()
         {
             return await _context.Options.ToListAsync();

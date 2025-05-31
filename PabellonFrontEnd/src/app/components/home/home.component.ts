@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
   openCatalog(catalog: Catalog) {
     if (catalog) {
       this.navegationService.setCatalog(catalog);
-      this.router.navigate(['catalogo', catalog.name.toLowerCase()]);      
+      this.router.navigate(['catalogo', catalog.id]);      
     }
   }
 

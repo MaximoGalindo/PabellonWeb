@@ -1,11 +1,11 @@
 ﻿using BussinessLogicLayer.Reponses;
-using Pabellon.Context.Core.Models;
+using BussinessLogicLayer.Request;
 
 namespace BussinessLogicLayer.Services.Options
 {
     public interface IOptionService
     {
         Task<List<OptionResponse>> GetOptionList();
-        Task<Option> CreateOption();
+        Task<bool> CreateOption(OptionRequest request);
     }
 }

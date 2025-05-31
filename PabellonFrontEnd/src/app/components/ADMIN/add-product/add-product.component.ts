@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Catalog } from 'src/app/models/Catalog';
 import { Options } from 'src/app/models/Options';
@@ -9,6 +9,7 @@ import { CatalogService } from 'src/app/services/Entities/catalog.service';
 import { OptionsService } from 'src/app/services/Entities/options.service';
 import { ProductService } from 'src/app/services/Entities/product.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { OptionRequest } from 'src/app/models/Request/OptionRequest';
 
 @Component({
   selector: 'app-add-product',
@@ -41,7 +42,7 @@ export class AddProductComponent {
 
     // Ejecutar en paralelo: opciones y catálogos
     forkJoin({
-      options: this.optionService.getAllOptions(),
+      options: this.loadOptions(),
       catalogs: this.catalogServices.getCatalosName()
     }).subscribe(({ options, catalogs }) => {
       this.optionItems = options;
@@ -63,6 +64,10 @@ export class AddProductComponent {
         });
       }
     });
+  }
+
+  private loadOptions(): Observable<any> {
+    return this.optionService.getAllOptions();
   }
 
   private base64ToFile(base64: string): File {
@@ -201,6 +206,28 @@ export class AddProductComponent {
     Object.keys(form.controls).forEach((controlName) => {
       const control = form.controls[controlName];
       control.markAsTouched();  // Marca el campo como tocado
+    });
+  }
+
+  createOption() {
+    this.alertService.crearOpcion().then(data => {
+      if (data) {
+        const optionRequest: OptionRequest = {
+          Name: data.nombre,
+          Price: data.precio ? data.precio : 0
+        };
+
+        console.log(optionRequest);
+        
+
+        this.optionService.createOption(optionRequest).subscribe(() => {
+          this.optionService.getAllOptions().subscribe(data => {
+            this.optionItems = data;
+          })
+          this.alertService.success('Opción creada exitosamente');
+        })
+
+      }
     });
   }
 

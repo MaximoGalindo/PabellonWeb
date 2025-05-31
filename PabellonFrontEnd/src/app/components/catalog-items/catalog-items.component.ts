@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Utils } from 'src/app/Helpers/Utils';
 import { Catalog } from 'src/app/models/Catalog';
 import { Product } from 'src/app/models/Product';
@@ -17,6 +17,7 @@ export class CatalogItemsComponent implements OnInit {
   catalog: Catalog = new Catalog();
   orderHasElements: boolean = false;
   products: Product[] = [];
+  catalogId: string | null = '';
 
   /*products: Product[] = [
     { id: 2, description: "Re rica la burga tiene muchas cosas para dfjklsdf", name: "Hamburguesa Completa", image: "/assets/images/hamburguesa.png", price: 80000, catalogId: "1", options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
@@ -27,38 +28,53 @@ export class CatalogItemsComponent implements OnInit {
     { id: 6, description: "Re rica la burga tiene muchas cosas para dfjklsdf ", name: "Hamburguesa Completa", image: "/assets/images/hamburguesa.png", price: 10000, catalogId: "1", options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
   ];*/
 
-  constructor(private router: Router, private navegationService: NavegationService, private productService: ProductService) { }
+  constructor(
+    private router: Router,
+    private navegationService: NavegationService,
+    private productService: ProductService,
+    private route: ActivatedRoute
+  ) { }
 
-  ngOnInit() : void {
-    this.navegationService.currentCatalog.subscribe(catalog => this.catalog = catalog);
+  ngOnInit(): void {
+    this.catalogId = this.route.snapshot.paramMap.get('id');
 
-    this.loading = true;
-    this.productService.getProductByCatalogId(this.catalog.id).subscribe((data) => {
-      this.products = data;    
-      this.loading = false;
-    },
-    (error) => {
-      this.loading = false;
-    });
-    this.orderHasElements = this.navegationService.getOrderTotal();
+    if (this.catalogId) {
+      const storedCatalogs = sessionStorage.getItem('catalogs');
+
+      this.loading = true;
+      if (storedCatalogs !== null) {
+        const catalogs = JSON.parse(storedCatalogs);
+        this.catalog = catalogs.find((catalog: Catalog) => catalog.id === this.catalogId);
+      }
+
+      
+      this.productService.getProductByCatalogId(this.catalogId).subscribe((data) => {
+        this.products = data;
+        this.loading = false;
+      },
+        (error) => {
+          this.loading = false;
+        });
+      this.orderHasElements = this.navegationService.getOrderTotal();
+    }
   }
 
   openProduct(product: any) {
     this.navegationService.setProduct(product);
-    this.router.navigate(['catalogo', this.catalog.name.toLowerCase(), product.name.toLowerCase()]);
+    this.router.navigate(['catalogo', this.catalogId, product.name.toLowerCase()]);
   }
 
   formatTextAvoidOrphans(text: string): string {
     const words = text.split(' ');
     if (words.length < 2) return text;
-  
+
     for (let i = 0; i < words.length - 1; i++) {
       if (words[i].length <= 2) {
         words[i] = `${words[i]}\u00A0${words[i + 1]}`;
-        words.splice(i + 1, 1); 
+        words.splice(i + 1, 1);
       }
     }
-  
+
     return words.join(' ');
   }
 
@@ -67,7 +83,7 @@ export class CatalogItemsComponent implements OnInit {
   }
 
   formatNumberWithCommas(number: number): string {
-      return Utils.formatNumberWithCommas(number);
+    return Utils.formatNumberWithCommas(number);
   }
 
 

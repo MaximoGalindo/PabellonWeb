@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Catalog } from 'src/app/models/Catalog';
 import { Options } from 'src/app/models/Options';
 import { Order } from 'src/app/models/Order';
 import { CustomizedProduct, Product } from 'src/app/models/Product';
@@ -14,17 +15,20 @@ import { NavegationService } from 'src/app/services/navegation.service';
 export class ProductComponent implements OnInit {
 
   product: Product = { id: 1, description: "Una hamburguesa con carne y una banda de cosas re ricas y que no te la podes perder", name: "2 Hamburguesas Completas", image: "/assets/images/hamburguesa.png", price: 12000, catalogId: "1", options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)], disabled: false };
-  catalogName: string = '';
+  catalogId: string | null = '';
   totalPrice: number = 0;
   customizedProducts: CustomizedProduct[] = [new CustomizedProduct(new Product())];
-  constructor(private router: Router, private navegationService: NavegationService, private eventBus: EventBusService) { }
+  constructor(
+    private router: Router,
+    private navegationService: NavegationService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     /*DESCOMENTAR ESTO DESPUES*/
     this.navegationService.currentProduct.subscribe(product => this.product = product);
-    this.navegationService.currentCatalog.subscribe(catalog => {
-      this.catalogName = catalog.name;
-    })
+    this.catalogId = this.route.snapshot.paramMap.get('id');
+
     this.navegationService.currentProductsCount.subscribe(count => {
       setTimeout(() => {
         this.customizedProducts = [];
@@ -39,7 +43,7 @@ export class ProductComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigateByUrl('/catalogo/' + this.catalogName.toLowerCase());
+    this.router.navigateByUrl('catalogo/' + this.catalogId);
   }
 
   toggleOption(itemIndex: number, option: Options) {
@@ -57,7 +61,7 @@ export class ProductComponent implements OnInit {
     this.navegationService.setCustomizedProductsCount(this.customizedProducts);
   }
 
-  getTotalPrice(){
+  getTotalPrice() {
     return this.customizedProducts.reduce((acc, cp) => acc + cp.getTotalPrice(), 0);
   }
 
