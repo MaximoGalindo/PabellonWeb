@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://expansys-joyce-watson-segment.trycloudflare.com/api'
+  apiUrl: 'https://bars-lying-taylor-kuwait.trycloudflare.com/api'
 };
