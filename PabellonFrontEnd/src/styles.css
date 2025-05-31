@@ -172,10 +172,14 @@ body {
 .swal-popup-mobile {
   width: 90% !important;
   max-width: 400px;
-  padding: 1rem;
+  padding: 1rem !important;
+  box-sizing: border-box;
+  overflow: hidden !important;
 }
 
 .swal-input-mobile {
   font-size: 14px !important;
-  padding: 0.4rem !important;
+  padding: 0.5rem !important;
+  box-sizing: border-box;
+  width: 100% !important;
 }
