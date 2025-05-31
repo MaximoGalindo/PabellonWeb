@@ -168,3 +168,14 @@ body {
 .hover-hand {
     cursor: pointer;
 }
+
+.swal-popup-mobile {
+  width: 90% !important;
+  max-width: 400px;
+  padding: 1rem;
+}
+
+.swal-input-mobile {
+  font-size: 14px !important;
+  padding: 0.4rem !important;
+}

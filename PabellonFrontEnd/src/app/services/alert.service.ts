@@ -44,8 +44,8 @@ export class AlertService {
     return Swal.fire({
       title: 'Crear opción',
       html: `
-      <input id="swal-nombre" class="swal2-input" placeholder="Nombre">
-      <input id="swal-precio" type="number" class="swal2-input" placeholder="Precio (opcional)">
+      <input id="swal-nombre" class="swal2-input swal-input-mobile" placeholder="Nombre" style="max-width: 100%; font-size: 14px;">
+      <input id="swal-precio" type="number" class="swal2-input swal-input-mobile" placeholder="Precio (opcional)" style="max-width: 100%; font-size: 14px;">
     `,
       showCancelButton: true,
       confirmButtonText: 'Crear',
