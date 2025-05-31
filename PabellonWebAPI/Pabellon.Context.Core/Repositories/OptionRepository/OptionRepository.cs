@@ -41,5 +41,10 @@ namespace Pabellon.Context.Core.Repositories.OptionRepository
         {
             return await _context.Options.Where(o => ids.Contains(o.Id)).ToListAsync();
         }
+
+        public async Task<Option?> GetOptionByName(string optionName)
+        {
+            return await _context.Options.Where(o => o.OptionName == optionName).FirstOrDefaultAsync();
+        }
     }
 }

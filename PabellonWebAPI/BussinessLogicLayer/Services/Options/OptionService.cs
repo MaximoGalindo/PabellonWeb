@@ -16,6 +16,13 @@ namespace BussinessLogicLayer.Services.Options
 
         public async Task<bool> CreateOption(OptionRequest request)
         {
+            var options = await _optionRepository.GetOptionByName(request.Name);
+
+            if (options != null)
+            {
+                throw new Exception($"Ya existe una opcion con el nombre '{ request.Name }' ");
+            }
+
             var option = new Option
             {
                 OptionName = request.Name,

@@ -218,14 +218,24 @@ export class AddProductComponent {
         };
 
         console.log(optionRequest);
-        
 
-        this.optionService.createOption(optionRequest).subscribe(() => {
-          this.optionService.getAllOptions().subscribe(data => {
-            this.optionItems = data;
-          })
-          this.alertService.success('Opción creada exitosamente');
-        })
+
+        this.optionService.createOption(optionRequest).subscribe({
+            next: () => {
+              this.optionService.getAllOptions().subscribe(data => {
+                this.optionItems = data;
+              })
+              this.alertService.success('Opción creada exitosamente');
+            },
+            error: (error) => {
+              console.log(error.error.message);
+              this.alertService.error(error.error.message);
+            },
+            complete: () => {
+              this.loading = false;
+            }
+          });
+
 
       }
     });

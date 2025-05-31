@@ -35,7 +35,7 @@ export class AlertService {
       icon: 'error',
       title: message,
       showConfirmButton: false,
-      timer: 2000,
+      timer: 6000,
       timerProgressBar: true
     });
   }
