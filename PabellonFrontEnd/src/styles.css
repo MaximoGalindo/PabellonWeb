@@ -170,10 +170,8 @@ body {
 }
 
 .swal-popup-mobile {
-  width: 90% !important;
-  max-width: 400px;
+  width: 100% !important;
   padding: 1rem !important;
-  box-sizing: border-box;
   overflow: hidden !important;
 }
 
@@ -181,5 +179,6 @@ body {
   font-size: 14px !important;
   padding: 0.5rem !important;
   box-sizing: border-box;
-  width: 100% !important;
+  width: 80% !important;
+  overflow: hidden !important;
 }
