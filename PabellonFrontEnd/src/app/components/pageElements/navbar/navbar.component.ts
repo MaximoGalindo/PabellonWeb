@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { DropdownComponent } from './dropdown/dropdown.component';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,4 +15,17 @@ export class NavbarComponent {
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
+
+  constructor(
+    private alertService: AlertService
+  ) { }
+
+  showLocation() {
+    this.alertService.showLocation();
+  }
+
+  showSchedules(){
+    this.alertService.showSchedules();
+  }
 }
+

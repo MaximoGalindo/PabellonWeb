@@ -46,9 +46,8 @@ export class CatalogItemsComponent implements OnInit {
         const catalogs = JSON.parse(storedCatalogs);
         this.catalog = catalogs.find((catalog: Catalog) => catalog.id === this.catalogId);
       }
-
       
-      this.productService.getProductByCatalogId(this.catalogId).subscribe((data) => {
+      this.productService.getProductByCatalogId(this.catalogId, true).subscribe((data) => {
         this.products = data;
         this.loading = false;
       },

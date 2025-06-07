@@ -24,10 +24,10 @@ namespace PabellonWebAPI.Controllers
             return Ok();
         }
 
-        [HttpGet("catalog/{catalogId}")]
-        public async Task<IActionResult> GetProductListByCatalogId(string catalogId)
+        [HttpGet("catalog/{catalogId}/{orderBy}")]
+        public async Task<IActionResult> GetProductListByCatalogId(string catalogId, bool orderBy)
         {
-            return Ok(await _productsService.GetProductListByCatalog(catalogId));
+            return Ok(await _productsService.GetProductListByCatalog(catalogId, orderBy));
         }
 
         [HttpPut("{productId:int}")]
@@ -54,10 +54,19 @@ namespace PabellonWebAPI.Controllers
         }
 
         [HttpPatch("disable/{productId:int}")]
+        [Authorize]
         public async Task<IActionResult> DisableProduct(int productId)
         {
             var result = await _productsService.DisableProduct(productId);
             return Ok(result);
         }
+
+        [HttpGet("{catalogId}/{query}")]
+        [Authorize]
+        public async Task<IActionResult> SearchProduct(string catalogId ,string query)
+        {
+            var result = await _productsService.SearchByName(catalogId, query);
+            return Ok(result);
+        } 
     }
 }

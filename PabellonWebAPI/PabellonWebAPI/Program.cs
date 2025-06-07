@@ -3,6 +3,7 @@ using BussinessLogicLayer.Services.Catalogs;
 using BussinessLogicLayer.Services.Login;
 using BussinessLogicLayer.Services.Options;
 using BussinessLogicLayer.Services.Products;
+using BussinessLogicLayer.Services.Setting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -10,6 +11,7 @@ using Pabellon.Context.Core.Repositories.CatalogRepository;
 using Pabellon.Context.Core.Repositories.OptionRepository;
 using Pabellon.Context.Core.Repositories.OptionsRepository;
 using Pabellon.Context.Core.Repositories.ProductRepository;
+using Pabellon.Context.Core.Repositories.SettingsRepository;
 using Pabellon.Context.Core.Repositories.UserRepository;
 using Pabellon.Core;
 using System.Text;
@@ -39,11 +41,13 @@ namespace PabellonWebAPI
             builder.Services.AddScoped<ICatalogService, CatalogService>();
             builder.Services.AddScoped<ILoginService, LoginService>();
             builder.Services.AddScoped<IOptionService, OptionService>();
+            builder.Services.AddScoped<ISettingsService, SettingsService>();
             builder.Services.AddScoped<ImagesHelper>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<ICatalogRepository, CatalogRepository>();
             builder.Services.AddScoped<IOptionRepository, OptionRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<ISettingsRepository, SettingsRepository>();
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

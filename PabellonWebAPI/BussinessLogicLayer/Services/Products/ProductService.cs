@@ -53,11 +53,11 @@ namespace BussinessLogicLayer.Services.Products
             await _productRepository.Insert(product);            
         }
 
-        public async Task<List<ProductResponse>> GetProductListByCatalog(string catalogId)
+        public async Task<List<ProductResponse>> GetProductListByCatalog(string catalogId, bool orderBy)
         {
             var products = await _productRepository.GetByCatalogId(catalogId);
 
-            var productResponses = products.Select(product => new ProductResponse
+            IEnumerable<ProductResponse> productResponses = products.Select(product => new ProductResponse
             {
                 Id = product.Id,
                 Name = product.Name,
@@ -74,10 +74,12 @@ namespace BussinessLogicLayer.Services.Products
                     IsSelected = false
                 }).ToList()
             })
-            .OrderBy(p => p.Disabled)
             .ToList();
 
-            return productResponses;
+            if (orderBy)
+                productResponses = productResponses.OrderBy(p => p.Disabled);
+
+            return productResponses.ToList();
         }
 
         public async Task UpdateProduct(int productId, UpdateProductRequest request)
@@ -132,6 +134,17 @@ namespace BussinessLogicLayer.Services.Products
                 return true;
             else
                 throw new Exception(GlobalResourses.ResourceAccessor.GetString("ErrorDisableProduct"));
+        }
+
+        public async Task<List<ProductResponse>> SearchByName(string catalogId, string query)
+        {
+            var products = await _productRepository.SearchByName(catalogId, query);
+            var response = products.Select(p => new ProductResponse
+            {
+                Id = p.Id,
+                Name = p.Name
+            }).ToList();
+            return response;
         }
     }
 }

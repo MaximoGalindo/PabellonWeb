@@ -1,0 +1,12 @@
+<a class="section">
+    <h1 class="section-title">Ajustes</h1>
+</a>
+<loading-component *ngIf="loading"></loading-component>
+<div class="settings-container" *ngIf="!loading">
+    <div class="setting-item" *ngFor="let setting of settings">
+        <label for="shipping_cost">{{ getSettingName(setting.key) }}</label>
+        <input id="shipping_cost" type="text" [(ngModel)]="setting.value"/>
+    </div>
+
+    <button type="submit" class="save-button" (click)="saveSettings()">Guardar cambios</button>
+</div>

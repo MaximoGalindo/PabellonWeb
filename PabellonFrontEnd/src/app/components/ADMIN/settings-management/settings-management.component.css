@@ -1,0 +1,41 @@
+.settings-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.setting-item {
+  display: flex;
+  align-items: center; /* Alinea verticalmente */
+  margin-bottom: 1rem;
+}
+
+.setting-item label {
+  width: 20%;
+  min-width: 120px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.setting-item input {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.save-button {
+  margin-top: 1rem;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  background-color: var(--footer-color);
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+form {
+  text-align: center;
+}

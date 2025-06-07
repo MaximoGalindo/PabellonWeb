@@ -77,6 +77,9 @@
                 <img *ngIf="imageUrl" [src]="imageUrl" alt="Vista previa" style="max-width: 100%;">
             </div>
         </div>
-        <button class="product-btn" type="submit">Agregar Producto</button>
+        <button class="product-btn" type="submit">
+            {{ productId > 0 ? 'Editar Producto' : 'Agregar Producto' }}
+        </button>
+
     </div>
 </form>

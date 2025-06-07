@@ -13,8 +13,8 @@ namespace Pabellon.Core
 
         public DbSet<Catalog> Catalog { get; set; }
         public DbSet<Product> Product { get; set; }
-        public DbSet<Schedule> Schedule { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Option> Options { get; set; }
+        public DbSet<Settings> Settings { get; set; }
     }
 }

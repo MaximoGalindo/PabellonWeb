@@ -88,5 +88,16 @@ namespace Pabellon.Context.Core.Repositories.UserRepository
                 throw new Exception(GlobalResourses.ResourceAccessor.GetString("ErrorDisableProduct"));
             }
         }
+
+        public async Task<List<Product>> SearchByName(string catalogId, string query)
+        {
+            return await _context.Product
+                .Where(p => EF.Functions.Like(p.Name, $"%{query}%") && p.CatalogId == catalogId)
+                .Select(p => new Product{
+                    Id = p.Id,
+                    Name = p.Name
+                })
+                .ToListAsync();
+        }
     }
 }

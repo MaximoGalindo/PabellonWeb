@@ -25,8 +25,7 @@ export class AddProductComponent {
   imageUrl: string | ArrayBuffer | null = null;
   productRequest: ProductRequest = new ProductRequest()
   fileInputRequired: boolean = false
-  productId: string | null = null
-
+  productId: number = 0
   constructor(
     private optionService: OptionsService,
     private productService: ProductService,
@@ -38,8 +37,8 @@ export class AddProductComponent {
 
   ngOnInit() {
     // Obtener ID del producto si lo hay
-    this.productId = this.route.snapshot.paramMap.get('id');
-
+    this.productId = +this.route.snapshot.paramMap.get('id')! || 0;
+    this.loading = true
     // Ejecutar en paralelo: opciones y catálogos
     forkJoin({
       options: this.loadOptions(),
@@ -49,8 +48,9 @@ export class AddProductComponent {
       this.catalogItems = catalogs;
 
       // Solo si es edición, cargar el producto
-      if (this.productId) {
-        this.productService.getProductById(parseInt(this.productId)).subscribe(product => {
+      if (this.productId > 0) {
+  
+        this.productService.getProductById(this.productId).subscribe(product => {
           this.productRequest.Name = product.name;
           this.productRequest.Price = product.price;
           this.productRequest.Description = product.description;
@@ -60,9 +60,20 @@ export class AddProductComponent {
 
           if (product.options.length > 0) {
             this.customOptionItems = product.options.map(option => ({ selectedOption: option.id, previousSelection: option.id }));
+            console.log(this.customOptionItems);
+            this.customOptionItems.forEach((option, index) => {
+              this.updateOptionSelection(option.previousSelection!, true);
+            })
           }
+          this.loading = false
         });
+
       }
+      else {
+        this.loading = false
+      }
+
+      
     });
   }
 
@@ -187,7 +198,7 @@ export class AddProductComponent {
         this.fileInputRequired = false
 
         if (this.productId) {
-          this.productService.updateProduct(parseInt(this.productId), this.productRequest).subscribe((data) => {
+          this.productService.updateProduct(this.productId, this.productRequest).subscribe((data) => {
             this.router.navigate(['/admin/productos']);
             this.alertService.success("Producto Actualizado")
           })

@@ -14,8 +14,8 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  getProductByCatalogId(catalogId: string): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.apiUrl}/catalog/${catalogId}`);
+  getProductByCatalogId(catalogId: string, orderBy: boolean): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.apiUrl}/catalog/${catalogId}/${orderBy}`);
   }
 
   createProduct(productRequest: ProductRequest): Observable<any> {
@@ -70,6 +70,10 @@ export class ProductService {
 
   disableProduct(id: number): Observable<any> {
     return this.http.patch(`${this.apiUrl}/disable/${id}`, {});
+  }
+
+  getProductByName(catalogId:string, query: string): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.apiUrl}/${catalogId}/${query}/`);
   }
 
 }

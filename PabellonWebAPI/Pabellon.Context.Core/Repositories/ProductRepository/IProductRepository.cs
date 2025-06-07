@@ -10,5 +10,6 @@ namespace Pabellon.Context.Core.Repositories.ProductRepository
         Task<Product> GetById(int id);
         Task<List<Product>> GetByCatalogId(string catalogId);
         Task<int> DisableProduct(int productId);
+        Task<List<Product>> SearchByName(string catalogId, string query);
     }
 }

@@ -27,6 +27,18 @@
     margin-bottom: 1rem;
 }
 
+.dropdown button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    padding: 0;
+    align-items: center;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
 .dropdown h3 {
     margin: 0;
     margin-left: 0.5rem;

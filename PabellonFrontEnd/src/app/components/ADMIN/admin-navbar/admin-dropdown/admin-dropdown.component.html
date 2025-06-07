@@ -2,11 +2,25 @@
     <div class="dropdown-content">
         <a routerLink="/admin/catalogo" (click)="emitIsMenuOpen()">
             <span class="material-icons">library_books</span>
-            <h3>Catalog</h3>
+            <h3>Catálogos</h3>
         </a>
         <a routerLink="/admin/productos" (click)="emitIsMenuOpen()">
             <span class="material-icons">fastfood</span>
             <h3>Productos</h3>
-        </a>       
+        </a>
+        <a routerLink="/admin/opciones" (click)="emitIsMenuOpen()">
+            <span class="material-icons">sort</span>
+            <h3>Opciones</h3>
+        </a>
+        <a routerLink="/admin/ajustes" (click)="emitIsMenuOpen()">
+            <span class="material-icons">settings</span>
+            <h3>Ajustes</h3>
+        </a>
+    </div>
+
+    <!-- Cerrar sesión alineado abajo -->
+    <div class="logout-option" (click)="logout()">
+        <span class="material-icons">logout</span>
+        <h3>Cerrar sesión</h3>
     </div>
 </div>

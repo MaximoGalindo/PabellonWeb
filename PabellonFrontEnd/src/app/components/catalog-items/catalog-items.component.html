@@ -7,21 +7,28 @@
     <div *ngIf="!loading">
         <div class="row">
             <div class="col-12 col-lg-4" *ngFor="let product of products">
-                <div class="item" (click)="openProduct(product)">
+                <div class="item" (click)="openProduct(product)" [class.disabled-card]="product.disabled">
                     <div class="item-image">
-                        <img [src]="product.image" >
+                        <img [src]="product.image">
                     </div>
-                    <div class="item-content">
+
+                    <div class="item-content" *ngIf="!product.disabled">
                         <div>
-                            <p class="product-name">{{ formatTextAvoidOrphans(product.name)  }}</p>
+                            <p class="product-name">{{ formatTextAvoidOrphans(product.name) }}</p>
                         </div>
                         <div class="description">
-                            <p class="product-description" >{{ product.description }}</p>                                
-                            <p class="product-price">$ {{ formatNumberWithCommas(product.price) }}</p>  
-                        </div>    
+                            <p class="product-description">{{ product.description }}</p>
+                            <p class="product-price">$ {{ formatNumberWithCommas(product.price) }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Overlay para productos deshabilitados -->
+                    <div class="disabled-overlay" *ngIf="product.disabled">
+                        <p class="disabled-text">SIN STOCK</p>
                     </div>
                 </div>
+
             </div>
-        </div>            
+        </div>
     </div>
 </div>

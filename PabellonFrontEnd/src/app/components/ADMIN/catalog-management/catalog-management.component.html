@@ -1,18 +1,8 @@
-<a routerLink="/admin/catalogo" class="section" *ngIf="!loading">
+<a routerLink="/admin/catalogo" class="section">
     <h1 class="section-title">Gestionar Catalogos</h1>
 </a>
 
 <div class="container-mobile" *ngIf="!loading">
-    <div class="header">
-        <label for="search">Buscar</label>
-        <div class="search-add">
-            <input type="text" id="search" placeholder="Nombre del catalogo">
-            <button (click)="addCatalog()">
-                <span class="material-icons">add</span> Agregar
-            </button>
-        </div>
-    </div>
-
     <div *ngFor="let catalog of catalogs" class="catalog-item">
         <div class="catalog-info-container">
             <div class="catalog-image">

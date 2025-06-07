@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { debounceTime, Subject } from 'rxjs';
 import { Catalog } from 'src/app/models/Catalog';
 import { Product } from 'src/app/models/Product';
 import { AlertService } from 'src/app/services/alert.service';
@@ -17,10 +18,12 @@ export class ProductManagementComponent {
   showProducts: boolean = false
   catalogs: Catalog[] = []
   selectedCatalog: Catalog = new Catalog()
-  
+  searchTerm: string = ''
+  searchTermChanged: Subject<string> = new Subject<string>();
+
   constructor(
     private router: Router,
-    private catalogService:CatalogService, 
+    private catalogService: CatalogService,
     private productService: ProductService,
     private alertService: AlertService
   ) { }
@@ -33,6 +36,13 @@ export class ProductManagementComponent {
       { name: 'Product 4', price: 40, description: 'Description for Product 4' },
       { name: 'Product 5', price: 50, description: 'Description for Product 5' }
     ]*/
+
+    this.searchTermChanged
+      .pipe(debounceTime(500)) // espera 500ms después de que el usuario deje de escribir
+      .subscribe(searchText => {
+        this.searchProduct(searchText);
+      });
+
     const storedCatalogs = sessionStorage.getItem('catalogs');
 
     this.loading = true;
@@ -45,13 +55,13 @@ export class ProductManagementComponent {
         sessionStorage.setItem('catalogs', JSON.stringify(this.catalogs));
         this.loading = false;
       },
-      (error) => {
-        this.loading = false;
-      });  
+        (error) => {
+          this.loading = false;
+        });
     }
   }
 
-  addProduct(){
+  addProduct() {
     this.router.navigate(['admin/agregar-producto']);
   }
 
@@ -64,22 +74,22 @@ export class ProductManagementComponent {
 
   getProducts() {
     this.loading = true;
-    this.productService.getProductByCatalogId(this.selectedCatalog.id).subscribe((data) => {
+    this.productService.getProductByCatalogId(this.selectedCatalog.id, false).subscribe((data) => {
       this.products = data;
       this.loading = false;
     })
   }
 
-  showCatalogs(){
+  showCatalogs() {
     this.showProducts = false
     this.selectedCatalog = new Catalog()
   }
 
-  editProduct(product:Product){
+  editProduct(product: Product) {
     this.router.navigate(['admin/agregar-producto', product.id]);
   }
 
-  deleteProduct(product:Product){
+  deleteProduct(product: Product) {
     this.alertService.confirm("Eliminar Producto", "Estas seguro de eliminar este producto?").then((result) => {
       if (result) {
         this.productService.deleteProduct(product.id).subscribe({
@@ -93,28 +103,57 @@ export class ProductManagementComponent {
           complete: () => {
             this.loading = false;
           }
-        }); 
+        });
       }
     });
   }
 
-  disableProduct(product:Product){
-    this.alertService.confirm("Deshabilitar Producto", "Estas seguro de deshabilitar este producto?").then((result) => {
+  disableProduct(product: Product) {
+    const accion = product.disabled ? 'habilitar' : 'deshabilitar';
+    const titulo = product.disabled ? 'Habilitar Producto' : 'Deshabilitar Producto';
+    const mensaje = `¿Estás seguro de que deseas ${accion} este producto?`;
+    const mensajeExito = `Producto ${product.disabled ? 'Habilitado' : 'Deshabilitado'}`;
+    const mensajeError = `Error al ${accion} el producto`;
+
+    this.alertService.confirm(titulo, mensaje).then((result) => {
       if (result) {
         this.productService.disableProduct(product.id).subscribe({
-          next: (data) => {
-            this.alertService.success("Producto Deshabilitado")
-            this.getProducts()
+          next: () => {
+            this.alertService.success(mensajeExito);
+            this.getProducts();
           },
-          error: (error) => {
-            this.alertService.error("Error al deshabilitar el producto")
+          error: () => {
+            this.alertService.error(mensajeError);
           },
           complete: () => {
             this.loading = false;
           }
-        }); 
+        });
       }
     });
+  }
+
+
+  onSearchInput() {
+    this.searchTermChanged.next(this.searchTerm);
+  }
+
+  searchProduct(searchTerm: string) {
+    if (searchTerm == '') {
+      this.getProducts();
+      return
+    }
+    this.loading = true;
+    this.productService.getProductByName(this.selectedCatalog.id, searchTerm)
+      .subscribe((data) => {
+        const idsFiltrados = data.map(p => p.id);
+
+        this.products = this.products.filter(product =>
+          idsFiltrados.includes(product.id)
+        );
+
+        this.loading = false;
+      });
   }
 
 }

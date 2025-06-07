@@ -43,17 +43,6 @@
   border-radius: 0.4rem;
 }
 
-.search-add button {
-  padding: 0.7rem 1rem;
-  border: none;
-  border-radius: 0.4rem;
-  background-color: var(--footer-color);
-  color: white;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-
 .catalog-item {
   background-color: var(--prodcucts-admin-background-color);
   border-radius: 0.5rem;

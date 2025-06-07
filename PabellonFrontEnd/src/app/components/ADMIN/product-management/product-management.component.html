@@ -1,8 +1,8 @@
-<a routerLink="/admin/productos" class="section" *ngIf="!loading && !showProducts">
+<a routerLink="/admin/productos" class="section" *ngIf="!showProducts">
     <h1 class="section-title">Agregar Producto</h1>
 </a>
 
-<a (click)="showCatalogs()" class="section catalog-name" *ngIf="!loading && showProducts">
+<a (click)="showCatalogs()" class="section catalog-name" *ngIf="showProducts">
     <h1 class="section-title">{{ selectedCatalog.name }}</h1>
 </a>
 
@@ -14,7 +14,7 @@
 
 <div class="container">
     <div class="row">
-        <loading-component *ngIf="loading"></loading-component>
+        <loading-component *ngIf="loading && !showProducts"></loading-component>
         <div *ngIf="!loading && !showProducts">
             <div class="col-12 center-elements" *ngFor="let catalog of catalogs">
                 <app-catalog (click)="openCatalog(catalog)" [catalog]="catalog"></app-catalog>
@@ -23,37 +23,43 @@
     </div>
 </div>
 
-<div class="container-mobile" *ngIf="showProducts && !loading">
+<div class="container-mobile" *ngIf="showProducts">   
     <div class="header">
         <label for="search">Buscar</label>
         <div class="search-add">
-            <input type="text" id="search" placeholder="Nombre del producto">
+            <input type="text" id="search" placeholder="Nombre del producto" [(ngModel)]="searchTerm"
+                (input)="onSearchInput()">
         </div>
     </div>
 
-    <div *ngFor="let product of products" class="product-item">
-        <div class="product-info-container">
-            <div class="product-image">
-                <img [src]="product.image" alt="{{ product.name }}">
+    <loading-component *ngIf="loading"></loading-component>
+
+    <div *ngIf="!loading">
+        <div *ngFor="let product of products" class="product-item">
+            <div class="product-info-container">
+                <div class="product-image">
+                    <img [src]="product.image" alt="{{ product.name }}">
+                </div>
+                <div class="product-details">
+                    <h3>{{ product.name }}</h3>
+                    <h3>${{ product.price }}</h3>
+                </div>
             </div>
-            <div class="product-details">
-                <h3>{{ product.name }}</h3>
-                <h3>${{ product.price }}</h3>
+            <div class="product-actions">
+                <button class="action-button edit" (click)="editProduct(product)">
+                    <span class="material-icons">edit</span> Editar
+                </button>
+                <button *ngIf="!product.disabled" class="action-button disable" (click)="disableProduct(product)">
+                    <span class="material-icons">visibility_off</span> Deshabilitar
+                </button>
+                <button *ngIf="product.disabled" class="action-button disable" (click)="disableProduct(product)">
+                    <span class="material-icons">visibility</span> Habilitar
+                </button>
+                <button class="action-button delete" (click)="deleteProduct(product)">
+                    <span class="material-icons">delete</span> Eliminar
+                </button>
             </div>
-        </div>
-        <div class="product-actions">
-            <button class="action-button edit" (click)="editProduct(product)">
-                <span class="material-icons">edit</span> Editar
-            </button>
-            <button *ngIf="!product.disabled" class="action-button disable" (click)="disableProduct(product)">
-                <span class="material-icons">visibility_off</span> Deshabilitar
-            </button>
-            <button *ngIf="product.disabled" class="action-button disable" (click)="disableProduct(product)">
-                <span class="material-icons">visibility</span> Habilitar
-            </button>
-            <button class="action-button delete" (click)="deleteProduct(product)">
-                <span class="material-icons">delete</span> Eliminar
-            </button>
         </div>
     </div>
+
 </div>
