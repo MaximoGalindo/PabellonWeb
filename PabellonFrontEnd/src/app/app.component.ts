@@ -8,6 +8,7 @@ import { AuthService } from './services/auth.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { SettingsService } from './services/Entities/settings.service';
 import { SettingsKey } from './Helpers/SettingsKey';
+import { EventBusService } from './services/event-bus.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -36,7 +37,8 @@ export class AppComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     private breakpointObserver: BreakpointObserver,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private eventBus: EventBusService
   ) { }
 
   ngOnInit(): void {
@@ -66,7 +68,7 @@ export class AppComponent implements OnInit {
             this.footerConfig.ShowFooter = this.orderHasElements && !this.footerConfig.ShowAddToOrder;
           });
 
-          if(this.footerConfig.title == 'Finalizar Pedido') {
+          if (this.footerConfig.title == 'Finalizar Pedido') {
             this.showNavbar = false;
           }
           else {
@@ -89,6 +91,12 @@ export class AppComponent implements OnInit {
     this.settingsService.getSettings().subscribe(settings => {
       sessionStorage.setItem('settings', JSON.stringify(settings));
     });
+
+    this.eventBus.onEvent().subscribe(event => {
+      if (event?.key === 'finishOrder') {
+        this.finishOrder();
+      }
+    });
   }
 
   actionFooter() {
@@ -100,7 +108,7 @@ export class AppComponent implements OnInit {
         this.openOrder();
         break;
       case 'finish-order':
-        this.finishOrder();
+        this.chekFinishOrder();
         break;
       case 'add-product':
         //this.router.navigate(['admin/agregar-producto']);
@@ -112,20 +120,24 @@ export class AppComponent implements OnInit {
     this.router.navigate(['pedido']);
   }
 
+  chekFinishOrder() {
+    this.eventBus.emitEvent('chekFinishOrder', null);
+  }
+
   finishOrder() {
     let order: Order = new Order();
     this.navegationService.currentFinalOrder.subscribe(o => {
       order = o;
     })
     order.date = new Date();
-    
+
     const settings = JSON.parse(sessionStorage.getItem('settings') || '{}');
     const shippingCost = settings.find((setting: any) => setting.key === SettingsKey.SHIPING_COST);
     const phoneNumber = settings.find((setting: any) => setting.key === SettingsKey.PHONE_NUMBER);
 
     order.shippingCost = shippingCost ? parseFloat(shippingCost.value) : 0;
 
-    if (order.shippingCost > 0) 
+    if (order.shippingCost > 0 && order.deliveryOption === DeliveryOption.Delivery)
       order.total += order.shippingCost;
 
     const message = OrderTemplate.generateMessage(order);

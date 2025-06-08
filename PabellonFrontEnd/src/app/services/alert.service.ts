@@ -16,6 +16,16 @@ export class AlertService {
     }).then(result => result.isConfirmed);
   }
 
+  confirmHTML(title: string, htmlContent: string): Promise<boolean> {
+  return Swal.fire({
+    title,
+    html: htmlContent,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí',
+    cancelButtonText: 'Cancelar'
+  }).then(result => result.isConfirmed);
+}
   success(message: string): void {
     Swal.fire({
       toast: true,
@@ -85,21 +95,18 @@ export class AlertService {
     });
   }
 
-
-
-
-  crearOpcion(): Promise<{ nombre: string, precio?: number } | null> {
+  abrirFormularioOpcion(option?: { nombre: string, precio?: number }): Promise<{ nombre: string, precio?: number } | null> {
     return Swal.fire({
-      title: 'Crear opción',
+      title: option ? 'Editar opción' : 'Crear opción',
       html: `
-      <input id="swal-nombre" class="swal2-input swal-input-mobile" placeholder="Nombre">
-      <input id="swal-precio" type="number" class="swal2-input swal-input-mobile" placeholder="Precio (opcional)">
+      <input id="swal-nombre" class="swal2-input swal-input-mobile" placeholder="Nombre" value="${option?.nombre || ''}">
+      <input id="swal-precio" type="number" class="swal2-input swal-input-mobile" placeholder="Precio (opcional)" value="${option?.precio ?? ''}">
     `,
       customClass: {
         popup: 'swal-popup-mobile'
       },
       showCancelButton: true,
-      confirmButtonText: 'Crear',
+      confirmButtonText: option ? 'Guardar' : 'Crear',
       cancelButtonText: 'Cancelar',
       focusConfirm: false,
       backdrop: true,

@@ -60,7 +60,6 @@ export class AddProductComponent {
 
           if (product.options.length > 0) {
             this.customOptionItems = product.options.map(option => ({ selectedOption: option.id, previousSelection: option.id }));
-            console.log(this.customOptionItems);
             this.customOptionItems.forEach((option, index) => {
               this.updateOptionSelection(option.previousSelection!, true);
             })
@@ -221,15 +220,12 @@ export class AddProductComponent {
   }
 
   createOption() {
-    this.alertService.crearOpcion().then(data => {
+    this.alertService.abrirFormularioOpcion().then(data => {
       if (data) {
         const optionRequest: OptionRequest = {
           Name: data.nombre,
           Price: data.precio ? data.precio : 0
         };
-
-        console.log(optionRequest);
-
 
         this.optionService.createOption(optionRequest).subscribe({
             next: () => {
@@ -239,7 +235,6 @@ export class AddProductComponent {
               this.alertService.success('Opción creada exitosamente');
             },
             error: (error) => {
-              console.log(error.error.message);
               this.alertService.error(error.error.message);
             },
             complete: () => {

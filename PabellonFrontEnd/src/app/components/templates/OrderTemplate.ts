@@ -62,7 +62,7 @@ static generateMessage(order: Order): string {
         `*Forma de pago*: ${this.getPaymentMethod(order.paymentMethod)}\n` +
         `*Total*: $ ${order.total}\n` +
         `*Entrega*: ${this.getDeliveryOption(order.deliveryOption)}\n\n` +
-        `${order.shippingCost > 0 ? `*Costo de envío*: $ ${order.shippingCost}\n` : ''}` +
+        `${order.shippingCost > 0 && order.deliveryOption === DeliveryOption.Delivery ? `*Costo de envío*: $ ${order.shippingCost}\n` : ''}` +
         deliveryInfo +
         `Mi pedido es:\n${itemsText}\n\n` +
         `_Espero tu respuesta para confirmar mi pedido_`;

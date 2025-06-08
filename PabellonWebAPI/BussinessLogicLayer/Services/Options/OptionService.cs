@@ -50,5 +50,48 @@ namespace BussinessLogicLayer.Services.Options
 
             return response;
         }
+
+        public async Task<bool> UpdateOption(int id, OptionRequest request)
+        {
+            var option = new Option
+            {
+                Id = id,
+                OptionName = request.Name,
+                Price = request.Price
+            };
+
+            return await _optionRepository.UpdateOption(option);
+        }
+
+        public async Task<bool> DeleteOption(int id)
+        {
+            return await _optionRepository.DeleteOption(id);
+        }
+
+        public async Task<OptionResponse> GetOptionById(int id)
+        {
+            var option = await _optionRepository.GetOptionById(id);
+
+            var response = new OptionResponse
+            {
+                Id = option.Id,
+                Name = option.OptionName,
+                Price = option.Price,
+                IsSelected = false
+            };
+
+            return response;
+        }
+
+        public async Task<List<string>> GetProductsNameWithOptionId(int optionId)
+        {
+            var productsName = await _optionRepository.GetProductsNameWithOptionId(optionId);
+            if (productsName == null || productsName.Count == 0)
+            {
+                return new List<string>();
+            }
+
+            return productsName;
+        }
     }
 }

@@ -16,7 +16,7 @@ input {
     border: none;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
     height: 2.5rem;
-    background-color: var(--primary-color);
+    background-color: var(--order-number);
     color: white;
     padding: 0.5rem;
 }
@@ -38,7 +38,7 @@ input[type="radio"] {
     justify-content: center;
     margin-top: 1rem;
     border-radius: 0.5rem;
-    background-color: var(--primary-color);
+    background-color: var(--order-number);
     height: 4rem;
     border: none;
     color: white;
@@ -54,5 +54,41 @@ input[type="radio"] {
 }
 
 .radio-label.active {
-    background-color: var(--secondary-color);
+    background-color: var(--order-sumary-color);
+}
+
+/* Campo inválido con animación */
+.invalid {
+  border: 1px solid red;
+  animation: shake 0.2s ease-in-out 2;
+}
+
+.invalid-radio {
+  border: 1px solid red;
+  animation: shake 0.2s ease-in-out 2;
+}
+
+/* Mensaje de error con fade-in */
+.error-msg {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  opacity: 0;
+  animation: fadeIn 0.4s forwards;
+}
+
+/* Animación de fadeIn */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Animación tipo "sacudida" para campos inválidos */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
 }

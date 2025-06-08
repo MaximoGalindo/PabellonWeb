@@ -1,1 +1,26 @@
-<p>options-management works!</p>
+<a routerLink="/admin/opciones" class="section">
+    <h1 class="section-title">Gestionar Opciones</h1>
+</a>
+
+<div class="add-button-container">
+    <button (click)="addOption()" class="add-button">
+        <span class="material-icons">add</span> Agregar Opcion
+    </button>
+</div>
+
+<div class="option-list">
+  <div class="option-item" *ngFor="let option of options">
+    <div class="option-text">
+      <span class="option-name">{{ option.name }}</span>
+      <span class="option-price">${{ option.price.toFixed(2) }}</span>
+    </div>
+    <div class="option-actions">
+      <button class="icon-button" (click)="editOption(option)">
+        <i class="material-icons">edit</i>
+      </button>
+      <button class="icon-button" (click)="deleteOption(option)">
+        <i class="material-icons">delete</i>
+      </button>
+    </div>
+  </div>
+</div>

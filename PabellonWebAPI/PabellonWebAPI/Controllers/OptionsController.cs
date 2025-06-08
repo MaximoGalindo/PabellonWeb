@@ -29,5 +29,35 @@ namespace Pabellon.Web.API.Controllers
         {
             return Ok(await _optionService.CreateOption(request));
         }
+
+        [HttpPut("{id:int}")]
+        [Authorize]
+        public async Task<IActionResult> UpdateOption(int id, [FromForm] OptionRequest request)
+        {
+            return Ok(await _optionService.UpdateOption(id, request));
+        }
+
+        [HttpDelete("{id:int}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteOption(int id)
+        {
+            return Ok(await _optionService.DeleteOption(id));
+        }
+
+        [HttpGet("{id:int}")]
+        [Authorize]
+        public async Task<IActionResult> GetOptionById(int id)
+        {
+            var option = await _optionService.GetOptionById(id);
+            return Ok(option);
+        }
+
+        [HttpGet("products/{optionId:int}")]
+        [Authorize]
+        public async Task<IActionResult> GetProductsNameWithOptionId(int optionId)
+        {
+            var productNames = await _optionService.GetProductsNameWithOptionId(optionId);
+            return Ok(productNames);
+        }
     }
 }

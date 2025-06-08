@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Utils } from 'src/app/Helpers/Utils';
 import { Catalog } from 'src/app/models/Catalog';
 import { Options } from 'src/app/models/Options';
 import { Order } from 'src/app/models/Order';
@@ -62,7 +63,7 @@ export class ProductComponent implements OnInit {
   }
 
   getTotalPrice() {
-    return this.customizedProducts.reduce((acc, cp) => acc + cp.getTotalPrice(), 0);
+    return Utils.formatNumberWithCommas(this.customizedProducts.reduce((acc, cp) => acc + cp.getTotalPrice(), 0))
   }
 
   isOptionSelected(customizedProduct: CustomizedProduct, option: Options): boolean {

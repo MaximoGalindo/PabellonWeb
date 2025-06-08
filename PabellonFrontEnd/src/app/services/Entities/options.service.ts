@@ -26,4 +26,25 @@ export class OptionsService {
 
     return this.http.post(this.apiUrl, formData);
   }
+
+  updateOption(id: number, productRequest: OptionRequest): Observable<any> {
+    const formData = new FormData();
+
+    formData.append('Name', productRequest.Name);
+    formData.append('Price', productRequest.Price.toString());
+
+    return this.http.put(`${this.apiUrl}/${id}`, formData);
+  }
+
+  deleteOption(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  getOptionById(id: number): Observable<Options> {
+    return this.http.get<Options>(`${this.apiUrl}/${id}`);
+  }
+
+  getProductNameByOptionId(id: number): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/products/${id}`);
+  }
 }

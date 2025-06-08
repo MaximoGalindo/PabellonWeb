@@ -1,49 +1,58 @@
 <div class="container">
     <div class="row form-container">
         <div class="col">
-            <label for="">Nombre y Apellido</label>
-            <input type="text" [(ngModel)]="order.name" (change)="orderOnChange()">
+            <label>Nombre y Apellido</label>
+            <input type="text" [(ngModel)]="order.name" [ngClass]="{'invalid': submitted && !order.name?.trim()}" />
+            <div class="error-msg" *ngIf="submitted && !order.name?.trim()">Este campo es obligatorio.</div>
         </div>
         <div class="col">
             <label for="">Telefono</label>
-            <input type="text" [(ngModel)]="order.phone" (change)="orderOnChange()">
+            <input type="number" [(ngModel)]="order.phone" (change)="orderOnChange()" [ngClass]="{'invalid': submitted && !order.phone}">
+             <div class="error-msg" *ngIf="submitted && !order.phone">Este campo es obligatorio.</div>
         </div>
-        <div class="col">   
+        <div class="col">
             <label for="">Medio de Pago</label>
             <div class="row">
                 <div class="col">
-                    <label class="radio-label" [class.active]="order.paymentMethod === PaymentMethod.Cash">
-                        <input type="radio" name="paymentMethod" [value]="PaymentMethod.Cash" [(ngModel)]="order.paymentMethod" (change)="orderOnChange()"/>
+                    <label class="radio-label" [class.active]="order.paymentMethod === PaymentMethod.Cash" [ngClass]="{'invalid-radio': submitted && !order.paymentMethod}">
+                        <input type="radio" name="paymentMethod" [value]="PaymentMethod.Cash"
+                            [(ngModel)]="order.paymentMethod" (change)="orderOnChange()" />
                         <span> <i class="fa-solid fa-wallet"></i>Efectivo</span>
                     </label>
                 </div>
                 <div class="col">
-                    <label class="radio-label" [class.active]="order.paymentMethod === PaymentMethod.Transfer">
-                        <input type="radio" name="paymentMethod" [value]="PaymentMethod.Transfer" [(ngModel)]="order.paymentMethod" (change)="orderOnChange()"/>
+                    <label class="radio-label" [class.active]="order.paymentMethod === PaymentMethod.Transfer" [ngClass]="{'invalid-radio': submitted && !order.paymentMethod}">
+                        <input type="radio" name="paymentMethod" [value]="PaymentMethod.Transfer"
+                            [(ngModel)]="order.paymentMethod" (change)="orderOnChange()" />
                         <span> <i class="fa-solid fa-building-columns"></i>Transferencia</span>
                     </label>
                 </div>
-            </div>          
+                <div class="error-msg" *ngIf="submitted && !order.paymentMethod">Debe seleccionar un medio de pago.</div>
+            </div>
         </div>
         <div class="col">
             <div class="row">
                 <div class="col">
-                    <label class="radio-label" [class.active]="order.deliveryOption === DeliveryOption.Pickup">
-                        <input type="radio" name="deliveryOptions" [value]="DeliveryOption.Pickup" [(ngModel)]="order.deliveryOption" (change)="orderOnChange()"/>
+                    <label class="radio-label" [class.active]="order.deliveryOption === DeliveryOption.Pickup" [ngClass]="{'invalid-radio': submitted && !order.deliveryOption}">
+                        <input type="radio" name="deliveryOptions" [value]="DeliveryOption.Pickup"
+                            [(ngModel)]="order.deliveryOption" (change)="orderOnChange()" />
                         <span> <i class="fa-solid fa-shop"></i>Retiro en el Local</span>
                     </label>
                 </div>
                 <div class="col">
-                    <label class="radio-label" [class.active]="order.deliveryOption === DeliveryOption.Delivery">
-                        <input type="radio" name="deliveryOptions" [value]="DeliveryOption.Delivery" [(ngModel)]="order.deliveryOption" (change)="orderOnChange()"/>
+                    <label class="radio-label" [class.active]="order.deliveryOption === DeliveryOption.Delivery" [ngClass]="{'invalid-radio': submitted && !order.deliveryOption }">
+                        <input type="radio" name="deliveryOptions" [value]="DeliveryOption.Delivery"
+                            [(ngModel)]="order.deliveryOption" (change)="orderOnChange()" />
                         <span> <i class="fa-solid fa-motorcycle"></i>Envío a Domicilio</span>
                     </label>
                 </div>
-            </div>        
-        </div>        
+                <div class="error-msg" *ngIf="submitted && !order.deliveryOption">Debe seleccionar un medio de entrega.</div>
+            </div>
+        </div>
         <div class="col" *ngIf="order.deliveryOption === DeliveryOption.Delivery">
             <label for="">Direccion</label>
-            <input type="text" [(ngModel)]="order.address" (change)="orderOnChange()">
+            <input type="text" [(ngModel)]="order.address" (change)="orderOnChange()" [ngClass]="{'invalid': submitted && !order.address?.trim()}">
+            <div class="error-msg" *ngIf="submitted && !order.address?.trim()">Este campo es obligatorio.</div>
         </div>
         <div class="col mb-4" *ngIf="order.deliveryOption === DeliveryOption.Delivery">
             <label for="">Mas Informacion</label>
@@ -51,5 +60,3 @@
         </div>
     </div>
 </div>
-
-

@@ -1,0 +1,68 @@
+.add-button {
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 0.4rem;
+  background-color: var(--footer-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  margin-top: 1rem;
+  width: 70%;
+}
+
+.add-button-container{
+  display: flex;
+  justify-content: center;
+}
+
+.option-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 1rem;
+}
+
+.option-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+}
+
+.option-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.option-name {
+  font-weight: 500;
+}
+
+.option-price {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.option-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: #555;
+  font-size: 1.2rem;
+}
+
+.icon-button:hover {
+  color: #000;
+}
