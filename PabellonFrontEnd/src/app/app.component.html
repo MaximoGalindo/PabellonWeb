@@ -12,7 +12,7 @@
       [showSpan]="footerConfig.ShowSpan">
     </app-footer>
     <app-add-to-order *ngIf="footerConfig.ShowAddToOrder"></app-add-to-order>
-    <app-navbar *ngIf="isMobile" [isMobile]="isMobile"></app-navbar>
+    <app-navbar *ngIf="isMobile && showNavbar" [isMobile]="isMobile"></app-navbar>
   </ng-container>
 
   <ng-container *ngIf="isAdminRoute">

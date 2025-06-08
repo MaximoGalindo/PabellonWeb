@@ -18,7 +18,6 @@ namespace Pabellon.Web.API.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> GetSettings()
         {
             return Ok(await _settingsService.GetSettings());

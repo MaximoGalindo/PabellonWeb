@@ -9,6 +9,7 @@ export class Order {
     phone: string = ''
     date: Date = new Date()
     total: number = 0
+    shippingCost: number = 0
     deliveryOption: DeliveryOption | null = null
     paymentMethod: PaymentMethod | null = null
     orderDetail: OrderDetail[] = []
