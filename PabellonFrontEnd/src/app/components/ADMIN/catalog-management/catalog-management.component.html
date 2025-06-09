@@ -6,7 +6,7 @@
     <div *ngFor="let catalog of catalogs" class="catalog-item">
         <div class="catalog-info-container">
             <div class="catalog-image">
-                <img [src]="catalog.img" alt="{{ catalog.name }}">
+                <img [src]="getImageUrl(catalog.img)" alt="{{ catalog.name }}">
             </div>
             <div class="catalog-details">
                 <h3>{{ catalog.name }}</h3>

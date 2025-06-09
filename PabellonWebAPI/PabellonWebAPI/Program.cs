@@ -6,6 +6,7 @@ using BussinessLogicLayer.Services.Products;
 using BussinessLogicLayer.Services.Setting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Pabellon.Context.Core.Repositories.CatalogRepository;
 using Pabellon.Context.Core.Repositories.OptionRepository;
@@ -90,6 +91,12 @@ namespace PabellonWebAPI
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine("C:\\", "Pabellon", "Imagenes")),
+                RequestPath = "/uploads"
+            });
 
             //app.UseHttpsRedirection();
 

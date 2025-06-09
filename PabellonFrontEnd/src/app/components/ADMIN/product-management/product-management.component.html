@@ -38,7 +38,7 @@
         <div *ngFor="let product of products" class="product-item">
             <div class="product-info-container">
                 <div class="product-image">
-                    <img [src]="product.image" alt="{{ product.name }}">
+                    <img [src]="getImageUrl(product.image)" alt="{{ product.name }}">
                 </div>
                 <div class="product-details">
                     <h3>{{ product.name }}</h3>

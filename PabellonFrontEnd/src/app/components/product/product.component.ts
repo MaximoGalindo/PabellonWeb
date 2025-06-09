@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BaseService } from 'src/app/Helpers/BaseService';
 import { Utils } from 'src/app/Helpers/Utils';
 import { Catalog } from 'src/app/models/Catalog';
 import { Options } from 'src/app/models/Options';
@@ -68,6 +69,10 @@ export class ProductComponent implements OnInit {
 
   isOptionSelected(customizedProduct: CustomizedProduct, option: Options): boolean {
     return customizedProduct.selectedOptions.some(o => o.id === option.id);
+  }
+
+  getImageUrl(imagePath: string): string {
+    return `${BaseService.fileUrl}${imagePath}`;
   }
 
 }

@@ -29,10 +29,6 @@ export class ConfirmOrderComponent implements OnInit {
         if (this.isOrderValid()) {
           this.eventBus.emitEvent('finishOrder', null);
         }
-        else {
-          console.log('No es valido');
-          
-        }
       }
     });
   }

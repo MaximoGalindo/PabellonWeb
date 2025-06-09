@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { debounceTime, Subject } from 'rxjs';
+import { BaseService } from 'src/app/Helpers/BaseService';
 import { Catalog } from 'src/app/models/Catalog';
 import { Product } from 'src/app/models/Product';
 import { AlertService } from 'src/app/services/alert.service';
@@ -156,4 +157,7 @@ export class ProductManagementComponent {
       });
   }
 
+  getImageUrl(imagePath: string): string {
+    return `${BaseService.fileUrl}${imagePath}`;
+  }
 }

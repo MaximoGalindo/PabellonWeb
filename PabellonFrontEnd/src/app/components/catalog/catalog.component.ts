@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Catalog } from '../../models/Catalog';
+import { BaseService } from 'src/app/Helpers/BaseService';
 
 @Component({
   selector: 'app-catalog',
@@ -7,5 +8,9 @@ import { Catalog } from '../../models/Catalog';
   styleUrls: ['./catalog.component.css']
 })
 export class CatalogComponent {
-  @Input() catalog:Catalog = new Catalog(); 
+  @Input() catalog: Catalog = new Catalog();
+
+  getImageUrl(imagePath: string): string {
+    return `${BaseService.fileUrl}${imagePath}`;
+  }
 }

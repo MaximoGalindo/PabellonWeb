@@ -9,7 +9,7 @@
             <div class="col-12 col-lg-4" *ngFor="let product of products">
                 <div class="item" (click)="openProduct(product)" [class.disabled-card]="product.disabled">
                     <div class="item-image">
-                        <img [src]="product.image">
+                        <img [src]="getImageUrl(product.image)">
                     </div>
 
                     <div class="item-content" *ngIf="!product.disabled">

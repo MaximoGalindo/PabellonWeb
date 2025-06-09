@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { BaseService } from 'src/app/Helpers/BaseService';
 import { Options } from 'src/app/models/Options';
 import { Order } from 'src/app/models/Order';
 import { CustomizedProduct, Product } from 'src/app/models/Product';
@@ -59,5 +60,9 @@ export class OrderDetailComponent implements OnInit, OnDestroy {
 
   goBack(): void {
     this.router.navigateByUrl('/home');
+  }
+
+  getImageUrl(imagePath: string): string {
+    return `${BaseService.fileUrl}${imagePath}`;
   }
 }

@@ -61,7 +61,7 @@ namespace BussinessLogicLayer.Services.Products
             {
                 Id = product.Id,
                 Name = product.Name,
-                Image = _imagesHelper.GetImage(product.Image),
+                Image = product.Image, //_imagesHelper.GetImage(product.Image),
                 Price = product.Price,
                 CatalogId = product.Catalog.Id,
                 Description = product.Description ?? "",
@@ -90,7 +90,8 @@ namespace BussinessLogicLayer.Services.Products
             product.Description = request.Description;
             product.Name = request.Name;
             product.Price = request.Price;
-            product.Image = await _imagesHelper.SaveImage(request.Image);
+            if(request.Image != null)
+                product.Image = await _imagesHelper.SaveImage(request.Image);
             product.Options = await _optionRepository.GetByIds(request.OptionIds);
             product.CatalogId = request.CatalogId;
 
@@ -110,7 +111,7 @@ namespace BussinessLogicLayer.Services.Products
             {
                 Id = product.Id,
                 Name = product.Name,
-                Image = _imagesHelper.GetImage(product.Image),
+                Image = product.Image,
                 Price = product.Price,
                 CatalogId = product.CatalogId,
                 Description = product.Description ?? "",

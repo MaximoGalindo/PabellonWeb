@@ -2,7 +2,7 @@
     <div class="row form-container">
         <div class="col">
             <label>Nombre y Apellido</label>
-            <input type="text" [(ngModel)]="order.name" [ngClass]="{'invalid': submitted && !order.name?.trim()}" />
+            <input type="text" [(ngModel)]="order.name" [ngClass]="{'invalid': submitted && !order.name.trim()}" />
             <div class="error-msg" *ngIf="submitted && !order.name?.trim()">Este campo es obligatorio.</div>
         </div>
         <div class="col">
@@ -51,7 +51,7 @@
         </div>
         <div class="col" *ngIf="order.deliveryOption === DeliveryOption.Delivery">
             <label for="">Direccion</label>
-            <input type="text" [(ngModel)]="order.address" (change)="orderOnChange()" [ngClass]="{'invalid': submitted && !order.address?.trim()}">
+            <input type="text" [(ngModel)]="order.address" (change)="orderOnChange()" [ngClass]="{'invalid': submitted && !order.address.trim()}">
             <div class="error-msg" *ngIf="submitted && !order.address?.trim()">Este campo es obligatorio.</div>
         </div>
         <div class="col mb-4" *ngIf="order.deliveryOption === DeliveryOption.Delivery">

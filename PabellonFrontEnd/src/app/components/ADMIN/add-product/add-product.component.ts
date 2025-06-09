@@ -10,6 +10,7 @@ import { OptionsService } from 'src/app/services/Entities/options.service';
 import { ProductService } from 'src/app/services/Entities/product.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { OptionRequest } from 'src/app/models/Request/OptionRequest';
+import { BaseService } from 'src/app/Helpers/BaseService';
 
 @Component({
   selector: 'app-add-product',
@@ -49,14 +50,13 @@ export class AddProductComponent {
 
       // Solo si es edición, cargar el producto
       if (this.productId > 0) {
-  
+
         this.productService.getProductById(this.productId).subscribe(product => {
           this.productRequest.Name = product.name;
           this.productRequest.Price = product.price;
           this.productRequest.Description = product.description;
           this.productRequest.CatalogId = product.catalogId;
-          this.imageUrl = product.image;
-          this.productRequest.Image = this.base64ToFile(product.image);
+          this.imageUrl = this.getImageUrl(product.image);
 
           if (product.options.length > 0) {
             this.customOptionItems = product.options.map(option => ({ selectedOption: option.id, previousSelection: option.id }));
@@ -72,33 +72,17 @@ export class AddProductComponent {
         this.loading = false
       }
 
-      
+
     });
+  }
+
+  getImageUrl(imagePath: string): string {
+    return `${BaseService.fileUrl}${imagePath}`;
   }
 
   private loadOptions(): Observable<any> {
     return this.optionService.getAllOptions();
   }
-
-  private base64ToFile(base64: string): File {
-    const arr = base64.split(',');
-    const mimeMatch = arr[0].match(/:(.*?);/);
-    const mime = mimeMatch ? mimeMatch[1] : 'image/jpeg';
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
-    }
-
-    // Generar nombre genérico: ejemplo imagen_20250801.jpg
-    const extension = mime.split('/')[1]; // ej. "jpeg", "png"
-    const filename = `imagen_${Date.now()}.${extension}`;
-
-    return new File([u8arr], filename, { type: mime });
-  }
-
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -228,19 +212,19 @@ export class AddProductComponent {
         };
 
         this.optionService.createOption(optionRequest).subscribe({
-            next: () => {
-              this.optionService.getAllOptions().subscribe(data => {
-                this.optionItems = data;
-              })
-              this.alertService.success('Opción creada exitosamente');
-            },
-            error: (error) => {
-              this.alertService.error(error.error.message);
-            },
-            complete: () => {
-              this.loading = false;
-            }
-          });
+          next: () => {
+            this.optionService.getAllOptions().subscribe(data => {
+              this.optionItems = data;
+            })
+            this.alertService.success('Opción creada exitosamente');
+          },
+          error: (error) => {
+            this.alertService.error(error.error.message);
+          },
+          complete: () => {
+            this.loading = false;
+          }
+        });
 
 
       }

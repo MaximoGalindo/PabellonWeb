@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://refuse-modems-platforms-budgets.trycloudflare.com/api'
+  apiUrl: 'https://minute-hopes-dev-den.trycloudflare.com/api',
+  fileUrl: 'https://minute-hopes-dev-den.trycloudflare.com'
 };

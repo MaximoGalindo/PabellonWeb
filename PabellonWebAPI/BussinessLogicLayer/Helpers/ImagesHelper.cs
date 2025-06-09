@@ -46,7 +46,7 @@ namespace BussinessLogicLayer.Helpers
                 await img.CopyToAsync(stream);
             }
 
-            return filePath;
+            return $"/uploads/{fileName}";
         }
     }
 }

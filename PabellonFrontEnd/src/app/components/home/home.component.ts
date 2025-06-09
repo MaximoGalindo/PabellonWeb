@@ -14,30 +14,22 @@ export class HomeComponent implements OnInit {
   loading: boolean = false
   catalogs: Catalog[] = []
   orderHasElements: boolean = false;
-  
-  constructor(private router: Router, private navegationService: NavegationService, private catalogService: CatalogService) {}
+
+  constructor(private router: Router, private navegationService: NavegationService, private catalogService: CatalogService) { }
 
   ngOnInit() {
-    const storedCatalogs = sessionStorage.getItem('catalogs');
-
     this.loading = true;
-    if (storedCatalogs !== null) {
-      this.catalogs = JSON.parse(storedCatalogs);
-      this.loading = false;
-    } else {
-      this.catalogService.getAllCatalogs().subscribe({
-        next: (data) => {
-          this.catalogs = data;
-          sessionStorage.setItem('catalogs', JSON.stringify(this.catalogs));
-        },
-        error: (error) => {
-          // Manejo de error opcional
-        },
-        complete: () => {
-          this.loading = false;
-        }
-      }); 
-    }
+    this.catalogService.getAllCatalogs().subscribe({
+      next: (data) => {
+        this.catalogs = data;
+      },
+      error: (error) => {
+        // Manejo de error opcional
+      },
+      complete: () => {
+        this.loading = false;
+      }
+    });
 
     this.orderHasElements = this.navegationService.getOrderTotal();
   }
@@ -45,7 +37,7 @@ export class HomeComponent implements OnInit {
   openCatalog(catalog: Catalog) {
     if (catalog) {
       this.navegationService.setCatalog(catalog);
-      this.router.navigate(['catalogo', catalog.id]);      
+      this.router.navigate(['catalogo', catalog.id]);
     }
   }
 

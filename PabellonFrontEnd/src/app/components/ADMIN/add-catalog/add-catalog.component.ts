@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BaseService } from 'src/app/Helpers/BaseService';
 import { CatalogRequest } from 'src/app/models/Request/CatalogRequest';
 import { AlertService } from 'src/app/services/alert.service';
 import { CatalogService } from 'src/app/services/Entities/catalog.service';
@@ -31,30 +32,10 @@ export class AddCatalogComponent {
     if (this.catalogId !== null) {
       this.catalogService.getCatalogById(this.catalogId).subscribe(catalog => {
         this.catalogRequest.Name = catalog.name;
-        this.imageUrl = catalog.img;
-        this.catalogRequest.Image = this.base64ToFile(catalog.img);
+        this.imageUrl = this.getImageUrl(catalog.img);
       });
     }
 
-  }
-
-  private base64ToFile(base64: string): File {
-    const arr = base64.split(',');
-    const mimeMatch = arr[0].match(/:(.*?);/);
-    const mime = mimeMatch ? mimeMatch[1] : 'image/jpeg';
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
-    }
-
-    // Generar nombre genérico: ejemplo imagen_20250801.jpg
-    const extension = mime.split('/')[1]; // ej. "jpeg", "png"
-    const filename = `imagen_${Date.now()}.${extension}`;
-
-    return new File([u8arr], filename, { type: mime });
   }
 
   onFileSelected(event: Event): void {
@@ -88,13 +69,13 @@ export class AddCatalogComponent {
 
         if (this.catalogId) {
           this.catalogService.updateCatalog(this.catalogId, this.catalogRequest).subscribe((data) => {
-            this.router.navigate(['/admin/productos']);
+            this.router.navigate(['/admin/catalogo']);
             this.alertService.success("Catalogo Actualizado")
           })
         }
         else {
           this.catalogService.createCatalog(this.catalogRequest).subscribe((data) => {
-            this.router.navigate(['/admin/productos']);
+            this.router.navigate(['/admin/catalogo']);
             this.alertService.success("Catalogo Creado")
           })
         }
@@ -107,5 +88,9 @@ export class AddCatalogComponent {
       const control = form.controls[controlName];
       control.markAsTouched();  // Marca el campo como tocado
     });
+  }
+
+  getImageUrl(imagePath: string): string {
+    return `${BaseService.fileUrl}${imagePath}`;
   }
 }

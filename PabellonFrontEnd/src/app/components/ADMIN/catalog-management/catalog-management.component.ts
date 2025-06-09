@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { BaseService } from 'src/app/Helpers/BaseService';
 import { Catalog } from 'src/app/models/Catalog';
 import { AlertService } from 'src/app/services/alert.service';
 import { CatalogService } from 'src/app/services/Entities/catalog.service';
@@ -65,5 +66,9 @@ export class CatalogManagementComponent {
         });
       }
     });
+  }
+
+  getImageUrl(imagePath: string): string {
+    return `${BaseService.fileUrl}${imagePath}`;
   }
 }

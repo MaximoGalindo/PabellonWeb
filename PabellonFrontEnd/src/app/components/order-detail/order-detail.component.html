@@ -1,6 +1,6 @@
 <a (click)="goBack()" class="section aling-elements">
-    <i class="fa-solid fa-arrow-left fa-2xl ms-3"></i>
-    <h2> Detalle de Pedido</h2>
+  <i class="fa-solid fa-arrow-left fa-2xl ms-3"></i>
+  <h2> Detalle de Pedido</h2>
 </a>
 <div class="container mt-3">
   <div class="row">
@@ -8,26 +8,24 @@
       <div class="menu-item">
         <div class="row">
           <div class="col-4 col-md-2 col-lg-2">
-            <img
-              [src]="customizedProduct.product.image"
-              alt="{{ customizedProduct.product.name }}"
-              class="product-image"
-            />
+            <img [src]="getImageUrl(customizedProduct.product.image)" alt="{{ customizedProduct.product.name }}"
+              class="product-image" />
           </div>
           <div class="col-6 col-md-9 col-lg-9 info">
             <div class="menu-title">
               <span class="truncate-text"> {{ customizedProduct.product.name }} </span>
               <span> ${{ getFinalProductPrice(customizedProduct.product, customizedProduct.selectedOptions) }} </span>
+
+              <div class="menu-options">
+                <ng-container *ngFor="let option of customizedProduct.selectedOptions">
+                  <div class="menu-option"> -
+                    <span>{{ option.name }}</span>
+                    <span *ngIf="option.price > 0"> | ${{ option.price }}</span>
+                  </div>
+                </ng-container>
+              </div>
             </div>
 
-            <div class="menu-options">
-              <ng-container *ngFor="let option of customizedProduct.selectedOptions">
-                <div class="menu-option">
-                  <span>{{ option.name }}</span>
-                  <span *ngIf="option.price > 0"> | ${{ option.price }}</span>
-                </div>
-              </ng-container>
-            </div>
           </div>
 
           <div class="col-2 col-md-1 col-lg-1">

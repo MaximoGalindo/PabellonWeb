@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BaseService } from 'src/app/Helpers/BaseService';
 import { Utils } from 'src/app/Helpers/Utils';
 import { Catalog } from 'src/app/models/Catalog';
 import { Product } from 'src/app/models/Product';
@@ -39,14 +40,11 @@ export class CatalogItemsComponent implements OnInit {
     this.catalogId = this.route.snapshot.paramMap.get('id');
 
     if (this.catalogId) {
-      const storedCatalogs = sessionStorage.getItem('catalogs');
-
       this.loading = true;
-      if (storedCatalogs !== null) {
-        const catalogs = JSON.parse(storedCatalogs);
-        this.catalog = catalogs.find((catalog: Catalog) => catalog.id === this.catalogId);
-      }
-      
+      this.navegationService.currentCatalog.subscribe(catalog => {
+        this.catalog = catalog;
+      })
+
       this.productService.getProductByCatalogId(this.catalogId, true).subscribe((data) => {
         this.products = data;
         this.loading = false;
@@ -83,6 +81,10 @@ export class CatalogItemsComponent implements OnInit {
 
   formatNumberWithCommas(number: number): string {
     return Utils.formatNumberWithCommas(number);
+  }
+
+  getImageUrl(imagePath: string): string {
+    return `${BaseService.fileUrl}${imagePath}`;
   }
 
 
