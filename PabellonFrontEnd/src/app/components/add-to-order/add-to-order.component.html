@@ -1,5 +1,5 @@
 <div class="footer">
-    <div class="row">
+    <div class="row" *ngIf="storeOpen">
         <div class="col-5">
             <div class="counter">
                 <button class="btn decrement" (click)="decrement()">-</button>
@@ -13,5 +13,8 @@
                 <span> ${{ getTotalPrice()}} </span>
             </button>
         </div>
+    </div>
+    <div class="row closed" *ngIf="!storeOpen">
+        <span>Lo sentimos estamos cerrados</span>
     </div>
 </div>

@@ -12,6 +12,7 @@ import { AuthGuard } from './Guards/auth.guard';
 import { AddCatalogComponent } from './components/ADMIN/add-catalog/add-catalog.component';
 import { SettingsManagementComponent } from './components/ADMIN/settings-management/settings-management.component';
 import { OptionsManagementComponent } from './components/ADMIN/options-management/options-management.component';
+import { NavegationGuard } from './Guards/navegation.guard';
 
 
 const routes: Routes = [
@@ -19,8 +20,8 @@ const routes: Routes = [
   { path: 'catalogo', redirectTo: '/home', pathMatch: 'full', data: { footer: { ShowFooter: true, title: 'Ver Pedido', ShowIcon: true, ShowSpan: true } } },
 
   { path: 'home', component: HomeComponent, data: { footer: { ShowFooter: true, title: 'Ver Pedido', ShowIcon: true, ShowSpan: true, NavegateTo: 'order' } } },
-  { path: 'catalogo/:id', component: CatalogItemsComponent, data: { footer: { ShowFooter: true, title: 'Ver Pedido', ShowIcon: true, ShowSpan: true, NavegateTo: 'order' } } },
-  { path: 'catalogo/:id/:productName', component: ProductComponent, data: { footer: { ShowFooter: false, ShowAddToOrder: true } } },
+  { path: 'catalogo/:id', component: CatalogItemsComponent, data: { footer: { ShowFooter: true, title: 'Ver Pedido', ShowIcon: true, ShowSpan: true, NavegateTo: 'order' } }, canActivate: [NavegationGuard] },
+  { path: 'catalogo/:id/:productName', component: ProductComponent, data: { footer: { ShowFooter: false, ShowAddToOrder: true } }, canActivate: [NavegationGuard] },
   { path: 'pedido', component: OrderDetailComponent, data: { footer: { ShowFooter: true, title: 'Finalizar Pedido', ShowIcon: false, ShowSpan: false, NavegateTo: 'finish-order' } } },
   { path: 'admin/login', component: LoginComponent },
   { path: 'admin/catalogo', component: CatalogManagementComponent, canActivate: [AuthGuard] },

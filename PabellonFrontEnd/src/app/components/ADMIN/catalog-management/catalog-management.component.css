@@ -92,7 +92,6 @@
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
-  /* Permite que los botones pasen a la siguiente línea en pantallas pequeñas */
 }
 
 .action-button {
@@ -128,17 +127,21 @@
   font-size: 1rem;
 }
 
-/* Estilos para pantallas más grandes (opcional) */
-@media (min-width: 768px) {
-  .catalog-actions {
-    flex-wrap: nowrap;
-    /* Evitar el salto de línea en pantallas más grandes */
+@media screen and (min-width: 1000px) {    
+  .catalog-item {
+    width: 60%;
+    margin: auto;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .action-button {
-    flex-grow: 0;
-    /* Los botones no crecen tanto en pantallas grandes */
-    min-width: 80px;
-    /* Ancho mínimo para los botones */
+    height: 3rem;
+  }
+
+  .catalog-info-container {
+    margin-bottom: 0;
   }
 }

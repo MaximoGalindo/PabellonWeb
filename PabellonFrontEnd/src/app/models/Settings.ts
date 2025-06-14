@@ -1,4 +1,4 @@
 export class Settings {
     public key: string = ""
-    public value: string = ""
+    public value: string = " "
 }

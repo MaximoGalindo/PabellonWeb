@@ -30,6 +30,9 @@ export class NavegationService {
   private sharedFinalOrder = new BehaviorSubject<Order>(new Order());
   currentFinalOrder = this.sharedFinalOrder.asObservable();
 
+  private storeAvaible = new BehaviorSubject<boolean>(false);
+  currentStoreAvaible = this.storeAvaible.asObservable();
+
   constructor() { }
 
   setCatalog(catalog: Catalog) {
@@ -63,6 +66,10 @@ export class NavegationService {
 
   setOrderTotal(total: number) {
     this.sharedOrderTotal.next(total);
+  }
+
+  setStoreAvaible(avaible: boolean) {
+    this.storeAvaible.next(avaible);
   }
 
 }

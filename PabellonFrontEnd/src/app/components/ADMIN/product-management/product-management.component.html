@@ -13,12 +13,10 @@
 </div>
 
 <div class="container">
-    <div class="row">
-        <loading-component *ngIf="loading && !showProducts"></loading-component>
-        <div *ngIf="!loading && !showProducts">
-            <div class="col-12 center-elements" *ngFor="let catalog of catalogs">
-                <app-catalog (click)="openCatalog(catalog)" [catalog]="catalog"></app-catalog>
-            </div>
+    <loading-component *ngIf="loading && !showProducts"></loading-component>
+    <div class="row" *ngIf="!loading && !showProducts">
+        <div class="col-12 col-md-6 col-lg-4 center-elements" *ngFor="let catalog of catalogs">
+            <app-catalog (click)="openCatalog(catalog)" [catalog]="catalog"></app-catalog>
         </div>
     </div>
 </div>

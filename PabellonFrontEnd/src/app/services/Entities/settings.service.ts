@@ -27,4 +27,8 @@ export class SettingsService {
 
     return this.http.post(`${this.apiUrl}`, formData);
   }
+
+  checkStoreAvaible(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/store-avaible`);
+  }
 }

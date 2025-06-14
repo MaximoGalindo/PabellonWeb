@@ -24,8 +24,35 @@ export class NavbarComponent {
     this.alertService.showLocation();
   }
 
-  showSchedules(){
-    this.alertService.showSchedules();
+  showSchedules(): void {
+    const settings = JSON.parse(sessionStorage.getItem('settings') || '[]');
+    const schedules = this.getSchedulesFromSettings(settings);
+    this.alertService.showSchedules(schedules);
   }
+
+  getSchedulesFromSettings(settings: any[]): { day: string, from: string, to: string, available: boolean }[] {
+    const dayMap: { [key: string]: string } = {
+      store_monday: 'Lunes',
+      store_tuesday: 'Martes',
+      store_wednesday: 'Miércoles',
+      store_thursday: 'Jueves',
+      store_friday: 'Viernes',
+      store_saturday: 'Sábado',
+      store_sunday: 'Domingo'
+    };
+
+    return settings
+      .filter(s => s.key.startsWith('store_'))
+      .map(s => {
+        const [from, to] = (s.value || '').split('-');
+        return {
+          day: dayMap[s.key] || s.key,
+          from: from || '',
+          to: to || '',
+          available: !!s.value
+        };
+      });
+  }
+
 }
 

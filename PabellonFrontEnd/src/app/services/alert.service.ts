@@ -133,18 +133,8 @@ export class AlertService {
     }).then(result => result.isConfirmed ? result.value : null);
   }
 
-  showSchedules(): void {
-    const shedules = [
-      { day: 'Lunes', from: '20:00', to: '00:00', available: true },
-      { day: 'Martes', from: '20:00', to: '00:00', available: true },
-      { day: 'Miércoles', available: false },
-      { day: 'Jueves', from: '20:00', to: '00:00', available: true },
-      { day: 'Viernes', from: '20:00', to: '00:00', available: true },
-      { day: 'Sábado', from: '20:00', to: '00:00', available: true },
-      { day: 'Domingo', from: '20:00', to: '00:00', available: true },
-    ];
-
-    const scheduleHtml = shedules.map(h => {
+  showSchedules(schedules: { day: string, from: string, to: string, available: boolean }[]): void {
+    const scheduleHtml = schedules.map(h => {
       if (!h.available) {
         return `<div style="margin: 4px 0;"><strong>${h.day}:</strong> <span style="color: red;">CERRADO</span></div>`;
       }

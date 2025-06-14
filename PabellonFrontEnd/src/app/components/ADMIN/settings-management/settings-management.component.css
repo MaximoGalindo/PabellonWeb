@@ -1,14 +1,15 @@
 .settings-container {
-  max-width: 600px;
-  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 1rem;
-  text-align: center;
 }
 
 .setting-item {
   display: flex;
   align-items: center; /* Alinea verticalmente */
   margin-bottom: 1rem;
+  width: 100%;
 }
 
 .setting-item label {
@@ -38,6 +39,25 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
 form {
   text-align: center;
+}
+
+.hour {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkbox {
+  width: 2rem;
+  height: 2rem;
+  transform: scale(2);
+  cursor: pointer;
+  margin-left: 0.4rem;
+}
+
+@media screen and (min-width: 1000px) {    
+
 }

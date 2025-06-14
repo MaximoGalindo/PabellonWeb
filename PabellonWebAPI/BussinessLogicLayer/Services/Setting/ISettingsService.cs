@@ -7,5 +7,6 @@ namespace BussinessLogicLayer.Services.Setting
     {
         Task<List<SettingResponse>> GetSettings();
         Task<int> SaveSettings(List<SettingsRequest> settings);
+        Task<bool> CheckStoreAvaible();
     }
 }

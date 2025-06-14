@@ -15,6 +15,7 @@ export class AddToOrderComponent implements OnInit {
   product:Product = new Product();
   catalogId: string = '';
   customizedProducts: CustomizedProduct[] = [];
+  storeOpen: boolean = false;
 
   constructor(
     private navegationService: NavegationService, 
@@ -28,6 +29,9 @@ export class AddToOrderComponent implements OnInit {
     });
 
     this.navegationService.setProductsCount(this.counter);
+    this.navegationService.currentStoreAvaible.subscribe((avaible) => {
+      this.storeOpen = avaible;
+    })
   }
 
   increment(): void {

@@ -29,5 +29,11 @@ namespace Pabellon.Web.API.Controllers
         {
             return Ok(await _settingsService.SaveSettings(settings));
         }
+
+        [HttpGet("store-avaible")]
+        public async Task<IActionResult> CheckStoreAvaible()
+        {
+            return Ok(await _settingsService.CheckStoreAvaible());
+        }
     }
 }

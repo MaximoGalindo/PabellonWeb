@@ -6,6 +6,6 @@ namespace Pabellon.Context.Core.Models
     {
         [Key]
         public string Key { get; set; }
-        public string Value { get; set; }
+        public string? Value { get; set; }
     }
 }

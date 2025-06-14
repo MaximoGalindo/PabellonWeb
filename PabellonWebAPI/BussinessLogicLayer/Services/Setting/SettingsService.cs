@@ -15,6 +15,38 @@ namespace BussinessLogicLayer.Services.Setting
             _settingsRepository = settingsRepository;
         }
 
+        public async Task<bool> CheckStoreAvaible()
+        {
+            var settings = await _settingsRepository.GetSettings();
+
+            var schedules = settings
+                .Where(setting => setting.Key.StartsWith("store_", StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            // Ahora podés buscar el correspondiente al día actual
+            var todayKey = $"store_{DateTime.Now.DayOfWeek.ToString().ToLower()}";
+
+            var argentinaZone = TimeZoneInfo.FindSystemTimeZoneById("Argentina Standard Time");
+            var now = TimeZoneInfo.ConvertTime(DateTime.Now, argentinaZone).TimeOfDay;
+
+            var todaySchedule = schedules.FirstOrDefault(s => s.Key.Equals(todayKey, StringComparison.OrdinalIgnoreCase));
+
+            if (todaySchedule == null || string.IsNullOrWhiteSpace(todaySchedule.Value))
+                return false;
+
+            var parts = todaySchedule.Value.Split('-');
+            if (parts.Length != 2 || string.IsNullOrWhiteSpace(parts[0]) || string.IsNullOrWhiteSpace(parts[1]))
+                return false;
+
+            var open = TimeSpan.Parse(parts[0]);
+            var close = parts[1] == "00:00"
+                ? TimeSpan.FromHours(24).Subtract(TimeSpan.FromMinutes(1))
+                : TimeSpan.Parse(parts[1]);
+
+
+            return now >= open && now < close;
+        }
+
         public async Task<List<SettingResponse>> GetSettings()
         {
             var settings = await _settingsRepository.GetSettings();

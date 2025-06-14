@@ -27,8 +27,7 @@ export class ProductComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    /*DESCOMENTAR ESTO DESPUES*/
-    this.navegationService.currentProduct.subscribe(product => this.product = product);
+    this.navegationService.currentProduct.subscribe(product => this.product = product);  
     this.catalogId = this.route.snapshot.paramMap.get('id');
 
     this.navegationService.currentProductsCount.subscribe(count => {
@@ -37,7 +36,6 @@ export class ProductComponent implements OnInit {
         for (let i = 0; i < count; i++) {
           this.customizedProducts.push(new CustomizedProduct(this.product));
         }
-        //this.totalPrice = this.customizedProducts.reduce((acc, cp) => acc + cp.getTotalPrice(), 0);
         this.navegationService.setCustomizedProductsCount(this.customizedProducts);
       });
     });

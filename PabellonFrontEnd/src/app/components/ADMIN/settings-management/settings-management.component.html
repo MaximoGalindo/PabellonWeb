@@ -5,7 +5,32 @@
 <div class="settings-container" *ngIf="!loading">
     <div class="setting-item" *ngFor="let setting of settings">
         <label for="shipping_cost">{{ getSettingName(setting.key) }}</label>
-        <input id="shipping_cost" type="text" [(ngModel)]="setting.value"/>
+
+        <div *ngIf="!isHour(setting.key)">
+            <input type="text" [(ngModel)]="setting.value" />
+        </div>
+        <div *ngIf="isHour(setting.key)" class="hour">
+            <input
+                type="time"
+                [ngModel]="getStartHour(setting.value)"
+                (ngModelChange)="onStartHourChange(setting, $event)"
+                [disabled]="isClosed(setting.value)"
+            />
+            <input
+                type="time"
+                [ngModel]="getEndHour(setting.value)"
+                (ngModelChange)="onEndHourChange(setting, $event)"
+                [disabled]="isClosed(setting.value)"
+            />
+            <input
+                class="checkbox"
+                type="checkbox"
+                [checked]="!isClosed(setting.value)"
+                (change)="onDayToggle(setting, $event)"
+            />
+        </div>
+
+
     </div>
 
     <button type="submit" class="save-button" (click)="saveSettings()">Guardar cambios</button>

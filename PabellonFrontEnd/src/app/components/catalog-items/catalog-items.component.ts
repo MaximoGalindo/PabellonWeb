@@ -20,15 +20,6 @@ export class CatalogItemsComponent implements OnInit {
   products: Product[] = [];
   catalogId: string | null = '';
 
-  /*products: Product[] = [
-    { id: 2, description: "Re rica la burga tiene muchas cosas para dfjklsdf", name: "Hamburguesa Completa", image: "/assets/images/hamburguesa.png", price: 80000, catalogId: "1", options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
-    { id: 1, description: "Re rica la burga tiene muchas cosas para dfjklsdf ", name: "Hamburguesa Doble Completa", image: "/assets/images/empanadas.webp", price: 60000, catalogId: "1", options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)]},
-    { id: 3, description: "Re rica la burga tiene muchas cosas para dfjklsdf ", name: "Hamburguesa Veggie Completa", image: "/assets/images/pizza.jpg", price: 12000, catalogId: "1", options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
-    { id: 4, description: "Re rica la burga tiene muchas cosas para dfjklsdf ", name: "Hamburguesa Roquefort Completa", image: "/assets/images/papas-fritas.webp", price: 23000, catalogId: "1", options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
-    { id: 5, description: "Re rica la burga tiene muchas cosas para dfjklsdf", name: "Hamburguesa Simple", image: "/assets/images/hamburguesa.png", price: 8000, catalogId: "1", options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
-    { id: 6, description: "Re rica la burga tiene muchas cosas para dfjklsdf ", name: "Hamburguesa Completa", image: "/assets/images/hamburguesa.png", price: 10000, catalogId: "1", options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)] },
-  ];*/
-
   constructor(
     private router: Router,
     private navegationService: NavegationService,

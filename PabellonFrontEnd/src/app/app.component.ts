@@ -92,6 +92,10 @@ export class AppComponent implements OnInit {
       sessionStorage.setItem('settings', JSON.stringify(settings));
     });
 
+    this.settingsService.checkStoreAvaible().subscribe(data => {
+      this.navegationService.setStoreAvaible(data);      
+    })
+
     this.eventBus.onEvent().subscribe(event => {
       if (event?.key === 'finishOrder') {
         this.finishOrder();
