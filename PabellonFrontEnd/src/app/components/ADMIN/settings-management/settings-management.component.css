@@ -6,17 +6,15 @@
 }
 
 .setting-item {
-  display: flex;
-  align-items: center; /* Alinea verticalmente */
+
   margin-bottom: 1rem;
   width: 100%;
 }
 
 .setting-item label {
-  width: 20%;
-  min-width: 120px;
   font-weight: 600;
   text-align: left;
+  margin-bottom: 0.4rem;
 }
 
 .setting-item input {
@@ -51,11 +49,10 @@ form {
 }
 
 .checkbox {
-  width: 2rem;
-  height: 2rem;
+  width: 1rem;
+  height: 1rem;
   transform: scale(2);
   cursor: pointer;
-  margin-left: 0.4rem;
 }
 
 @media screen and (min-width: 1000px) {    

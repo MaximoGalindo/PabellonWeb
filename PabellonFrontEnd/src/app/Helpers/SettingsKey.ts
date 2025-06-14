@@ -13,11 +13,11 @@ export class SettingsKey {
 export const SettingNames: Record<string, string> = {
   [SettingsKey.SHIPING_COST]: 'Costo de envío',
   [SettingsKey.PHONE_NUMBER]: 'Número de teléfono',
-  [SettingsKey.STORE_MONDAY]: 'Lunes',
-  [SettingsKey.STORE_TUESDAY]: 'Martes',
-  [SettingsKey.STORE_WEDNESDAY]: 'Miércoles',
-  [SettingsKey.STORE_THURSDAY]: 'Jueves',
-  [SettingsKey.STORE_FRIDAY]: 'Viernes',
-  [SettingsKey.STORE_SATURDAY]: 'Sábado',
-  [SettingsKey.STORE_SUNDAY]: 'Domingo',
+  [SettingsKey.STORE_MONDAY]: 'Horario Lunes',
+  [SettingsKey.STORE_TUESDAY]: 'Horario  Martes',
+  [SettingsKey.STORE_WEDNESDAY]: 'Horario Miércoles',
+  [SettingsKey.STORE_THURSDAY]: 'Horario Jueves',
+  [SettingsKey.STORE_FRIDAY]: 'Horario Viernes',
+  [SettingsKey.STORE_SATURDAY]: 'Horario Sábado',
+  [SettingsKey.STORE_SUNDAY]: 'Horario Domingo',
 };

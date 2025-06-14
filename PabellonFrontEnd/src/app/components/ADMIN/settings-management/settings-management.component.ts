@@ -41,6 +41,11 @@ export class SettingsManagementComponent {
   saveSettings() {
     this.loading = true
 
+    this.settings.forEach(setting => {
+      if(setting.value == null)
+        setting.value = ''
+    })
+
     this.settingsService.saveSettings(this.settings).subscribe({
       next: (data) => {
         this.alertService.success('Ajustes guardados exitosamente')
@@ -59,6 +64,14 @@ export class SettingsManagementComponent {
   getSettingName(key: string) {
     return SettingNames[key]
   }
+
+  setMoreInfo(setting: Settings) {
+    if(this.isHour(setting.key) && !setting.value) {
+       return '(Cerrado)'
+    }
+    return ''
+  }
+
 
   isHour(key: string): boolean {
     return key.startsWith('store_');

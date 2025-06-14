@@ -4,7 +4,7 @@
 <loading-component *ngIf="loading"></loading-component>
 <div class="settings-container" *ngIf="!loading">
     <div class="setting-item" *ngFor="let setting of settings">
-        <label for="shipping_cost">{{ getSettingName(setting.key) }}</label>
+        <label for="shipping_cost">{{ getSettingName(setting.key) }} {{ setMoreInfo(setting) }}</label>
 
         <div *ngIf="!isHour(setting.key)">
             <input type="text" [(ngModel)]="setting.value" />
