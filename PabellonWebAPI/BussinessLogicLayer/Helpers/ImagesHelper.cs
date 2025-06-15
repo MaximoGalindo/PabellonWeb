@@ -48,5 +48,29 @@ namespace BussinessLogicLayer.Helpers
 
             return $"/uploads/{fileName}";
         }
+
+        public bool DeleteImage(string imgPath)
+        {
+            try
+            {
+                var fileName = Path.GetFileName(imgPath);
+                var productId = Path.GetFileNameWithoutExtension(fileName);
+
+                // Construir la ruta absoluta a la imagen
+                var absolutePath = Path.Combine(_configuration["ImagenesFolderPath"], fileName);
+
+                if (File.Exists(absolutePath))
+                {
+                    File.Delete(absolutePath);
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

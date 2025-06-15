@@ -91,7 +91,11 @@ namespace BussinessLogicLayer.Services.Products
             product.Name = request.Name;
             product.Price = request.Price;
             if(request.Image != null)
+            {
+                _imagesHelper.DeleteImage(product.Image);
                 product.Image = await _imagesHelper.SaveImage(request.Image);
+            }
+                
             product.Options = await _optionRepository.GetByIds(request.OptionIds);
             product.CatalogId = request.CatalogId;
 
@@ -100,7 +104,9 @@ namespace BussinessLogicLayer.Services.Products
 
         public async Task DeleteProduct(int productId)
         {
-           await _productRepository.Delete(productId);
+            var product = await _productRepository.GetById(productId);
+            _imagesHelper.DeleteImage(product.Image);
+            await _productRepository.Delete(productId);
         }
 
         public async Task<ProductResponse> GetProductById(int productId)

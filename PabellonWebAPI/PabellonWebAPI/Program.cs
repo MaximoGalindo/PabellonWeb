@@ -31,13 +31,12 @@ namespace PabellonWebAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            var solutionDirectory = Directory.GetParent(AppContext.BaseDirectory).Parent.Parent.Parent.Parent.FullName;
-            var databasePath = Path.Combine(solutionDirectory, "Pabellon.Context.Core", "DataBase", "pabellon.db");
+            var databasePath = Path.Combine(AppContext.BaseDirectory, "DataBase", "pabellon.db");
 
             builder.Services.AddDbContext<PabellonDbContext>(options =>
                 options.UseSqlite($"Data Source={databasePath}"));
 
-     
+
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ICatalogService, CatalogService>();
             builder.Services.AddScoped<ILoginService, LoginService>();
