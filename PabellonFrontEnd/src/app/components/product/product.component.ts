@@ -16,7 +16,7 @@ import { NavegationService } from 'src/app/services/navegation.service';
 })
 export class ProductComponent implements OnInit {
 
-  product: Product = { id: 1, description: "Una hamburguesa con carne y una banda de cosas re ricas y que no te la podes perder", name: "2 Hamburguesas Completas", image: "/assets/images/hamburguesa.png", price: 12000, catalogId: "1", options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)], disabled: false };
+  product: Product = new Product(); //{ id: 1, description: "Una hamburguesa con carne y una banda de cosas re ricas y que no te la podes perder", name: "2 Hamburguesas Completas", image: "/assets/images/hamburguesa.png", price: 12000, catalogId: "1", options: [new Options(1, "Sin lechuga", 0), new Options(2, "Sin Tomate", 0), new Options(3, "Medallon Extra", 1200)], disabled: false };
   catalogId: string | null = '';
   totalPrice: number = 0;
   customizedProducts: CustomizedProduct[] = [new CustomizedProduct(new Product())];
@@ -29,8 +29,6 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
     this.navegationService.currentProduct.subscribe(product => this.product = product);
     this.catalogId = this.route.snapshot.paramMap.get('id');
-    console.log(this.product);
-
     this.navegationService.currentProductsCount.subscribe(count => {
       setTimeout(() => {
         this.customizedProducts = [];
@@ -52,13 +50,10 @@ export class ProductComponent implements OnInit {
     const idx = customizedProduct.selectedOptions.findIndex(o => o.id === option.id);
 
     if (idx > -1) {
-      // Si está seleccionado, lo saco y limpio cantidad
       customizedProduct.selectedOptions.splice(idx, 1);
-      option.quantity = 1;
     } else {
-      // Si no está, lo agrego con cantidad 1 por defecto
-      option.quantity = option.quantity || 1;
-      customizedProduct.selectedOptions.push(option);
+      const optionCopy = { ...option, quantity: 1 }; // ← copiamos la opción con su propia cantidad
+      customizedProduct.selectedOptions.push(optionCopy);
     }
 
     this.navegationService.setCustomizedProductsCount(this.customizedProducts);
@@ -78,11 +73,35 @@ export class ProductComponent implements OnInit {
   }
 
   increaseQuantity(customizedProduct: CustomizedProduct, option: Options): void {
-    customizedProduct.selectedOptions.find(o => o.id === option.id)!.quantity++;
+    const selected = customizedProduct.selectedOptions.find(o => o.id === option.id);
+    if (!selected) return;
+
+    const totalSelected = customizedProduct.selectedOptions.reduce((sum, o) => sum + (o.quantity || 1), 0);
+    const maxQuantity = customizedProduct.product.quantity;
+
+    if (totalSelected >= maxQuantity) {
+      return;
+    }
+
+    selected.quantity = (selected.quantity || 1) + 1;
+
+    this.navegationService.setCustomizedProductsCount(this.customizedProducts);
   }
 
   decreaseQuantity(customizedProduct: CustomizedProduct, option: Options): void {
-    customizedProduct.selectedOptions.find(o => o.id === option.id)!.quantity--;
+    const selected = customizedProduct.selectedOptions.find(o => o.id === option.id);
+    if (!selected) return;
+
+    if ((selected.quantity || 1) > 1) {
+      selected.quantity--;
+    }
+
+    this.navegationService.setCustomizedProductsCount(this.customizedProducts);
   }
+
+  getOptionQuantity(customizedProduct: CustomizedProduct, option: Options): number {
+    return customizedProduct.selectedOptions.find(o => o.id === option.id)?.quantity || 1;
+  }
+
 
 }

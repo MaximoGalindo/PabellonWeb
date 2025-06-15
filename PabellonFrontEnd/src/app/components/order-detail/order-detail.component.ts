@@ -25,8 +25,6 @@ export class OrderDetailComponent implements OnInit, OnDestroy {
       this.order = order;
       for(var orderDetail of order.orderDetail) {
         this.customizedProducts = this.customizedProducts.concat(orderDetail.customizedProducts);
-        console.log(this.customizedProducts);
-        
       }
       this.calculateTotal();
     });

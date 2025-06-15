@@ -9,6 +9,7 @@
         public string Description { get; set; }
         public string CatalogId { get; set; }
         public bool Disabled { get; set; }
+        public int Quantity { get; set; }
         public List<OptionResponse> Options { get; set; } = new List<OptionResponse>();
     }
 

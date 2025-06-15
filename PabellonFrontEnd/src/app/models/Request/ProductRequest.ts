@@ -4,5 +4,6 @@ export class ProductRequest {
   CatalogId: string = '';
   Description: string = '';
   OptionIds: number[] = [];
+  Quantity: number = 0;
   Image: File = new File([], '');
 }

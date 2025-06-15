@@ -56,6 +56,7 @@ export class AddProductComponent {
           this.productRequest.Price = product.price;
           this.productRequest.Description = product.description;
           this.productRequest.CatalogId = product.catalogId;
+          this.productRequest.Quantity = product.quantity;
           this.imageUrl = this.getImageUrl(product.image);
 
           if (product.options.length > 0) {
@@ -208,7 +209,8 @@ export class AddProductComponent {
       if (data) {
         const optionRequest: OptionRequest = {
           Name: data.nombre,
-          Price: data.precio ? data.precio : 0
+          Price: data.precio ? data.precio : 0,
+          AllowQuantity: data.allowQuantity
         };
 
         this.optionService.createOption(optionRequest).subscribe({

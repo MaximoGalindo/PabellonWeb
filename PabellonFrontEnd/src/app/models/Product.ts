@@ -9,6 +9,7 @@ export class Product {
     options: Options[] = [];
     description: string = '';
     disabled: boolean = false;
+    quantity: number = 0
 }
 
 export class CustomizedProduct {

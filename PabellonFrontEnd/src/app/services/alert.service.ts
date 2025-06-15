@@ -17,15 +17,15 @@ export class AlertService {
   }
 
   confirmHTML(title: string, htmlContent: string): Promise<boolean> {
-  return Swal.fire({
-    title,
-    html: htmlContent,
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Sí',
-    cancelButtonText: 'Cancelar'
-  }).then(result => result.isConfirmed);
-}
+    return Swal.fire({
+      title,
+      html: htmlContent,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar'
+    }).then(result => result.isConfirmed);
+  }
   success(message: string): void {
     Swal.fire({
       toast: true,
@@ -43,6 +43,18 @@ export class AlertService {
       toast: true,
       position: 'top',
       icon: 'error',
+      title: message,
+      showConfirmButton: false,
+      timer: 6000,
+      timerProgressBar: true
+    });
+  }
+
+  warning(message: string): void {
+    Swal.fire({
+      toast: true,
+      position: 'top',
+      icon: 'warning',
       title: message,
       showConfirmButton: false,
       timer: 6000,
@@ -95,12 +107,16 @@ export class AlertService {
     });
   }
 
-  abrirFormularioOpcion(option?: { nombre: string, precio?: number }): Promise<{ nombre: string, precio?: number } | null> {
+  abrirFormularioOpcion(option?: { nombre: string, precio?: number, allowQuantity?: boolean }): Promise<{ nombre: string, precio?: number, allowQuantity: boolean } | null> {
     return Swal.fire({
       title: option ? 'Editar opción' : 'Crear opción',
       html: `
       <input id="swal-nombre" class="swal2-input swal-input-mobile" placeholder="Nombre" value="${option?.nombre || ''}">
       <input id="swal-precio" type="number" class="swal2-input swal-input-mobile" placeholder="Precio (opcional)" value="${option?.precio ?? ''}">
+      <div style="text-align: center; margin: 10px 0;">
+        <input type="checkbox" id="swal-allowQuantity" ${option?.allowQuantity ? 'checked' : ''}>
+        <label for="swal-allowQuantity">Permitir suma</label>
+      </div>
     `,
       customClass: {
         popup: 'swal-popup-mobile'
@@ -115,6 +131,7 @@ export class AlertService {
       preConfirm: () => {
         const nombre = (document.getElementById('swal-nombre') as HTMLInputElement).value.trim();
         const precioStr = (document.getElementById('swal-precio') as HTMLInputElement).value;
+        const allowQuantity = (document.getElementById('swal-allowQuantity') as HTMLInputElement).checked;
 
         if (!nombre) {
           Swal.showValidationMessage('El nombre es obligatorio');
@@ -128,10 +145,11 @@ export class AlertService {
           return;
         }
 
-        return { nombre, precio };
+        return { nombre, precio, allowQuantity };
       }
     }).then(result => result.isConfirmed ? result.value : null);
   }
+
 
   showSchedules(schedules: { day: string, from: string, to: string, available: boolean }[]): void {
     const scheduleHtml = schedules.map(h => {

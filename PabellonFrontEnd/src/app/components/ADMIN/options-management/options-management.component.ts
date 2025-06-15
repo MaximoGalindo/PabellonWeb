@@ -37,7 +37,8 @@ export class OptionsManagementComponent {
       if (data) {
         const optionRequest: OptionRequest = {
           Name: data.nombre,
-          Price: data.precio ? data.precio : 0
+          Price: data.precio ? data.precio : 0,
+          AllowQuantity: data.allowQuantity
         };
 
         this.optionService.createOption(optionRequest).subscribe({
@@ -57,12 +58,13 @@ export class OptionsManagementComponent {
   }
 
   editOption(option: Options): void {
-    const actualOption = { nombre: option.name, precio: option.price };
+    const actualOption = { nombre: option.name, precio: option.price, allowQuantity: option.allowQuantity };
     this.alertService.abrirFormularioOpcion(actualOption).then(data => {
       if (data) {
         const optionRequest: OptionRequest = {
           Name: data.nombre,
-          Price: data.precio ? data.precio : 0
+          Price: data.precio ? data.precio : 0,
+          AllowQuantity: option.allowQuantity
         };
 
         this.optionService.updateOption(option.id, optionRequest).subscribe({

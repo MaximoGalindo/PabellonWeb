@@ -25,6 +25,7 @@ export class ProductService {
     formData.append('Price', productRequest.Price.toString());
     formData.append('CatalogId', productRequest.CatalogId);
     formData.append('Description', productRequest.Description);
+    formData.append('Quantity', productRequest.Quantity.toString());
 
     // Serializar el array de OptionIds
     productRequest.OptionIds.forEach((id, index) => {
@@ -46,6 +47,7 @@ export class ProductService {
     formData.append('Price', productRequest.Price.toString());
     formData.append('CatalogId', productRequest.CatalogId);
     formData.append('Description', productRequest.Description);
+    formData.append('Quantity', productRequest.Quantity.toString());
 
     // Serializar el array de OptionIds
     productRequest.OptionIds.forEach((id, index) => {

@@ -53,6 +53,7 @@ img {
     margin-left: 1rem;
     margin-right: 10px;
     font-size: 1rem;
+    align-items: start;
 }
 
 .counter-controls {

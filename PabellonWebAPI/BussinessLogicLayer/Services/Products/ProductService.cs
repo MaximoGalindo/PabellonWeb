@@ -47,7 +47,8 @@ namespace BussinessLogicLayer.Services.Products
                 Image = await _imagesHelper.SaveImage(request.Image),
                 Options = options,
                 Catalog = catalog,
-                Description =  !string.IsNullOrWhiteSpace(request.Description) ? request.Description : string.Empty              
+                Description =  !string.IsNullOrWhiteSpace(request.Description) ? request.Description : string.Empty,
+                Quantity = request.Quantity,
             };
 
             await _productRepository.Insert(product);            
@@ -66,6 +67,7 @@ namespace BussinessLogicLayer.Services.Products
                 CatalogId = product.Catalog.Id,
                 Description = product.Description ?? "",
                 Disabled = product.Disabled,
+                Quantity = product.Quantity,
                 Options = product.Options.Select(o => new OptionResponse
                 {
                     Id = o.Id,
@@ -99,6 +101,7 @@ namespace BussinessLogicLayer.Services.Products
                 
             product.Options = await _optionRepository.GetByIds(request.OptionIds);
             product.CatalogId = request.CatalogId;
+            product.Quantity = request.Quantity;
 
             await _productRepository.Update(product);
         }
@@ -123,6 +126,7 @@ namespace BussinessLogicLayer.Services.Products
                 CatalogId = product.CatalogId,
                 Description = product.Description ?? "",
                 Disabled = product.Disabled,
+                Quantity = product.Quantity,
                 Options = product.Options.Select(o => new OptionResponse
                 {
                     Id = o.Id,

@@ -30,19 +30,24 @@
                             </label>
                         </div>
                         <div *ngIf="option.allowQuantity" class="aling-elements space-between-elements">
-                            <input type="checkbox" class="custom-checkbox" [id]="'option' + option.id + '_item' + i"
-                                [name]="'option' + option.id + '_item' + i"
-                                [checked]="isOptionSelected(customizedProduct, option)"
-                                (change)="toggleOption(i, option)" />
-                            <label [for]="'option' + option.id + '_item' + i">
-                                {{ option.name }}
-                                <span *ngIf="option.price > 0">| $ {{ option.price }}</span>
-                            </label>
+                            <div class="aling-elements">
+                                <input type="checkbox" class="custom-checkbox" [id]="'option' + option.id + '_item' + i"
+                                    [name]="'option' + option.id + '_item' + i"
+                                    [checked]="isOptionSelected(customizedProduct, option)"
+                                    (change)="toggleOption(i, option)" />
+                                <label [for]="'option' + option.id + '_item' + i">
+                                    {{ option.name }}
+                                    <span *ngIf="option.price > 0">| $ {{ option.price }}</span>
+                                </label>
+                            </div>
 
                             <div class="counter-controls">
-                                <button [disabled]="!isOptionSelected(customizedProduct, option)" type="button" (click)="decreaseQuantity(customizedProduct, option)">−</button>
-                                <span class="value">{{ option.quantity || 1 }}</span>
-                                <button [disabled]="!isOptionSelected(customizedProduct, option)" type="button" (click)="increaseQuantity(customizedProduct, option)">+</button>
+                                <button [disabled]="!isOptionSelected(customizedProduct, option)" type="button"
+                                    (click)="decreaseQuantity(customizedProduct, option)">−</button>
+                                <span class="value">{{ getOptionQuantity(customizedProduct, option) }}</span>
+
+                                <button [disabled]="!isOptionSelected(customizedProduct, option)" type="button"
+                                    (click)="increaseQuantity(customizedProduct, option)">+</button>
                             </div>
                         </div>
 

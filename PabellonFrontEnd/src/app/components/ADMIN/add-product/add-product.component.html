@@ -25,6 +25,12 @@
                 [ngClass]="{'error-input': price.invalid && price.touched}">
             <div *ngIf="price.invalid && price.touched" class="error">El valor debe ser mayor a 0</div>
         </div>
+        <div class="col">
+            <label for="">Cantidad</label>
+            <input [(ngModel)]="productRequest.Quantity" type="number" name="quantity" min="1" required #quantity="ngModel"
+                [ngClass]="{'error-input': quantity.invalid && quantity.touched}">
+            <div *ngIf="quantity.invalid && quantity.touched" class="error">El valor debe ser mayor a 0</div>
+        </div>
         <div class="line"></div>
         <div class="col">
             <label for="">Descripcion</label>
@@ -52,7 +58,7 @@
                             <ng-container *ngFor="let option of optionItems; trackBy: trackByOptionId">
                                 <option [disabled]="option.isSelected && option.id !== customOption.selectedOption" 
                                         [value]="option.id">
-                                    {{ option.name }} | ${{ option.price }}
+                                    {{ option.name }} {{ !option.allowQuantity && option.price > 0 ? '| $' + option.price : '' }}
                                 </option>
                             </ng-container>
                         </select>

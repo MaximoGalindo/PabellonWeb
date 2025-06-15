@@ -23,6 +23,7 @@ export class OptionsService {
 
     formData.append('Name', productRequest.Name);
     formData.append('Price', productRequest.Price.toString());
+    formData.append('AllowQuantity', productRequest.AllowQuantity.toString());
 
     return this.http.post(this.apiUrl, formData);
   }
