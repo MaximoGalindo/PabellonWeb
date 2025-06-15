@@ -12,8 +12,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     vertical-align: middle;
-    line-height: 1.2;
-    font-size: 1.2rem;
+    line-height: 1;
+    font-size: 0.8rem;
 }
 
 .menu-header {
@@ -24,7 +24,7 @@
 }
 
 .menu-title {
-    font-size: 1.2rem;
+    font-size: 0.8rem;
     font-weight: bold;
     color: white;
     margin-bottom: 0.5rem;
@@ -43,7 +43,6 @@
 .menu-options {
     padding: 0;
     margin: 0;
-    font-size: 0.8rem;
     margin-bottom: 0.2rem;
     font-weight: normal;
 }
@@ -88,7 +87,7 @@
 }
 
 .menu-option{
-    font-size: 1rem;
+    font-size: 0.8rem;
 }
 
 @media screen and (min-width: 1000px) {
