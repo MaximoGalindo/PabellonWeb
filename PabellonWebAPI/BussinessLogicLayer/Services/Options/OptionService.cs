@@ -26,7 +26,8 @@ namespace BussinessLogicLayer.Services.Options
             var option = new Option
             {
                 OptionName = request.Name,
-                Price = request.Price
+                Price = request.Price,
+                AllowsQuantity = request.AllowQuantity
             };
 
             return await _optionRepository.CreateOption(option);
@@ -45,6 +46,7 @@ namespace BussinessLogicLayer.Services.Options
                 Id = o.Id,
                 Name = o.OptionName,
                 Price = o.Price,
+                AllowQuantity = o.AllowsQuantity,
                 IsSelected = false
             }).ToList();
 
@@ -57,7 +59,8 @@ namespace BussinessLogicLayer.Services.Options
             {
                 Id = id,
                 OptionName = request.Name,
-                Price = request.Price
+                Price = request.Price,
+                AllowsQuantity = request.AllowQuantity
             };
 
             return await _optionRepository.UpdateOption(option);
@@ -77,6 +80,7 @@ namespace BussinessLogicLayer.Services.Options
                 Id = option.Id,
                 Name = option.OptionName,
                 Price = option.Price,
+                AllowQuantity = option.AllowsQuantity,
                 IsSelected = false
             };
 

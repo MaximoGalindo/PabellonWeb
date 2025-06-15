@@ -71,6 +71,7 @@ namespace BussinessLogicLayer.Services.Products
                     Id = o.Id,
                     Name = o.OptionName,
                     Price = o.Price,
+                    AllowQuantity = o.AllowsQuantity,
                     IsSelected = false
                 }).ToList()
             })
@@ -127,6 +128,7 @@ namespace BussinessLogicLayer.Services.Products
                     Id = o.Id,
                     Name = o.OptionName,
                     Price = o.Price,
+                    AllowQuantity = o.AllowsQuantity,
                     IsSelected = false
                 }).ToList()
             };

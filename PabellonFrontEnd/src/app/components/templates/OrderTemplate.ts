@@ -25,11 +25,10 @@ static generateMessage(order: Order): string {
                 .sort()
                 .join('|');
 
-            const optionsText = selectedOptions.map(opt =>
-                opt.price > 0
-                    ? `   - ${opt.name} | $${opt.price}`
-                    : `   - ${opt.name}`
-            ).join('\n');
+            const optionsText = selectedOptions.map(opt => 
+                opt.price > 0 ? `   - ${opt.name} | $${opt.price}` 
+                : opt.allowQuantity ? `   - ${opt.name} | x${opt.quantity}` 
+                : `   - ${opt.name}`).join('\n');
 
             const totalPrice = basePrice + selectedOptions.reduce((sum, opt) => sum + opt.price, 0);
             const itemKey = `${custom.product.name}::${optionsKey}`;

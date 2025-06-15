@@ -15,6 +15,7 @@ export class CustomizedProduct {
     id: string = generateUUID();
     product: Product;
     selectedOptions: Options[] = [];
+    selectedQuantities: { [optionId: number]: number } = {};
 
     constructor(product: Product) {
         this.product = product;

@@ -27,8 +27,9 @@ export class ProductComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.navegationService.currentProduct.subscribe(product => this.product = product);  
+    this.navegationService.currentProduct.subscribe(product => this.product = product);
     this.catalogId = this.route.snapshot.paramMap.get('id');
+    console.log(this.product);
 
     this.navegationService.currentProductsCount.subscribe(count => {
       setTimeout(() => {
@@ -51,15 +52,18 @@ export class ProductComponent implements OnInit {
     const idx = customizedProduct.selectedOptions.findIndex(o => o.id === option.id);
 
     if (idx > -1) {
-      // Si está seleccionado, lo saco
+      // Si está seleccionado, lo saco y limpio cantidad
       customizedProduct.selectedOptions.splice(idx, 1);
+      option.quantity = 1;
     } else {
-      // Si no está, lo agrego
+      // Si no está, lo agrego con cantidad 1 por defecto
+      option.quantity = option.quantity || 1;
       customizedProduct.selectedOptions.push(option);
     }
 
     this.navegationService.setCustomizedProductsCount(this.customizedProducts);
   }
+
 
   getTotalPrice() {
     return Utils.formatNumberWithCommas(this.customizedProducts.reduce((acc, cp) => acc + cp.getTotalPrice(), 0))
@@ -71,6 +75,14 @@ export class ProductComponent implements OnInit {
 
   getImageUrl(imagePath: string): string {
     return `${BaseService.fileUrl}${imagePath}`;
+  }
+
+  increaseQuantity(customizedProduct: CustomizedProduct, option: Options): void {
+    customizedProduct.selectedOptions.find(o => o.id === option.id)!.quantity++;
+  }
+
+  decreaseQuantity(customizedProduct: CustomizedProduct, option: Options): void {
+    customizedProduct.selectedOptions.find(o => o.id === option.id)!.quantity--;
   }
 
 }

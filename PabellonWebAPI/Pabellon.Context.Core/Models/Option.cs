@@ -7,6 +7,7 @@ namespace Pabellon.Context.Core.Models
         public int Id { get; set; }
         public string OptionName { get; set; }
         public double Price { get; set; }
+        public bool AllowsQuantity { get; set; }
         public ICollection<Product> Products { get; set; } = new List<Product>();
     }
 }

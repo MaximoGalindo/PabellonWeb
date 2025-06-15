@@ -21,6 +21,7 @@
                   <div class="menu-option"> -
                     <span>{{ option.name }}</span>
                     <span *ngIf="option.price > 0"> | ${{ option.price }}</span>
+                    <span *ngIf="option.allowQuantity"> x {{ option.quantity }} </span>
                   </div>
                 </ng-container>
               </div>

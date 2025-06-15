@@ -18,14 +18,34 @@
 
                 <div *ngFor="let customizedProduct of customizedProducts; let i = index">
                     <h3>- Producto {{ i + 1 }}</h3>
-                    <div *ngFor="let option of product.options" class="option aling-elements">
-                        <input type="checkbox" class="custom-checkbox" [id]="'option' + option.id + '_item' + i"
-                            [name]="'option' + option.id + '_item' + i"
-                            [checked]="isOptionSelected(customizedProduct, option)" (change)="toggleOption(i, option)">
-                        <label [for]="'option' + option.id + '_item' + i">
-                            {{ option.name }}
-                            <span *ngIf="option.price > 0">| $ {{ option.price }}</span>
-                        </label>
+                    <div *ngFor="let option of product.options" class="option">
+                        <div *ngIf="!option.allowQuantity" class="aling-elements">
+                            <input type="checkbox" class="custom-checkbox" [id]="'option' + option.id + '_item' + i"
+                                [name]="'option' + option.id + '_item' + i"
+                                [checked]="isOptionSelected(customizedProduct, option)"
+                                (change)="toggleOption(i, option)">
+                            <label [for]="'option' + option.id + '_item' + i">
+                                {{ option.name }}
+                                <span *ngIf="option.price > 0">| $ {{ option.price }}</span>
+                            </label>
+                        </div>
+                        <div *ngIf="option.allowQuantity" class="aling-elements space-between-elements">
+                            <input type="checkbox" class="custom-checkbox" [id]="'option' + option.id + '_item' + i"
+                                [name]="'option' + option.id + '_item' + i"
+                                [checked]="isOptionSelected(customizedProduct, option)"
+                                (change)="toggleOption(i, option)" />
+                            <label [for]="'option' + option.id + '_item' + i">
+                                {{ option.name }}
+                                <span *ngIf="option.price > 0">| $ {{ option.price }}</span>
+                            </label>
+
+                            <div class="counter-controls">
+                                <button [disabled]="!isOptionSelected(customizedProduct, option)" type="button" (click)="decreaseQuantity(customizedProduct, option)">−</button>
+                                <span class="value">{{ option.quantity || 1 }}</span>
+                                <button [disabled]="!isOptionSelected(customizedProduct, option)" type="button" (click)="increaseQuantity(customizedProduct, option)">+</button>
+                            </div>
+                        </div>
+
                     </div>
                     <hr>
                 </div>
