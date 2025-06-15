@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://focused-queen-narrow-abraham.trycloudflare.com/api',
-  fileUrl: 'https://focused-queen-narrow-abraham.trycloudflare.com'
+  apiUrl: 'http://localhost:7115/api',
+  fileUrl: 'http://localhost:7115'
 };

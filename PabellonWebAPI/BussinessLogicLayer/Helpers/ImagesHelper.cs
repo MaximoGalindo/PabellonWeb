@@ -16,7 +16,7 @@ namespace BussinessLogicLayer.Helpers
 
         public string CheckImagesFolder()
         {
-            var folderPath = _configuration["ImagenesFolderPath"];
+            var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "Imagenes");
             if (!Directory.Exists(folderPath))
             {
                 throw new Exception(GlobalResourses.ResourceAccessor.GetString("ImgFolderNonExist"));
@@ -57,7 +57,7 @@ namespace BussinessLogicLayer.Helpers
                 var productId = Path.GetFileNameWithoutExtension(fileName);
 
                 // Construir la ruta absoluta a la imagen
-                var absolutePath = Path.Combine(_configuration["ImagenesFolderPath"], fileName);
+                var absolutePath = Path.Combine(Directory.GetCurrentDirectory(), "Imagenes", fileName);
 
                 if (File.Exists(absolutePath))
                 {

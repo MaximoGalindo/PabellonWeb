@@ -80,7 +80,7 @@ namespace PabellonWebAPI
 
             builder.WebHost.UseUrls("http://localhost:7115");
 
-            string basePath = Path.Combine("C:\\", "Pabellon", "Imagenes");
+            string basePath = Path.Combine(Directory.GetCurrentDirectory(), "Imagenes");
             if (!Directory.Exists(basePath))
             {
                 Directory.CreateDirectory(basePath);
@@ -99,7 +99,7 @@ namespace PabellonWebAPI
 
             app.UseStaticFiles(new StaticFileOptions
             {
-                FileProvider = new PhysicalFileProvider(Path.Combine("C:\\", "Pabellon", "Imagenes")),
+                FileProvider = new PhysicalFileProvider(basePath),
                 RequestPath = "/uploads"
             });
 
