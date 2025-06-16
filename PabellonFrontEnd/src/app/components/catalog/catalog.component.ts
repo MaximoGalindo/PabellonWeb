@@ -11,6 +11,8 @@ export class CatalogComponent {
   @Input() catalog: Catalog = new Catalog();
 
   getImageUrl(imagePath: string): string {
+    console.log(imagePath);
+    
     return `${BaseService.fileUrl}${imagePath}`;
   }
 }

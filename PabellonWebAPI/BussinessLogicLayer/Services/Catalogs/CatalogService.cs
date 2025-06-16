@@ -41,7 +41,7 @@ namespace BussinessLogicLayer.Services.Catalogs
                 {
                     Id = catalog.Id,
                     Name = catalog.Name,
-                    Img = catalog.Img //_imagesHelper.GetImage(catalog.Img),
+                    Img = catalog.Img
                 });          
             }
             return catalogResponses;

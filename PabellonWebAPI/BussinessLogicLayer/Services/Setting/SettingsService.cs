@@ -30,7 +30,7 @@ namespace BussinessLogicLayer.Services.Setting
             var now = TimeZoneInfo.ConvertTime(DateTime.Now, argentinaZone).TimeOfDay;
 
             var todaySchedule = schedules.FirstOrDefault(s => s.Key.Equals(todayKey, StringComparison.OrdinalIgnoreCase));
-
+            
             if (todaySchedule == null || string.IsNullOrWhiteSpace(todaySchedule.Value))
                 return false;
 

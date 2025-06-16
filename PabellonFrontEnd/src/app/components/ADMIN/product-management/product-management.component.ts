@@ -30,36 +30,20 @@ export class ProductManagementComponent {
   ) { }
 
   ngOnInit(): void {
-    /*this.products = [
-      { name: 'Product 1', price: 10, description: 'Description for Product 1' },
-      { name: 'Product 2', price: 20, description: 'Description for Product 2' },
-      { name: 'Product 3', price: 30, description: 'Description for Product 3' },
-      { name: 'Product 4', price: 40, description: 'Description for Product 4' },
-      { name: 'Product 5', price: 50, description: 'Description for Product 5' }
-    ]*/
-
     this.searchTermChanged
-      .pipe(debounceTime(500)) // espera 500ms después de que el usuario deje de escribir
+      .pipe(debounceTime(500))
       .subscribe(searchText => {
         this.searchProduct(searchText);
       });
 
-    const storedCatalogs = sessionStorage.getItem('catalogs');
-
     this.loading = true;
-    if (storedCatalogs !== null) {
-      this.catalogs = JSON.parse(storedCatalogs);
+    this.catalogService.getAllCatalogs().subscribe((data) => {
+      this.catalogs = data;
       this.loading = false;
-    } else {
-      this.catalogService.getAllCatalogs().subscribe((data) => {
-        this.catalogs = data;
-        sessionStorage.setItem('catalogs', JSON.stringify(this.catalogs));
+    },
+      (error) => {
         this.loading = false;
-      },
-        (error) => {
-          this.loading = false;
-        });
-    }
+      });
   }
 
   addProduct() {
