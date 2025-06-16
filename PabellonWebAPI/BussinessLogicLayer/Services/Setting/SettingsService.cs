@@ -26,7 +26,7 @@ namespace BussinessLogicLayer.Services.Setting
             // Ahora podés buscar el correspondiente al día actual
             var todayKey = $"store_{DateTime.Now.DayOfWeek.ToString().ToLower()}";
 
-            var argentinaZone = TimeZoneInfo.FindSystemTimeZoneById("Argentina Standard Time");
+            var argentinaZone = TimeZoneInfo.FindSystemTimeZoneById("America/Argentina/Buenos_Aires");
             var now = TimeZoneInfo.ConvertTime(DateTime.Now, argentinaZone).TimeOfDay;
 
             var todaySchedule = schedules.FirstOrDefault(s => s.Key.Equals(todayKey, StringComparison.OrdinalIgnoreCase));

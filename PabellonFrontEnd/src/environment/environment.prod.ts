@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:7115/api',
-  fileUrl: 'http://localhost:7115'
+  apiUrl: 'http://vps-5076192-x.dattaweb.com/api',
+  fileUrl: 'http://vps-5076192-x.dattaweb.com'
 };
