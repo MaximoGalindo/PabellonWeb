@@ -4,6 +4,8 @@ using BussinessLogicLayer.Services.Login;
 using BussinessLogicLayer.Services.Options;
 using BussinessLogicLayer.Services.Products;
 using BussinessLogicLayer.Services.Setting;
+using BussinessLogicLayer.Services.OptionGroups;
+using BussinessLogicLayer.Services.Stores;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -11,6 +13,8 @@ using Microsoft.IdentityModel.Tokens;
 using Pabellon.Context.Core.Repositories.CatalogRepository;
 using Pabellon.Context.Core.Repositories.OptionRepository;
 using Pabellon.Context.Core.Repositories.OptionsRepository;
+using Pabellon.Context.Core.Repositories.OptionGroupRepository;
+using Pabellon.Context.Core.Repositories.StoreRepository;
 using Pabellon.Context.Core.Repositories.ProductRepository;
 using Pabellon.Context.Core.Repositories.SettingsRepository;
 using Pabellon.Context.Core.Repositories.UserRepository;
@@ -52,6 +56,10 @@ namespace PabellonWebAPI
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<ICatalogRepository, CatalogRepository>();
             builder.Services.AddScoped<IOptionRepository, OptionRepository>();
+            builder.Services.AddScoped<IOptionGroupRepository, OptionGroupRepository>();
+            builder.Services.AddScoped<IOptionGroupService, OptionGroupService>();
+            builder.Services.AddScoped<IStoreRepository, StoreRepository>();
+            builder.Services.AddScoped<IStoreService, StoreService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<ISettingsRepository, SettingsRepository>();
 
@@ -74,7 +82,7 @@ namespace PabellonWebAPI
                 {
                     policy.AllowAnyOrigin() // Dominios permitidos
                           .AllowAnyHeader() // Permite cualquier encabezado
-                          .AllowAnyMethod(); // Permite cualquier método HTTP
+                          .AllowAnyMethod(); // Permite cualquier mÃ©todo HTTP
                 });
             });
 

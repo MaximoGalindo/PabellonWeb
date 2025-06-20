@@ -15,6 +15,8 @@ namespace Pabellon.Core
         public DbSet<Product> Product { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Option> Options { get; set; }
+        public DbSet<OptionGroup> OptionGroups { get; set; }
         public DbSet<Settings> Settings { get; set; }
+        public DbSet<Store> Stores { get; set; }
     }
 }
